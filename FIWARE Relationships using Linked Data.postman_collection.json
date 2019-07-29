@@ -1,0 +1,507 @@
+{
+	"info": {
+		"_postman_id": "9dc4fc1c-5fa8-48cb-a82d-9111faacc238",
+		"name": "FIWARE Relationships using Linked Data",
+		"description": "This tutorial builds on the data created in the previous [store finder example](http://fiware.github.io/tutorials.Getting-Started/) and creates and associates a series of related data entities to create a simple stock management system.\n\nThe `docker-compose` file for this tutorial can be found on GitHub: \n\n![GitHub](https://fiware.github.io/tutorials.Entity-Relationships/icon/GitHub-Mark-32px.png) [FIWARE 102: Batch Commands and Entity Relationships](https://github.com/Fiware/tutorials.Entity-Relationships)\n\n# Data Entities\n\nWithin the FIWARE platform, an entity represents the state of a physical or conceptural object which exists in the real world.\n\n## Entities within a stock management system\n\nFor a simple stock management system, we will only need four types of entity. The relationship between our entities is defined as shown:\n\n![](https://fiware.github.io/tutorials.Entity-Relationships/img/entities.png)\n\n* A **Store** is a real world bricks and mortar building. Stores would have properties such as:\n  + A name of the store e.g. \"Checkpoint Markt\"\n  + An address \"Friedrichstraße 44, 10969 Kreuzberg, Berlin\"\n  + A phyiscal location  e.g. *52.5075 N, 13.3903 E*\n* A **Shelf** is a real world device to hold objects which we wish to sell. Each shelf would have properties such as:\n  + A name of the shelf e.g. \"Wall Unit\"\n  + A phyiscal location  e.g. *52.5075 N, 13.3903 E*\n  + A maximum capacity\n  + An association to the store in which the shelf is present\n* A **Product** is defined as something that we sell - it is conceptural object. Products would have properties such as:\n  + A name of the product e.g. \"Vodka\"\n  + A price e.g. 13.99 Euros\n  + A size e.g. Small\n* An **Inventory Item** is another conceptural entity, used to assocate products, stores, shelves and physical objects. It would have properties such as:\n  + An assocation to the product being sold\n  + An association to the store in which the product is being sold\n  + An association to the shelf where the product is being displayed\n  + A stock count of the quantity of the product available in the warehouse\n  + A stock count of the quantity of the product available on the shelf\n\n\nAs you can see, each of the entities defined above contain some properties which are liable to change. A product could change its price, stock could be sold and the shelf count of stock could be reduced and so on.\n\n\n# Architecture\n\nThis application will only make use of one FIWARE component - the [Orion Context Broker](https://catalogue.fiware.org/enablers/publishsubscribe-context-broker-orion-context-broker). Usage of the Orion Context Broker is sufficient for an application to qualify as *“Powered by FIWARE”*.\n\nCurrently, the Orion Context Broker relies on open source [MongoDB](https://www.mongodb.com/) technology to keep persistence of the context data it holds. Therefore, the architecture will consist of two elements:\n\n* The Orion Context Broker server which will receive requests using NGSI\n* The underlying MongoDB database associated to the Orion Context Broker server\n\nSince all interactions between the two elements are initiated by HTTP requests, the entities can be containerized and run from exposed ports. \n\n![](https://fiware.github.io/tutorials.Entity-Relationships/img/architecture.png)\n\nThe necessary configuration information can be seen in the services section of the associated `docker-compose.yml`  file:\n\n```yaml\n  orion:\n    image: fiware/orion:latest\n    hostname: orion\n    container_name: orion\n    depends_on:\n      - context-db\n    networks:\n        - default\n    expose:\n        - \"1026\"\n    ports:\n        - \"1026:1026\"\n    command: -dbhost context-db -logLevel DEBUG\n```\n\n```yaml\n  context-db:\n    image: mongo:3.6\n    hostname: context-db\n    container_name: context-db\n    expose:\n        - \"27017\"\n    ports:\n        - \"27017:27017\"\n    networks:\n        - default\n    command: --bind_ip_all --smallfiles\n```\n\nBoth containers are residing on the same network - the Orion Context Broker is listening on Port `1026` \nand MongoDB is listening on the default port `271071`. Both containers are also exposing the same ports\nexternally - this is purely for the tutorial access - so that cUrl or Postman can access them without\nbeing part of the same network. The command line initialization should be self explanatory.\n\n# Prerequisites\n\n## Docker\n\nTo keep things simple both components will be run using [Docker](https://www.docker.com). **Docker** is a container technology which allows to different components isolated into their respective environments. \n\n* To install Docker on Windows follow the instructions [here](https://docs.docker.com/docker-for-windows/)\n* To install Docker on Mac follow the instructions [here](https://docs.docker.com/docker-for-mac/)\n* To install Docker on Linux follow the instructions [here](https://docs.docker.com/install/)\n\n**Docker Compose** is a tool for defining and running multi-container Docker applications. A [YAML file](https://raw.githubusercontent.com/Fiware/tutorials.Entity-Relationships/master/docker-compose.yml) is used configure the required\nservices for the application. This means all container sevices can be brought up in a single commmand. Docker Compose is installed by default as part of Docker for Windows and  Docker for Mac, however Linux users will need to follow the instructions found [here](https://docs.docker.com/compose/install/)\n\n## Cygwin \n\nWe will start up our services using a simple bash script. Windows users should download [cygwin](www.cygwin.com) to provide a command line functionality similar to a Linux distribution on Windows. \n\n\n# Start Up\n\nAll services can be initialised from the command line by running the bash script provided within the repository:\n\n```bash\n./services start\n```",
+		"schema": "https://schema.getpostman.com/json/collection/v2.1.0/collection.json"
+	},
+	"item": [
+		{
+			"name": "Display all Buildings",
+			"request": {
+				"method": "GET",
+				"header": [
+					{
+						"key": "Link",
+						"type": "text",
+						"value": "<https://schema.lab.fiware.org/ld/fiware-datamodels-context.jsonld>; rel=\"http://www.w3.org/ns/json-ld#context\"; type=\"application/ld+json\"",
+						"disabled": true
+					}
+				],
+				"url": {
+					"raw": "http://{{orion}}/ngsi-ld/v1/entities?type=https://uri.fiware.org/ns/datamodels/Building",
+					"protocol": "http",
+					"host": [
+						"{{orion}}"
+					],
+					"path": [
+						"ngsi-ld",
+						"v1",
+						"entities"
+					],
+					"query": [
+						{
+							"key": "type",
+							"value": "https://uri.fiware.org/ns/datamodels/Building"
+						}
+					]
+				},
+				"description": "This example returns the data of all `Building` entities within the context data The `type` parameter is mandatory for\nNGSI-LD and is used to filter the response.\n\nThe response returns the Core `@context` by default\n(`https://forge.etsi.org/gitlab/NGSI-LD/NGSI-LD/raw/master/defaultContext/defaultContext.jsonld`) and all attributes are\nexpanded whenever possible.\n\n-   `id`, `type` and `location` are defined in the core context and are not expanded.\n-   `address` has been mapped to `http://schema.org/address`\n-   `name` has been mapped to `http://schema.org/name`\n-   `category` has been mapped to `https://uri.fiware.org/ns/datamodels/category`\n\nNote that if an attribute has not been not associated to an FNQ when the entity was created, the short name will\n**always** be displayed."
+			},
+			"response": []
+		},
+		{
+			"name": "Display all Products",
+			"request": {
+				"method": "GET",
+				"header": [
+					{
+						"key": "Link",
+						"type": "text",
+						"value": "<https://schema.lab.fiware.org/ld/fiware-datamodels-context.jsonld>; rel=\"http://www.w3.org/ns/json-ld#context\"; type=\"application/ld+json\"",
+						"disabled": true
+					}
+				],
+				"url": {
+					"raw": "http://{{orion}}/ngsi-ld/v1/entities?type=https://fiware.github.io/tutorials.Step-by-Step/schema/Product",
+					"protocol": "http",
+					"host": [
+						"{{orion}}"
+					],
+					"path": [
+						"ngsi-ld",
+						"v1",
+						"entities"
+					],
+					"query": [
+						{
+							"key": "type",
+							"value": "https://fiware.github.io/tutorials.Step-by-Step/schema/Product"
+						}
+					]
+				},
+				"description": "This example returns the data of all `Product` entities within the context data The `type` parameter is mandatory for\nNGSI-LD and is used to filter the response.\n\nThe response returns the Core `@context` by default\n(`https://forge.etsi.org/gitlab/NGSI-LD/NGSI-LD/raw/master/defaultContext/defaultContext.jsonld`) and all attributes are\nexpanded whenever possible.\n\n-   `id`, `type`  are defined in the core context and are not expanded.\n-   `price` and `size` have been mapped to entries in the tutorial context.\n-   `name` has been mapped to `http://schema.org/name`"
+			},
+			"response": []
+		},
+		{
+			"name": "Display all Shelves",
+			"request": {
+				"method": "GET",
+				"header": [
+					{
+						"key": "Link",
+						"type": "text",
+						"value": "<https://schema.lab.fiware.org/ld/fiware-datamodels-context.jsonld>; rel=\"http://www.w3.org/ns/json-ld#context\"; type=\"application/ld+json\"",
+						"disabled": true
+					}
+				],
+				"url": {
+					"raw": "http://{{orion}}/ngsi-ld/v1/entities?type=https://fiware.github.io/tutorials.Step-by-Step/schema/Shelf",
+					"protocol": "http",
+					"host": [
+						"{{orion}}"
+					],
+					"path": [
+						"ngsi-ld",
+						"v1",
+						"entities"
+					],
+					"query": [
+						{
+							"key": "type",
+							"value": "https://fiware.github.io/tutorials.Step-by-Step/schema/Shelf"
+						}
+					]
+				},
+				"description": "This example returns the data of all `Shelf` entities within the context data The `type` parameter is mandatory for\nNGSI-LD and is used to filter the response.\n\nThe response returns the Core `@context` by default\n(`https://forge.etsi.org/gitlab/NGSI-LD/NGSI-LD/raw/master/defaultContext/defaultContext.jsonld`) and all attributes are\nexpanded whenever possible.\n\n-   `id`, `type` and `location` are defined in the core context and are not expanded.\n-   `maxCapacity` has been mapped to entries in the tutorial context.\n-   `name` has been mapped to `http://schema.org/name`"
+			},
+			"response": []
+		},
+		{
+			"name": "Obtain Shelf Information",
+			"request": {
+				"method": "GET",
+				"header": [],
+				"url": {
+					"raw": "http://{{orion}}/ngsi-ld/v1/entities/urn:ngsi-ld:Shelf:unit001/?options=keyValues",
+					"protocol": "http",
+					"host": [
+						"{{orion}}"
+					],
+					"path": [
+						"ngsi-ld",
+						"v1",
+						"entities",
+						"urn:ngsi-ld:Shelf:unit001",
+						""
+					],
+					"query": [
+						{
+							"key": "type",
+							"value": "Shelf",
+							"description": "Entity type",
+							"disabled": true
+						},
+						{
+							"key": "options",
+							"value": "keyValues",
+							"description": "* `keyValues` option in order to get a more compact and brief representation, including just attribute values\n* `values` option combined with a list of attribute values  `attrs`  for an ordered list of attributes only"
+						}
+					]
+				},
+				"description": "This example returns the context data of the *Shelf* entity with the `id=urn:ngsi-ld:Shelf:unit001`.\n\nThere are currently three additional property attributes present `location`, `maxCapacity` and `name`"
+			},
+			"response": []
+		},
+		{
+			"name": "Adding a 1-1 relationship",
+			"request": {
+				"method": "POST",
+				"header": [
+					{
+						"key": "Content-Type",
+						"value": "application/ld+json"
+					}
+				],
+				"body": {
+					"mode": "raw",
+					"raw": "{\n    \"stocks\": {\n    \t\"type\": \"Relationship\",\n        \"object\": \"urn:ngsi-ld:Product:001\"\n    },\n    \"locatedIn\" : {\n    \t\"type\": \"Relationship\",\n    \t\"object\": \"urn:ngsi-ld:Building:store001\"\n    },\n    \"@context\": [\n\t\t\"https://fiware.github.io/tutorials.Step-by-Step/datamodels-context.jsonld\"\n    ]\n}"
+				},
+				"url": {
+					"raw": "http://{{orion}}/ngsi-ld/v1/entities/urn:ngsi-ld:Shelf:unit001/attrs",
+					"protocol": "http",
+					"host": [
+						"{{orion}}"
+					],
+					"path": [
+						"ngsi-ld",
+						"v1",
+						"entities",
+						"urn:ngsi-ld:Shelf:unit001",
+						"attrs"
+					]
+				},
+				"description": "Within the `@context` a **Shelf** has been defined with two relationships. (`stocks` and `locatedIn`)\n\nTo create a relationship add a new attribute with `type=Relationship` and an associated `object` attribute. \\\nValue of `object` is the URN corresponding to the linked data entity.\n\n**Note** that the relationship is currently unidirectional."
+			},
+			"response": []
+		},
+		{
+			"name": "Obtain Updated Shelf",
+			"request": {
+				"method": "GET",
+				"header": [],
+				"url": {
+					"raw": "http://{{orion}}/ngsi-ld/v1/entities/urn:ngsi-ld:Shelf:unit001/?options=keyValues",
+					"protocol": "http",
+					"host": [
+						"{{orion}}"
+					],
+					"path": [
+						"ngsi-ld",
+						"v1",
+						"entities",
+						"urn:ngsi-ld:Shelf:unit001",
+						""
+					],
+					"query": [
+						{
+							"key": "type",
+							"value": "Shelf",
+							"description": "Entity type",
+							"disabled": true
+						},
+						{
+							"key": "options",
+							"value": "keyValues",
+							"description": "* `keyValues` option in order to get a more compact and brief representation, including just attribute values\n* `values` option combined with a list of attribute values  `attrs`  for an ordered list of attributes only"
+						}
+					]
+				},
+				"description": "This example returns the context data of the *Shelf* entity with the `id=urn:ngsi-ld:Shelf:unit001`.\n\nThere are now two additional property attributes present `stocks` and `locatedIn`."
+			},
+			"response": []
+		},
+		{
+			"name": "Adding a 1-many relationship",
+			"request": {
+				"method": "POST",
+				"header": [
+					{
+						"key": "Content-Type",
+						"value": "application/ld+json"
+					}
+				],
+				"body": {
+					"mode": "raw",
+					"raw": "{\n    \"furniture\": {\n    \t\"type\": \"Relationship\",\n        \"object\": [ \"urn:ngsi-ld:Shelf:001\", \"urn:ngsi-ld:Shelf:002\"]\n    },\n    \"stockList\" : {\n    \t\"type\": \"Relationship\",\n    \t\"object\": \"urn:ngsi-ld:Inventory:inventory001\"\n    },\n    \"@context\": [\n\t\t\"https://fiware.github.io/tutorials.Step-by-Step/datamodels-context.jsonld\"\n    ]\n}"
+				},
+				"url": {
+					"raw": "http://{{orion}}/ngsi-ld/v1/entities/urn:ngsi-ld:Building:store001/attrs",
+					"protocol": "http",
+					"host": [
+						"{{orion}}"
+					],
+					"path": [
+						"ngsi-ld",
+						"v1",
+						"entities",
+						"urn:ngsi-ld:Building:store001",
+						"attrs"
+					]
+				},
+				"description": "There are two ways to add a 1-many relationship. The simplest method is to add an array as \nthe value of  `object` attribute. This can be used for simple links without additional data.\nThis method is used to add `furniture` to the **Store.\n\n\nAn alternative is to add a `relationship` to  another object which itself holds further information,\nthis is the case with the `stockList` attribute."
+			},
+			"response": []
+		},
+		{
+			"name": "Obtain Updated Building",
+			"request": {
+				"method": "GET",
+				"header": [],
+				"url": {
+					"raw": "http://{{orion}}/ngsi-ld/v1/entities/urn:ngsi-ld:Building:store001/?options=keyValues",
+					"protocol": "http",
+					"host": [
+						"{{orion}}"
+					],
+					"path": [
+						"ngsi-ld",
+						"v1",
+						"entities",
+						"urn:ngsi-ld:Building:store001",
+						""
+					],
+					"query": [
+						{
+							"key": "type",
+							"value": "Shelf",
+							"description": "Entity type",
+							"disabled": true
+						},
+						{
+							"key": "options",
+							"value": "keyValues",
+							"description": "* `keyValues` option in order to get a more compact and brief representation, including just attribute values\n* `values` option combined with a list of attribute values  `attrs`  for an ordered list of attributes only"
+						}
+					]
+				},
+				"description": "This example returns the context data of the `Shelf` entity with the `id=urn:ngsi-ld:Shelf:unit001`.\n\nThe response now includes a new relationship property `refStore`, which has been added in the previous step."
+			},
+			"response": []
+		},
+		{
+			"name": "Finding the location of a Shelf",
+			"request": {
+				"method": "GET",
+				"header": [
+					{
+						"key": "Link",
+						"value": "<https://fiware.github.io/tutorials.Step-by-Step/datamodels-context.jsonld>; rel=\"http://www.w3.org/ns/json-ld#context\"; type=\"application/ld+json\"",
+						"type": "text"
+					}
+				],
+				"url": {
+					"raw": "http://{{orion}}/ngsi-ld/v1/entities/urn:ngsi-ld:Shelf:unit001/?attrs=locatedIn&options=keyValues",
+					"protocol": "http",
+					"host": [
+						"{{orion}}"
+					],
+					"path": [
+						"ngsi-ld",
+						"v1",
+						"entities",
+						"urn:ngsi-ld:Shelf:unit001",
+						""
+					],
+					"query": [
+						{
+							"key": "type",
+							"value": "Shelf",
+							"description": "Entity type",
+							"disabled": true
+						},
+						{
+							"key": "attrs",
+							"value": "locatedIn"
+						},
+						{
+							"key": "options",
+							"value": "keyValues"
+						}
+					]
+				},
+				"description": "This example returns the `refStore` value associated with a given `Shelf` unit. \n\nIf the `id` and `type` of a data entity are known, a specific field can be requested by combining the `options=values` parameter and the `attrs` parameter. \n\nThe URN returned has a standard format: `urn:ngsi-ld:<entity-type>:<entity-id>`, which has been used as the `id` of the **Store** entity itself (based on the NGSI-LD [draft recommendation](https://docbox.etsi.org/ISG/CIM/Open/ISG_CIM_NGSI-LD_API_Draft_for_public_review.pdf)), therefore it is a simple matter to request more information about the linked store by making a query to the `/entities` endpoint.\n\n```\nhttp://{{orion}}/v2/entities/urn:ngsi-ld:Store:001?options=keyValues\n```"
+			},
+			"response": []
+		},
+		{
+			"name": "Finding all Shelf Units found within a Store",
+			"request": {
+				"method": "GET",
+				"header": [
+					{
+						"key": "Link",
+						"value": "<https://fiware.github.io/tutorials.Step-by-Step/datamodels-context.jsonld>; rel=\"http://www.w3.org/ns/json-ld#context\"; type=\"application/ld+json\"",
+						"type": "text"
+					}
+				],
+				"url": {
+					"raw": "http://{{orion}}/ngsi-ld/v1/entities/urn:ngsi-ld:Building:store001/options=keyValue&attrs=furniture",
+					"protocol": "http",
+					"host": [
+						"{{orion}}"
+					],
+					"path": [
+						"ngsi-ld",
+						"v1",
+						"entities",
+						"urn:ngsi-ld:Building:store001",
+						"options=keyValue&attrs=furniture"
+					]
+				},
+				"description": "This example returns the `name` of all `Shelf` entities associated with the `shop1`.\n\nThe value of the query parameter `q` holds a URN of the form `urn:ngsi-ld:<entity-type>:<entity-id>` which corresponds to the the Relationship URN in order to filter the information returned."
+			},
+			"response": []
+		},
+		{
+			"name": "Creating an Inventory",
+			"request": {
+				"method": "POST",
+				"header": [
+					{
+						"key": "Content-Type",
+						"value": "application/ld+json"
+					}
+				],
+				"body": {
+					"mode": "raw",
+					"raw": "{\n  \"id\": \"urn:ngsi-ld:Inventory:inventory001\",\n  \"type\": \"Inventory\",\n  \"ownedBy\": {\n    \"type\": \"Relationship\",\n    \"object\": \"urn:ngsi-ld:Building:store001\"\n  },\n  \"itemListElement\": {\n    \"type\": \"Property\",\n    \"value\": [\n      {\n        \"type\": \"Relationship\",\n        \"object\": \"urn:ngsi-ld:Product:001\",\n        \"stockCount\": {\n          \"type\": \"Property\",\n          \"value\": 10000\n        },\n        \"shelfCount\": {\n          \"type\": \"Property\",\n          \"value\": 50\n        }\n      },\n      {\n        \"type\": \"Relationship\",\n        \"object\": \"urn:ngsi-ld:Product:002\",\n        \"stockCount\": {\n          \"type\": \"Property\",\n          \"value\": 10000\n        },\n        \"shelfCount\": {\n          \"type\": \"Property\",\n          \"value\": 50\n        }\n      }\n    ]\n  },\n  \"@context\": [\n    \"https://fiware.github.io/tutorials.Step-by-Step/datamodels-context.jsonld\"\n  ]\n}"
+				},
+				"url": {
+					"raw": "http://{{orion}}/ngsi-ld/v1/entities/",
+					"protocol": "http",
+					"host": [
+						"{{orion}}"
+					],
+					"path": [
+						"ngsi-ld",
+						"v1",
+						"entities",
+						""
+					]
+				},
+				"description": "There are two ways to add a 1-many relationship. The simplest method is to add an array as \nthe value of  `object` attribute. This can be used for simple links without additional data.\nThis method is used to add `furniture` to the **Store.\n\n\nAn alternative is to add a `relationship` to  another object which itself holds further information,\nthis is the case with the `stockList` attribute."
+			},
+			"response": []
+		},
+		{
+			"name": "Find all stores in which a product is sold",
+			"request": {
+				"method": "GET",
+				"header": [
+					{
+						"key": "Link",
+						"value": "<https://fiware.github.io/tutorials.Step-by-Step/datamodels-context.jsonld>; rel=\"http://www.w3.org/ns/json-ld#context\"; type=\"application/ld+json\"",
+						"type": "text"
+					}
+				],
+				"url": {
+					"raw": "http://{{orion}}/ngsi-ld/v1/entities/?type=Inventory&q=itemListElement[object]=='urn:ngsi-ld:Product:001'&attrs=ownedBy",
+					"protocol": "http",
+					"host": [
+						"{{orion}}"
+					],
+					"path": [
+						"ngsi-ld",
+						"v1",
+						"entities",
+						""
+					],
+					"query": [
+						{
+							"key": "type",
+							"value": "Inventory"
+						},
+						{
+							"key": "q",
+							"value": "itemListElement[object]=='urn:ngsi-ld:Product:001'"
+						},
+						{
+							"key": "attrs",
+							"value": "ownedBy"
+						}
+					]
+				},
+				"description": "This example returns the URN of all stores in which the product `id=urn:ngsi-ld:Product:001` is sold. The URN returned has a standard format: `urn:ngsi-ld:<entity-type>:<entity-id>`.\n\nBecause we have based the `id` of the **Store** entity on the NGSI-LD [draft recommendation](https://docbox.etsi.org/ISG/CIM/Open/ISG_CIM_NGSI-LD_API_Draft_for_public_review.pdf)), therefore it is a simple matter to request more information about the linked store by making a query to the `/entities` endpoint.\n\n```\nhttp://{{orion}}/v2/entities/urn:ngsi-ld:Store:001?options=keyValues\n```\n\nSince there is no direct relationship between product and store, a query must be made to find all entities which have both `refProduct` and `refStore` attributes.\n\nIn  our current context the `type` parameter is optional since only one type of entity contains the fields requested in the request"
+			},
+			"response": []
+		},
+		{
+			"name": "Find all Products sold in a Store",
+			"request": {
+				"method": "GET",
+				"header": [
+					{
+						"key": "Link",
+						"value": "<https://fiware.github.io/tutorials.Step-by-Step/datamodels-context.jsonld>; rel=\"http://www.w3.org/ns/json-ld#context\"; type=\"application/ld+json\"",
+						"type": "text"
+					}
+				],
+				"url": {
+					"raw": "http://{{orion}}/ngsi-ld/v1/entities/?type=Inventory&q=ownedBy==urn:ngsi-ld:Building:store001&attrs=itemListElement&options=keyValues",
+					"protocol": "http",
+					"host": [
+						"{{orion}}"
+					],
+					"path": [
+						"ngsi-ld",
+						"v1",
+						"entities",
+						""
+					],
+					"query": [
+						{
+							"key": "type",
+							"value": "Inventory"
+						},
+						{
+							"key": "q",
+							"value": "ownedBy==urn:ngsi-ld:Building:store001"
+						},
+						{
+							"key": "attrs",
+							"value": "itemListElement"
+						},
+						{
+							"key": "options",
+							"value": "keyValues"
+						}
+					]
+				},
+				"description": "This example returns the key of all entities directly associated with the `urn:ngsi-ld:Store:001`.\n\nThe response lists a series of Shelf and InventoryItem entities - there are no products since there is no direct relationship between product and store.\n\nIf this request returns an empty array, the entity has no associates."
+			},
+			"response": []
+		}
+	],
+	"event": [
+		{
+			"listen": "prerequest",
+			"script": {
+				"id": "f1d42f27-1cae-4144-b06e-237fad09b51b",
+				"type": "text/javascript",
+				"exec": [
+					""
+				]
+			}
+		},
+		{
+			"listen": "test",
+			"script": {
+				"id": "028325fa-d62b-4d7a-afbf-5b138040015a",
+				"type": "text/javascript",
+				"exec": [
+					""
+				]
+			}
+		}
+	],
+	"variable": [
+		{
+			"id": "73b7c194-97af-4388-81ee-6dce0839c507",
+			"key": "orion",
+			"value": "localhost:1026",
+			"type": "string"
+		}
+	]
+}
