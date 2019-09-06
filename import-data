@@ -41,10 +41,10 @@ curl -X POST \
         "type": "GeoProperty",
         "value": {"type": "Point", "coordinates": [13.3986, 52.5547]}
     },
-    "name": { "type": "Property", "value": "Bösebrücke Einkauf"
-    },
+    "name": { "type": "Property", "value": "Bösebrücke Einkauf"},
     "@context": [
-        "https://fiware.github.io/tutorials.Step-by-Step/datamodels-context.jsonld"
+      "https://fiware.github.io/tutorials.Step-by-Step/tutorials-context.jsonld",
+      "https://uri.etsi.org/ngsi-ld/v1/ngsi-ld-core-context.jsonld"
     ]
 }'
 
@@ -67,10 +67,10 @@ curl -X POST \
         "type": "GeoProperty",
         "value": {"type": "Point", "coordinates": [13.3903,52.5075]}
     },
-    "name": { "type": "Property", "value": "Checkpoint Markt"
-    },
+    "name": { "type": "Property", "value": "Checkpoint Markt"},
     "@context": [
-        "https://fiware.github.io/tutorials.Step-by-Step/datamodels-context.jsonld"
+      "https://fiware.github.io/tutorials.Step-by-Step/tutorials-context.jsonld",
+      "https://uri.etsi.org/ngsi-ld/v1/ngsi-ld-core-context.jsonld"
     ]
 }'
 
@@ -90,10 +90,10 @@ curl -X POST \
         "type": "GeoProperty",
         "value": {"type": "Point", "coordinates": [13.4447,52.5031]}
     },
-    "name": { "type": "Property", "value": "East Side Galleria"
-    },
+    "name": { "type": "Property", "value": "East Side Galleria"},
     "@context": [
-        "https://fiware.github.io/tutorials.Step-by-Step/datamodels-context.jsonld"
+      "https://fiware.github.io/tutorials.Step-by-Step/tutorials-context.jsonld",
+      "https://uri.etsi.org/ngsi-ld/v1/ngsi-ld-core-context.jsonld"
     ]
 }'
 
@@ -114,10 +114,10 @@ curl -X POST \
       "type": "GeoProperty",
       "value": {"type": "Point", "coordinates": [13.4094,52.5208]}
     },
-    "name": { "type": "Property", "value": "Tower Trödelmarkt"
-    },
+    "name": { "type": "Property", "value": "Tower Trödelmarkt"},
     "@context": [
-        "https://fiware.github.io/tutorials.Step-by-Step/datamodels-context.jsonld"
+      "https://fiware.github.io/tutorials.Step-by-Step/tutorials-context.jsonld",
+      "https://uri.etsi.org/ngsi-ld/v1/ngsi-ld-core-context.jsonld"
     ]
 }'
 
@@ -141,7 +141,8 @@ curl -X POST \
     "maxCapacity": {"type": "Property","value": 50},
     "name": {"type": "Property","value": "Corner Unit"},
     "@context": [
-        "https://fiware.github.io/tutorials.Step-by-Step/datamodels-context.jsonld"
+      "https://fiware.github.io/tutorials.Step-by-Step/tutorials-context.jsonld",
+      "https://uri.etsi.org/ngsi-ld/v1/ngsi-ld-core-context.jsonld"
     ]
 }'
 
@@ -158,7 +159,8 @@ curl -X POST \
     "maxCapacity": {"type": "Property","value": 100},
     "name": {"type": "Property","value": "Wall Unit 1"},
     "@context": [
-        "https://fiware.github.io/tutorials.Step-by-Step/datamodels-context.jsonld"
+      "https://fiware.github.io/tutorials.Step-by-Step/tutorials-context.jsonld",
+      "https://uri.etsi.org/ngsi-ld/v1/ngsi-ld-core-context.jsonld"
     ]
 }'
 
@@ -175,7 +177,8 @@ curl -X POST \
     "maxCapacity": {"type": "Property","value": 100},
     "name": {"type": "Property","value": "Wall Unit 2"},
     "@context": [
-        "https://fiware.github.io/tutorials.Step-by-Step/datamodels-context.jsonld"
+      "https://fiware.github.io/tutorials.Step-by-Step/tutorials-context.jsonld",
+      "https://uri.etsi.org/ngsi-ld/v1/ngsi-ld-core-context.jsonld"
     ]
 }'
 
@@ -192,7 +195,8 @@ curl -X POST \
     "maxCapacity": {"type": "Property","value": 50},
     "name": {"type": "Property","value": "Corner Unit"},
     "@context": [
-        "https://fiware.github.io/tutorials.Step-by-Step/datamodels-context.jsonld"
+      "https://fiware.github.io/tutorials.Step-by-Step/tutorials-context.jsonld",
+      "https://uri.etsi.org/ngsi-ld/v1/ngsi-ld-core-context.jsonld"
     ]
 }'
 
@@ -209,7 +213,8 @@ curl -X POST \
     "maxCapacity": {"type": "Property","value": 100},
     "name": {"type": "Property","value": "Long Wall Unit"},
     "@context": [
-        "https://fiware.github.io/tutorials.Step-by-Step/datamodels-context.jsonld"
+      "https://fiware.github.io/tutorials.Step-by-Step/tutorials-context.jsonld",
+      "https://uri.etsi.org/ngsi-ld/v1/ngsi-ld-core-context.jsonld"
     ]
 }'
 
@@ -227,7 +232,8 @@ curl -X POST \
     "maxCapacity": {"type": "Property","value": 50},
     "name": {"type": "Property","value": "Corner Unit"},
     "@context": [
-        "https://fiware.github.io/tutorials.Step-by-Step/datamodels-context.jsonld"
+      "https://fiware.github.io/tutorials.Step-by-Step/tutorials-context.jsonld",
+      "https://uri.etsi.org/ngsi-ld/v1/ngsi-ld-core-context.jsonld"
     ]
 }'
 
@@ -244,7 +250,8 @@ curl -X POST \
     "maxCapacity": {"type": "Property","value": 100},
     "name": {"type": "Property","value": "Wall Unit"},
     "@context": [
-        "https://fiware.github.io/tutorials.Step-by-Step/datamodels-context.jsonld"
+      "https://fiware.github.io/tutorials.Step-by-Step/tutorials-context.jsonld",
+      "https://uri.etsi.org/ngsi-ld/v1/ngsi-ld-core-context.jsonld"
     ]
 }'
 
@@ -261,7 +268,8 @@ curl -X POST \
     "maxCapacity": {"type": "Property","value": 100},
     "name": {"type": "Property","value": "Wall Unit 2"},
     "@context": [
-        "https://fiware.github.io/tutorials.Step-by-Step/datamodels-context.jsonld"
+      "https://fiware.github.io/tutorials.Step-by-Step/tutorials-context.jsonld",
+      "https://uri.etsi.org/ngsi-ld/v1/ngsi-ld-core-context.jsonld"
     ]
 }'
 
@@ -278,7 +286,8 @@ curl -X POST \
     "maxCapacity": {"type": "Property","value": 50},
     "name": {"type": "Property","value": "Corner Unit"},
     "@context": [
-        "https://fiware.github.io/tutorials.Step-by-Step/datamodels-context.jsonld"
+      "https://fiware.github.io/tutorials.Step-by-Step/tutorials-context.jsonld",
+      "https://uri.etsi.org/ngsi-ld/v1/ngsi-ld-core-context.jsonld"
     ]
 }'
 
@@ -295,7 +304,8 @@ curl -X POST \
     "maxCapacity": {"type": "Property","value": 200},
     "name": {"type": "Property","value": "Long Wall Unit"},
     "@context": [
-        "https://fiware.github.io/tutorials.Step-by-Step/datamodels-context.jsonld"
+      "https://fiware.github.io/tutorials.Step-by-Step/tutorials-context.jsonld",
+      "https://uri.etsi.org/ngsi-ld/v1/ngsi-ld-core-context.jsonld"
     ]
 }'
 
@@ -315,7 +325,8 @@ curl -X POST \
   "size": {"type": "Property","value": "S"},
   "name": {"type": "Property","value": "Beer"},
     "@context": [
-        "https://fiware.github.io/tutorials.Step-by-Step/datamodels-context.jsonld"
+      "https://fiware.github.io/tutorials.Step-by-Step/tutorials-context.jsonld",
+      "https://uri.etsi.org/ngsi-ld/v1/ngsi-ld-core-context.jsonld"
     ]
 }'
 
@@ -329,7 +340,8 @@ curl -X POST \
   "size": {"type": "Property","value": "M"},
   "name": {"type": "Property","value": "Red Wine"},
     "@context": [
-        "https://fiware.github.io/tutorials.Step-by-Step/datamodels-context.jsonld"
+      "https://fiware.github.io/tutorials.Step-by-Step/tutorials-context.jsonld",
+      "https://uri.etsi.org/ngsi-ld/v1/ngsi-ld-core-context.jsonld"
     ]
 }'
 
@@ -343,7 +355,8 @@ curl -X POST \
   "size": {"type": "Property","value": "M"},
   "name": {"type": "Property","value": "White Wine"},
     "@context": [
-        "https://fiware.github.io/tutorials.Step-by-Step/datamodels-context.jsonld"
+      "https://fiware.github.io/tutorials.Step-by-Step/tutorials-context.jsonld",
+      "https://uri.etsi.org/ngsi-ld/v1/ngsi-ld-core-context.jsonld"
     ]
 }'
 
@@ -357,7 +370,8 @@ curl -X POST \
   "size": {"type": "Property","value": "XL"},
   "name": {"type": "Property","value": "Vodka"},
     "@context": [
-        "https://fiware.github.io/tutorials.Step-by-Step/datamodels-context.jsonld"
+      "https://fiware.github.io/tutorials.Step-by-Step/tutorials-context.jsonld",
+      "https://uri.etsi.org/ngsi-ld/v1/ngsi-ld-core-context.jsonld"
     ]
 }'
 
@@ -371,7 +385,8 @@ curl -X POST \
   "size": {"type": "Property","value": "S"},
   "name": {"type": "Property","value": "Lager"},
     "@context": [
-        "https://fiware.github.io/tutorials.Step-by-Step/datamodels-context.jsonld"
+      "https://fiware.github.io/tutorials.Step-by-Step/tutorials-context.jsonld",
+      "https://uri.etsi.org/ngsi-ld/v1/ngsi-ld-core-context.jsonld"
     ]
 }'
 
@@ -385,7 +400,8 @@ curl -X POST \
   "size": {"type": "Property","value": "S"},
   "name": {"type": "Property","value": "Whisky"},
     "@context": [
-        "https://fiware.github.io/tutorials.Step-by-Step/datamodels-context.jsonld"
+      "https://fiware.github.io/tutorials.Step-by-Step/tutorials-context.jsonld",
+      "https://uri.etsi.org/ngsi-ld/v1/ngsi-ld-core-context.jsonld"
     ]
 }'
 
@@ -399,7 +415,8 @@ curl -X POST \
   "size": {"type": "Property","value": "S"},
   "name": {"type": "Property","value": "Gin"},
     "@context": [
-        "https://fiware.github.io/tutorials.Step-by-Step/datamodels-context.jsonld"
+      "https://fiware.github.io/tutorials.Step-by-Step/tutorials-context.jsonld",
+      "https://uri.etsi.org/ngsi-ld/v1/ngsi-ld-core-context.jsonld"
     ]
 }'
 
@@ -413,7 +430,8 @@ curl -X POST \
   "size": {"type": "Property","value": "S"},
   "name": {"type": "Property","value": "Apple Juice"},
     "@context": [
-        "https://fiware.github.io/tutorials.Step-by-Step/datamodels-context.jsonld"
+      "https://fiware.github.io/tutorials.Step-by-Step/tutorials-context.jsonld",
+      "https://uri.etsi.org/ngsi-ld/v1/ngsi-ld-core-context.jsonld"
     ]
 }'
 
@@ -427,7 +445,8 @@ curl -X POST \
   "size": {"type": "Property","value": "S"},
   "name": {"type": "Property","value": "Orange Juice"},
     "@context": [
-        "https://fiware.github.io/tutorials.Step-by-Step/datamodels-context.jsonld"
+      "https://fiware.github.io/tutorials.Step-by-Step/tutorials-context.jsonld",
+      "https://uri.etsi.org/ngsi-ld/v1/ngsi-ld-core-context.jsonld"
     ]
 }'
 

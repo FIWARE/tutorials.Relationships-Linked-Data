@@ -14,12 +14,12 @@
 					{
 						"key": "Link",
 						"type": "text",
-						"value": "<https://schema.lab.fiware.org/ld/fiware-datamodels-context.jsonld>; rel=\"http://www.w3.org/ns/json-ld#context\"; type=\"application/ld+json\"",
+						"value": "<https://fiware.github.io/tutorials.Step-by-Step/datamodels-context.jsonld>; rel=\"http://www.w3.org/ns/json-ld#context\"; type=\"application/ld+json\"",
 						"disabled": true
 					}
 				],
 				"url": {
-					"raw": "http://{{orion}}/ngsi-ld/v1/entities?type=https://uri.fiware.org/ns/datamodels/Building",
+					"raw": "http://{{orion}}/ngsi-ld/v1/entities?type=https://uri.fiware.org/ns/datamodels%23Building&options=keyValues",
 					"protocol": "http",
 					"host": [
 						"{{orion}}"
@@ -32,7 +32,11 @@
 					"query": [
 						{
 							"key": "type",
-							"value": "https://uri.fiware.org/ns/datamodels/Building"
+							"value": "https://uri.fiware.org/ns/datamodels%23Building"
+						},
+						{
+							"key": "options",
+							"value": "keyValues"
 						}
 					]
 				},
@@ -48,12 +52,11 @@
 					{
 						"key": "Link",
 						"type": "text",
-						"value": "<https://schema.lab.fiware.org/ld/fiware-datamodels-context.jsonld>; rel=\"http://www.w3.org/ns/json-ld#context\"; type=\"application/ld+json\"",
-						"disabled": true
+						"value": "<https://fiware.github.io/tutorials.Step-by-Step/datamodels-context.jsonld>; rel=\"http://www.w3.org/ns/json-ld#context\"; type=\"application/ld+json\""
 					}
 				],
 				"url": {
-					"raw": "http://{{orion}}/ngsi-ld/v1/entities?type=https://fiware.github.io/tutorials.Step-by-Step/schema/Product",
+					"raw": "http://{{orion}}/ngsi-ld/v1/entities?type=https://fiware.github.io/tutorials.Step-by-Step/schema/Product&options=keyValues",
 					"protocol": "http",
 					"host": [
 						"{{orion}}"
@@ -67,6 +70,10 @@
 						{
 							"key": "type",
 							"value": "https://fiware.github.io/tutorials.Step-by-Step/schema/Product"
+						},
+						{
+							"key": "options",
+							"value": "keyValues"
 						}
 					]
 				},
@@ -82,12 +89,11 @@
 					{
 						"key": "Link",
 						"type": "text",
-						"value": "<https://schema.lab.fiware.org/ld/fiware-datamodels-context.jsonld>; rel=\"http://www.w3.org/ns/json-ld#context\"; type=\"application/ld+json\"",
-						"disabled": true
+						"value": "<https://fiware.github.io/tutorials.Step-by-Step/datamodels-context.jsonld>; rel=\"http://www.w3.org/ns/json-ld#context\"; type=\"application/ld+json\""
 					}
 				],
 				"url": {
-					"raw": "http://{{orion}}/ngsi-ld/v1/entities?type=https://fiware.github.io/tutorials.Step-by-Step/schema/Shelf",
+					"raw": "http://{{orion}}/ngsi-ld/v1/entities?type=Shelf&options=keyValues",
 					"protocol": "http",
 					"host": [
 						"{{orion}}"
@@ -100,7 +106,11 @@
 					"query": [
 						{
 							"key": "type",
-							"value": "https://fiware.github.io/tutorials.Step-by-Step/schema/Shelf"
+							"value": "Shelf"
+						},
+						{
+							"key": "options",
+							"value": "keyValues"
 						}
 					]
 				},
@@ -112,7 +122,13 @@
 			"name": "Obtain Shelf Information",
 			"request": {
 				"method": "GET",
-				"header": [],
+				"header": [
+					{
+						"key": "Link",
+						"value": "<https://fiware.github.io/tutorials.Step-by-Step/datamodels-context.jsonld>; rel=\"http://www.w3.org/ns/json-ld#context\"; type=\"application/ld+json\"",
+						"type": "text"
+					}
+				],
 				"url": {
 					"raw": "http://{{orion}}/ngsi-ld/v1/entities/urn:ngsi-ld:Shelf:unit001/?options=keyValues",
 					"protocol": "http",
@@ -145,18 +161,23 @@
 			"response": []
 		},
 		{
-			"name": "Adding a 1-1 relationship",
+			"name": "Adding 1-1 relationships",
 			"request": {
 				"method": "POST",
 				"header": [
 					{
 						"key": "Content-Type",
 						"value": "application/ld+json"
+					},
+					{
+						"key": "fiware-servicepath",
+						"value": "/",
+						"type": "text"
 					}
 				],
 				"body": {
 					"mode": "raw",
-					"raw": "{\n    \"stocks\": {\n    \t\"type\": \"Relationship\",\n        \"object\": \"urn:ngsi-ld:Product:001\"\n    },\n    \"locatedIn\" : {\n    \t\"type\": \"Relationship\",\n    \t\"object\": \"urn:ngsi-ld:Building:store001\"\n    },\n    \"@context\": [\n\t\t\"https://fiware.github.io/tutorials.Step-by-Step/datamodels-context.jsonld\"\n    ]\n}"
+					"raw": "{\n    \"stocks\": {\n    \t\"type\": \"Relationship\",\n        \"object\": \"urn:ngsi-ld:Product:001\"\n    },\n    \"numberOfItems\": {\"type\": \"Property\",\"value\": 50},\n    \"locatedIn\" : {\n    \t\"type\": \"Relationship\", \"object\": \"urn:ngsi-ld:Building:store001\",\n    \t\"requestedBy\": {\n\t\t\t\"type\": \"Relationship\",\n\t\t\t\"object\": \"urn:ngsi-ld:Person:bob-the-manager\"\n\t\t},\n    \t\"installedBy\": {\n\t\t\t\"type\": \"Relationship\",\n\t\t\t\"object\": \"urn:ngsi-ld:Person:employee001\"\n\t\t},\n\t\t\"statusOfWork\": {\n\t\t\t\"type\": \"Property\",\n\t\t\t\"value\": \"completed\"\n\t\t}\n    },\n    \"@context\": [\n\t\t\"https://fiware.github.io/tutorials.Step-by-Step/tutorials-context.jsonld\",\n        \"https://uri.etsi.org/ngsi-ld/v1/ngsi-ld-core-context.jsonld\"\n    ]\n}"
 				},
 				"url": {
 					"raw": "http://{{orion}}/ngsi-ld/v1/entities/urn:ngsi-ld:Shelf:unit001/attrs",
@@ -177,12 +198,24 @@
 			"response": []
 		},
 		{
-			"name": "Obtain Updated Shelf",
+			"name": "Obtain the Updated Shelf",
 			"request": {
 				"method": "GET",
-				"header": [],
+				"header": [
+					{
+						"key": "Link",
+						"value": "<https://fiware.github.io/tutorials.Step-by-Step/datamodels-context.jsonld>; rel=\"http://www.w3.org/ns/json-ld#context\"; type=\"application/ld+json\"",
+						"type": "text"
+					},
+					{
+						"key": "",
+						"value": "",
+						"type": "text",
+						"disabled": true
+					}
+				],
 				"url": {
-					"raw": "http://{{orion}}/ngsi-ld/v1/entities/urn:ngsi-ld:Shelf:unit001/?options=keyValues",
+					"raw": "http://{{orion}}/ngsi-ld/v1/entities/urn:ngsi-ld:Shelf:unit001?",
 					"protocol": "http",
 					"host": [
 						"{{orion}}"
@@ -191,8 +224,7 @@
 						"ngsi-ld",
 						"v1",
 						"entities",
-						"urn:ngsi-ld:Shelf:unit001",
-						""
+						"urn:ngsi-ld:Shelf:unit001"
 					],
 					"query": [
 						{
@@ -200,83 +232,10 @@
 							"value": "Shelf",
 							"description": "Entity type",
 							"disabled": true
-						},
-						{
-							"key": "options",
-							"value": "keyValues",
-							"description": "* `keyValues` option in order to get a more compact and brief representation, including just attribute values\n* `values` option combined with a list of attribute values  `attrs`  for an ordered list of attributes only"
 						}
 					]
 				},
 				"description": "This example returns the context data of the *Shelf* entity with the `id=urn:ngsi-ld:Shelf:unit001`.\n\nThere are now two additional property attributes present `stocks` and `locatedIn`."
-			},
-			"response": []
-		},
-		{
-			"name": "Adding a 1-many relationship",
-			"request": {
-				"method": "POST",
-				"header": [
-					{
-						"key": "Content-Type",
-						"value": "application/ld+json"
-					}
-				],
-				"body": {
-					"mode": "raw",
-					"raw": "{\n    \"furniture\": {\n    \t\"type\": \"Relationship\",\n        \"object\": [ \"urn:ngsi-ld:Shelf:001\", \"urn:ngsi-ld:Shelf:002\"]\n    },\n    \"stockList\" : {\n    \t\"type\": \"Relationship\",\n    \t\"object\": \"urn:ngsi-ld:Inventory:inventory001\"\n    },\n    \"@context\": [\n\t\t\"https://fiware.github.io/tutorials.Step-by-Step/datamodels-context.jsonld\"\n    ]\n}"
-				},
-				"url": {
-					"raw": "http://{{orion}}/ngsi-ld/v1/entities/urn:ngsi-ld:Building:store001/attrs",
-					"protocol": "http",
-					"host": [
-						"{{orion}}"
-					],
-					"path": [
-						"ngsi-ld",
-						"v1",
-						"entities",
-						"urn:ngsi-ld:Building:store001",
-						"attrs"
-					]
-				},
-				"description": "There are two ways to add a 1-many relationship. The simplest method is to add an array as \nthe value of  `object` attribute. This can be used for simple links without additional data.\nThis method is used to add `furniture` to the **Store.\n\n\nAn alternative is to add a `relationship` to  another object which itself holds further information,\nthis is the case with the `stockList` attribute."
-			},
-			"response": []
-		},
-		{
-			"name": "Obtain Updated Building",
-			"request": {
-				"method": "GET",
-				"header": [],
-				"url": {
-					"raw": "http://{{orion}}/ngsi-ld/v1/entities/urn:ngsi-ld:Building:store001/?options=keyValues",
-					"protocol": "http",
-					"host": [
-						"{{orion}}"
-					],
-					"path": [
-						"ngsi-ld",
-						"v1",
-						"entities",
-						"urn:ngsi-ld:Building:store001",
-						""
-					],
-					"query": [
-						{
-							"key": "type",
-							"value": "Shelf",
-							"description": "Entity type",
-							"disabled": true
-						},
-						{
-							"key": "options",
-							"value": "keyValues",
-							"description": "* `keyValues` option in order to get a more compact and brief representation, including just attribute values\n* `values` option combined with a list of attribute values  `attrs`  for an ordered list of attributes only"
-						}
-					]
-				},
-				"description": "This example returns the context data of the `Shelf` entity with the `id=urn:ngsi-ld:Shelf:unit001`.\n\nThe response now includes a new relationship property `refStore`, which has been added in the previous step."
 			},
 			"response": []
 		},
@@ -326,18 +285,24 @@
 			"response": []
 		},
 		{
-			"name": "Finding all Shelf Units found within a Store",
+			"name": "Find where all Shelf Units are installed",
 			"request": {
 				"method": "GET",
 				"header": [
 					{
 						"key": "Link",
-						"value": "<https://fiware.github.io/tutorials.Step-by-Step/datamodels-context.jsonld>; rel=\"http://www.w3.org/ns/json-ld#context\"; type=\"application/ld+json\"",
-						"type": "text"
+						"type": "text",
+						"value": "<https://fiware.github.io/tutorials.Step-by-Step/datamodels-context.jsonld>; rel=\"http://www.w3.org/ns/json-ld#context\"; type=\"application/ld+json\""
+					},
+					{
+						"key": "Accept",
+						"name": "Accept",
+						"type": "text",
+						"value": "application/json"
 					}
 				],
 				"url": {
-					"raw": "http://{{orion}}/ngsi-ld/v1/entities/urn:ngsi-ld:Building:store001/options=keyValue&attrs=furniture",
+					"raw": "http://{{orion}}/ngsi-ld/v1/entities/?type=Shelf&options=keyValues&attrs=locatedIn",
 					"protocol": "http",
 					"host": [
 						"{{orion}}"
@@ -346,16 +311,29 @@
 						"ngsi-ld",
 						"v1",
 						"entities",
-						"urn:ngsi-ld:Building:store001",
-						"options=keyValue&attrs=furniture"
+						""
+					],
+					"query": [
+						{
+							"key": "type",
+							"value": "Shelf"
+						},
+						{
+							"key": "options",
+							"value": "keyValues"
+						},
+						{
+							"key": "attrs",
+							"value": "locatedIn"
+						}
 					]
 				},
-				"description": "This example returns the `name` of all `Shelf` entities associated with the `shop1`.\n\nThe value of the query parameter `q` holds a URN of the form `urn:ngsi-ld:<entity-type>:<entity-id>` which corresponds to the the Relationship URN in order to filter the information returned."
+				"description": "This example returns the URN of all stores in which the product `id=urn:ngsi-ld:Product:001` is sold. The URN returned has a standard format: `urn:ngsi-ld:<entity-type>:<entity-id>`.\n\nBecause we have based the `id` of the **Store** entity on the NGSI-LD [draft recommendation](https://docbox.etsi.org/ISG/CIM/Open/ISG_CIM_NGSI-LD_API_Draft_for_public_review.pdf)), therefore it is a simple matter to request more information about the linked store by making a query to the `/entities` endpoint.\n\n```\nhttp://{{orion}}/v2/entities/urn:ngsi-ld:Store:001?options=keyValues\n```\n\nSince there is no direct relationship between product and store, a query must be made to find all entities which have both `refProduct` and `refStore` attributes.\n\nIn  our current context the `type` parameter is optional since only one type of entity contains the fields requested in the request"
 			},
 			"response": []
 		},
 		{
-			"name": "Creating an Inventory",
+			"name": "Adding a 1-many relationship",
 			"request": {
 				"method": "POST",
 				"header": [
@@ -366,7 +344,114 @@
 				],
 				"body": {
 					"mode": "raw",
-					"raw": "{\n  \"id\": \"urn:ngsi-ld:Inventory:inventory001\",\n  \"type\": \"Inventory\",\n  \"ownedBy\": {\n    \"type\": \"Relationship\",\n    \"object\": \"urn:ngsi-ld:Building:store001\"\n  },\n  \"itemListElement\": {\n    \"type\": \"Property\",\n    \"value\": [\n      {\n        \"type\": \"Relationship\",\n        \"object\": \"urn:ngsi-ld:Product:001\",\n        \"stockCount\": {\n          \"type\": \"Property\",\n          \"value\": 10000\n        },\n        \"shelfCount\": {\n          \"type\": \"Property\",\n          \"value\": 50\n        }\n      },\n      {\n        \"type\": \"Relationship\",\n        \"object\": \"urn:ngsi-ld:Product:002\",\n        \"stockCount\": {\n          \"type\": \"Property\",\n          \"value\": 10000\n        },\n        \"shelfCount\": {\n          \"type\": \"Property\",\n          \"value\": 50\n        }\n      }\n    ]\n  },\n  \"@context\": [\n    \"https://fiware.github.io/tutorials.Step-by-Step/datamodels-context.jsonld\"\n  ]\n}"
+					"raw": "{\n    \"furniture\": {\n    \t\"type\": \"Relationship\",\n        \"object\": [ \"urn:ngsi-ld:Shelf:001\", \"urn:ngsi-ld:Shelf:002\"]\n    },\n    \"@context\": [\n\t\t\"https://fiware.github.io/tutorials.Step-by-Step/datamodels-context.jsonld\"\n    ]\n}"
+				},
+				"url": {
+					"raw": "http://{{orion}}/ngsi-ld/v1/entities/urn:ngsi-ld:Building:store001/attrs",
+					"protocol": "http",
+					"host": [
+						"{{orion}}"
+					],
+					"path": [
+						"ngsi-ld",
+						"v1",
+						"entities",
+						"urn:ngsi-ld:Building:store001",
+						"attrs"
+					]
+				},
+				"description": "There are two ways to add a 1-many relationship. The simplest method is to add an array as \nthe value of  `object` attribute. This can be used for simple links without additional data.\nThis method is used to add `furniture` to the **Store.\n\n\nAn alternative is to add a `relationship` to  another object which itself holds further information,\nthis is the case with the `stockList` attribute."
+			},
+			"response": []
+		},
+		{
+			"name": "Finding all Shelf Units found within a Store",
+			"request": {
+				"method": "GET",
+				"header": [
+					{
+						"key": "Link",
+						"value": "<https://fiware.github.io/tutorials.Step-by-Step/datamodels-context.jsonld>; rel=\"http://www.w3.org/ns/json-ld#context\"; type=\"application/ld+json\"",
+						"type": "text"
+					},
+					{
+						"key": "Accept",
+						"value": "application/json",
+						"type": "text",
+						"name": "Accept"
+					}
+				],
+				"url": {
+					"raw": "http://{{orion}}/ngsi-ld/v1/entities/urn:ngsi-ld:Building:store001?options=keyValues&attrs=furniture",
+					"protocol": "http",
+					"host": [
+						"{{orion}}"
+					],
+					"path": [
+						"ngsi-ld",
+						"v1",
+						"entities",
+						"urn:ngsi-ld:Building:store001"
+					],
+					"query": [
+						{
+							"key": "options",
+							"value": "keyValues"
+						},
+						{
+							"key": "attrs",
+							"value": "furniture"
+						}
+					]
+				},
+				"description": "This example returns the `name` of all `Shelf` entities associated with the `shop1`.\n\nThe value of the query parameter `q` holds a URN of the form `urn:ngsi-ld:<entity-type>:<entity-id>` which corresponds to the the Relationship URN in order to filter the information returned."
+			},
+			"response": []
+		},
+		{
+			"name": "Obtain Updated Building",
+			"request": {
+				"method": "GET",
+				"header": [],
+				"url": {
+					"raw": "http://{{orion}}/ngsi-ld/v1/entities/urn:ngsi-ld:Building:store001/?",
+					"protocol": "http",
+					"host": [
+						"{{orion}}"
+					],
+					"path": [
+						"ngsi-ld",
+						"v1",
+						"entities",
+						"urn:ngsi-ld:Building:store001",
+						""
+					],
+					"query": [
+						{
+							"key": "options",
+							"value": "keyValues",
+							"description": "* `keyValues` option in order to get a more compact and brief representation, including just attribute values\n* `values` option combined with a list of attribute values  `attrs`  for an ordered list of attributes only",
+							"disabled": true
+						}
+					]
+				},
+				"description": "This example returns the context data of the `Shelf` entity with the `id=urn:ngsi-ld:Shelf:unit001`.\n\nThe response now includes a new relationship property `refStore`, which has been added in the previous step."
+			},
+			"response": []
+		},
+		{
+			"name": "Creating a Bridge Table",
+			"request": {
+				"method": "POST",
+				"header": [
+					{
+						"key": "Content-Type",
+						"value": "application/ld+json"
+					}
+				],
+				"body": {
+					"mode": "raw",
+					"raw": "{\n  \"id\": \"urn:ngsi-ld:StockOrder:001\",\n  \"type\": \"StockOrder\",\n  \"requestedFor\": {\n    \"type\": \"Relationship\",\n    \"object\": \"urn:ngsi-ld:Building:store001\"\n  },\n  \"requestedBy\": {\n\t\"type\": \"Relationship\",\n\t\"object\": \"urn:ngsi-ld:Person:bob-the-manager\"\n  },\n  \"orderedProduct\": {\n    \"type\": \"Relationship\",\n    \"object\": \"urn:ngsi-ld:Product:001\"\n  },\n  \"stockCount\": {\n    \"type\": \"Property\",\n    \"value\": 10000\n  },\n  \"orderDate\": {\n    \"type\": \"Property\",\n    \"value\": {\n        \"@type\": \"DateTime\",\n        \"@value\": \"2018-08-07T12:00:00Z\"\n    }\n  },\n  \"@context\": [\n    \"https://fiware.github.io/tutorials.Step-by-Step/datamodels-context.jsonld\"\n  ]\n}"
 				},
 				"url": {
 					"raw": "http://{{orion}}/ngsi-ld/v1/entities/",
@@ -394,10 +479,16 @@
 						"key": "Link",
 						"value": "<https://fiware.github.io/tutorials.Step-by-Step/datamodels-context.jsonld>; rel=\"http://www.w3.org/ns/json-ld#context\"; type=\"application/ld+json\"",
 						"type": "text"
+					},
+					{
+						"key": "Accept",
+						"value": "application/json",
+						"type": "text",
+						"name": "Accept"
 					}
 				],
 				"url": {
-					"raw": "http://{{orion}}/ngsi-ld/v1/entities/?type=Inventory&q=itemListElement[object]=='urn:ngsi-ld:Product:001'&attrs=ownedBy",
+					"raw": "http://{{orion}}/ngsi-ld/v1/entities/?type=StockOrder&q=orderedProduct==\"urn:ngsi-ld:Product:001\"&attrs=requestedFor&options=keyValues",
 					"protocol": "http",
 					"host": [
 						"{{orion}}"
@@ -411,15 +502,19 @@
 					"query": [
 						{
 							"key": "type",
-							"value": "Inventory"
+							"value": "StockOrder"
 						},
 						{
 							"key": "q",
-							"value": "itemListElement[object]=='urn:ngsi-ld:Product:001'"
+							"value": "orderedProduct==\"urn:ngsi-ld:Product:001\""
 						},
 						{
 							"key": "attrs",
-							"value": "ownedBy"
+							"value": "requestedFor"
+						},
+						{
+							"key": "options",
+							"value": "keyValues"
 						}
 					]
 				},
@@ -436,10 +531,16 @@
 						"key": "Link",
 						"value": "<https://fiware.github.io/tutorials.Step-by-Step/datamodels-context.jsonld>; rel=\"http://www.w3.org/ns/json-ld#context\"; type=\"application/ld+json\"",
 						"type": "text"
+					},
+					{
+						"key": "Accept",
+						"value": "application/json",
+						"type": "text",
+						"name": "Accept"
 					}
 				],
 				"url": {
-					"raw": "http://{{orion}}/ngsi-ld/v1/entities/?type=Inventory&q=ownedBy==urn:ngsi-ld:Building:store001&attrs=itemListElement&options=keyValues",
+					"raw": "http://{{orion}}/ngsi-ld/v1/entities/?type=StockOrder&q=requestedFor==\"urn:ngsi-ld:Building:store001\"&options=keyValues&attrs=orderedProduct",
 					"protocol": "http",
 					"host": [
 						"{{orion}}"
@@ -453,23 +554,52 @@
 					"query": [
 						{
 							"key": "type",
-							"value": "Inventory"
+							"value": "StockOrder"
 						},
 						{
 							"key": "q",
-							"value": "ownedBy==urn:ngsi-ld:Building:store001"
-						},
-						{
-							"key": "attrs",
-							"value": "itemListElement"
+							"value": "requestedFor==\"urn:ngsi-ld:Building:store001\""
 						},
 						{
 							"key": "options",
 							"value": "keyValues"
+						},
+						{
+							"key": "attrs",
+							"value": "orderedProduct"
 						}
 					]
 				},
 				"description": "This example returns the key of all entities directly associated with the `urn:ngsi-ld:Store:001`.\n\nThe response lists a series of Shelf and InventoryItem entities - there are no products since there is no direct relationship between product and store.\n\nIf this request returns an empty array, the entity has no associates."
+			},
+			"response": []
+		},
+		{
+			"name": "Obtain Stock Order",
+			"request": {
+				"method": "GET",
+				"header": [],
+				"url": {
+					"raw": "http://{{orion}}/ngsi-ld/v1/entities/urn:ngsi-ld:StockOrder:001?options=keyValues",
+					"protocol": "http",
+					"host": [
+						"{{orion}}"
+					],
+					"path": [
+						"ngsi-ld",
+						"v1",
+						"entities",
+						"urn:ngsi-ld:StockOrder:001"
+					],
+					"query": [
+						{
+							"key": "options",
+							"value": "keyValues",
+							"description": "* `keyValues` option in order to get a more compact and brief representation, including just attribute values\n* `values` option combined with a list of attribute values  `attrs`  for an ordered list of attributes only"
+						}
+					]
+				},
+				"description": "This example returns the context data of the `Shelf` entity with the `id=urn:ngsi-ld:Shelf:unit001`.\n\nThe response now includes a new relationship property `refStore`, which has been added in the previous step."
 			},
 			"response": []
 		}
