@@ -28,7 +28,7 @@ For each entity, the _Property_ attributes (including various subtypes such as _
 the attribute. All _Property_ attributes relate to the state of a single entity.
 
 _Relationship_ attributes correspond to the interactions **between** entities (which are expected to change over time). They effectively provide the graph linking the nodes of the data entities together.
-Each _Relationship_ attribute holds an `object` in the form of a URN - effectively a pointer to another object. _Relationship_ attributes do not hold data themselves,
+Each _Relationship_ attribute holds an `object` in the form of a URN - effectively a pointer to another object. _Relationship_ attributes do not hold data themselves.
 
 Both properties and relationships may in turn have a linked
 embedded structure (of _properties-of-properties_ or _properties-of-relationships or relationships-of-properties_ or
@@ -37,8 +37,7 @@ _relationships-of-relationships_ etc.) which lead  a full complex knowledge grap
 
 ## Designing Data Models
 
-In order for computers to be able to navigate linked data structures, a full context must be present.
-
+In order for computers to be able to navigate linked data structures, a full `@context` must be defined and accessible. We can do this by reviewing and updating the existing data models from the NGSI v2 [Entity Relationships](https://github.com/FIWARE/tutorials.Entity-Relationships) tutorial.
 
 
 
