@@ -6,108 +6,140 @@
 [![NGSI LD](https://img.shields.io/badge/NGSI-linked_data-red.svg)](https://www.etsi.org/deliver/etsi_gs/CIM/001_099/009/01.01.01_60/gs_CIM009v010101p.pdf)
 <br/> [![Documentation](https://img.shields.io/readthedocs/fiware-tutorials.svg)](https://fiware-tutorials.rtfd.io)
 
-This tutorial discusses relationships between linked data entities and how the
-concepts of **JSON-LD** and **NGSI-LD** can be used to interrogate entities and navigate from one entity to another. The tutorial discusses a series of simple linked-data data models based around the supermarket chain’s store finder application, and demonstrates how to design models holding one-to-one, one-to-many and many-to-many relationships. This **NGSI-LD** tutorial is a direct analogue to the earlier _Understanding Entities and Relationships_ tutorial (which was based on the **NGSI v2** interface). The differences in
-relationships created using **NSGI v2** and **NGSI-LD** are highlighted
-and discussed in detail.
+This tutorial discusses relationships between linked data entities and how the concepts of **JSON-LD** and **NGSI-LD**
+can be used to interrogate entities and navigate from one entity to another. The tutorial discusses a series of simple
+linked-data data models based around the supermarket chain’s store finder application, and demonstrates how to design
+models holding one-to-one, one-to-many and many-to-many relationships. This **NGSI-LD** tutorial is a direct analogue to
+the earlier _Understanding Entities and Relationships_ tutorial (which was based on the **NGSI v2** interface). The
+differences in relationships created using **NSGI v2** and **NGSI-LD** are highlighted and discussed in detail.
 
 The tutorial uses [cUrl](https://ec.haxx.se/) commands throughout, but is also available as
 [Postman documentation](https://fiware.github.io/tutorials.Relationships-Linked-Data/)
 
 [![Run in Postman](https://run.pstmn.io/button.svg)](https://app.getpostman.com/run-collection/125db8d3a1ea3dab8e3f)
 
-
 # Relationships in Linked Data
 
 All NGSI data entity attributes can be divided into one of two types.
 
-- _Property_ attributes
-- _Relationship_ attributes
+-   _Property_ attributes
+-   _Relationship_ attributes
 
-For each entity, the _Property_ attributes (including various subtypes such as _GeoProperty_ , _TemporalProperty_ and time values) define the current state something in the real world. As the state of the entity changes the `value`  of each _Property_ is updated to align with the last real world reading of the
-the attribute. All _Property_ attributes relate to the state of a single entity.
+For each entity, the _Property_ attributes (including various subtypes such as _GeoProperty_ , _TemporalProperty_ and
+time values) define the current state something in the real world. As the state of the entity changes the `value` of
+each _Property_ is updated to align with the last real world reading of the the attribute. All _Property_ attributes
+relate to the state of a single entity.
 
-_Relationship_ attributes correspond to the interactions **between** entities (which are expected to change over time). They effectively provide the graph linking the nodes of the data entities together.
-Each _Relationship_ attribute holds an `object` in the form of a URN - effectively a pointer to another object. _Relationship_ attributes do not hold data themselves.
+_Relationship_ attributes correspond to the interactions **between** entities (which are expected to change over time).
+They effectively provide the graph linking the nodes of the data entities together. Each _Relationship_ attribute holds
+an `object` in the form of a URN - effectively a pointer to another object. _Relationship_ attributes do not hold data
+themselves.
 
-Both properties and relationships may in turn have a linked
-embedded structure (of _properties-of-properties_ or _properties-of-relationships or relationships-of-properties_ or
-_relationships-of-relationships_ etc.) which lead  a full complex knowledge graph.
+Both properties and relationships may in turn have a linked embedded structure (of _properties-of-properties_ or
+_properties-of-relationships or relationships-of-properties_ or _relationships-of-relationships_ etc.) which lead a full
+complex knowledge graph.
 
+## Designing Data Models using JSON-LD
 
-## Designing Data Models
+In order for computers to be able to navigate linked data structures, a full `@context` must be defined and accessible.
+We can do this by reviewing and updating the existing data models from the NGSI v2
+[Entity Relationships](https://github.com/FIWARE/tutorials.Entity-Relationships) tutorial.
 
-In order for computers to be able to navigate linked data structures, a full `@context` must be defined and accessible. We can do this by reviewing and updating the existing data models from the NGSI v2 [Entity Relationships](https://github.com/FIWARE/tutorials.Entity-Relationships) tutorial.
+### Revision: Data Models for a Stock management system as defined using NGSI-v2
 
+As a reminder, four types of entity were created in the NGSI v2 stock management system. The relationship between the
+four NGSI v2 entity models was defined as shown below:
 
+![](https://jason-fox.github.io/tutorials.Relationships-Linked-Data/img/entities-v2.png)
 
-
-
-ithin the FIWARE platform, the context of an entity represents the state of a physical or conceptural object which
-exists in the real world.
-
-## Entities within a stock management system
-
-For a simple stock management system, we will only need four types of entity. The relationship between our entities is
-defined as shown:
-
-![](https://fiware.github.io/tutorials.Entity-Relationships/img/entities.png)
-
--   A store is a real world bricks and mortar building. **Store** entities would have properties such as:
+-   A **Store** is a real world bricks and mortar building. **Store** entities have properties such as:
     -   A name of the store e.g. "Checkpoint Markt"
     -   An address "Friedrichstraße 44, 10969 Kreuzberg, Berlin"
     -   A phyiscal location e.g. _52.5075 N, 13.3903 E_
--   A shelf is a real world device to hold objects which we wish to sell. Each **Shelf** entity would have properties
-    such as:
+-   A shelf is a real world device to hold objects which we wish to sell. Each **Shelf** entity has properties such as:
     -   A name of the shelf e.g. "Wall Unit"
     -   A phyiscal location e.g. _52.5075 N, 13.3903 E_
     -   A maximum capacity
-    -   An association to the store in which the shelf is present
--   A product is defined as something that we sell - it is conceptural object. **Product** entities would have
-    properties such as:
+    -   A relationship to the store `refStore` in which the shelf is present
+-   A **Product** is defined as something that we sell - it is conceptural object. **Product** entities have properties
+    such as:
     -   A name of the product e.g. "Vodka"
     -   A price e.g. 13.99 Euros
     -   A size e.g. Small
 -   An inventory item is another conceptural entity, used to assocate products, stores, shelves and physical objects.
-    **Inventory Item** entities would have properties such as:
-    -   An association to the product being sold
-    -   An association to the store in which the product is being sold
-    -   An association to the shelf where the product is being displayed
+    **Inventory Item** entities has properties such as:
+    -   An relationship `refProduct` to the product being sold
+    -   An relationship `refStore` to the store in which the product is being sold
+    -   An relationship `refShelf` to the shelf where the product is being displayed
     -   A stock count of the quantity of the product available in the warehouse
-    -   A stock count of the quantity of the product available on the shelf
+    -   A stock count of the quantity of the product available on the shelf.
 
-As you can see, each of the entities defined above contain some properties which are liable to change. A product could
-change its price, stock could be sold and the shelf count of stock could be reduced and so on.
+In NGSI v2 relationship attributes are just standard properties attributes. By convention NGSI v2 relationship
+attributes are given names starting `ref` and are defined using the `type="Relationship"`. However, this is merely
+convention and may not be followed in all cases. There is no infallible mechanism to detect which attributes are
+association between entities.
 
+### Data Models for a Stock management system defined using NGSI-LD
 
+The richer JSON-LD description language is able to define NSGI-LD entities by linking entities directly as shown below.
 
-An NGSI LD Data Entity (e.g. a supermarket):
+![](https://jason-fox.github.io/tutorials.Relationships-Linked-Data/img/entities-ld.png)
 
--   Has an `id` which must be unique. For example `urn:ngsi-ld:Building:store001`,
--   Has `type` which should be a fully qualified URI of a well defined data model. For example
-    `https://uri.fiware.org/ns/datamodels#Building`. Authors can also use type names, as short hand strings for types,
-    mapped to fully qualified URIs through the JSON-LD `@context`.
--   Has _property_ of the entity, for example, an `address` attribute which holds the address of the store. This can be
-    expanded into `http://schema.org/address`, which is known as a fully qualified name
-    ([FQN](https://en.wikipedia.org/wiki/Fully_qualified_name)).
--   The `address`, like any _property_ will have a _value_ corresponding to the _property_ `address` (e.g. _Bornholmer
-    Straße 65, 10439 Prenzlauer Berg, Berlin_
--   Has a _property-of-a-property_ of the entity, for example a `verified` field for the `address`.
--   Has a _relationship_ of the entity, for example, a `managedBy` field where the relationship `managedBy` corresponds
-    to another data entity : `urn:ngsi-ld:Person:bob-the-manager`
--   The relationship `managedBy`, may itself have a _property-of-a-relationship_ (e.g. `since`), this holds the date Bob
-    started working the store
--   The relationship `managedBy`, may itself have a _relationship-of-a-relationship_ (e.g. `subordinateTo`), this holds
-    the URN of the area manager above Bob in the hierarchy.
+-   The **Store** is now based on the FIWARE **Building** model. This ensures that it offers standard properties for
+    `name`, `address` and category.
+    -   A Building will hold `furniture` this is a 1-many directional relationship from Building to Shelf
+-   **Shelf** is a custom data model defined for the tutorial
+    -   Each **Shelf** is `locatedIn` a **Building**. This is a 1-1 directional relationship from Shelf to Building. It
+        is the reciprical to `furniture` defined above.
+    -   A **Shelf** is `installedBy` a **Person** - this is a unidirectional 1-1 relationship
+    -   A **Shelf** `stocks` a given **Product**. This is another unidirectional 1-1 relationship. A **Product** does
+        not know which **Shelf** it is to be found on.
+-   **Inventory Item** has been replaced by **StockOrder**:
+    -   A **StockOrder** is `requestedBy` a **Person** - this is a unidirectional 1-1 relationship.
+    -   A **StockOrder** is `requestedFor` a **Building** - this is a unidirectional 1-1 relationship.
+    -   A **StockOrder** is a request for a specific `orderedProduct` - this unidirectional 1-1 relationship.
+-   The **Product** entity model remains unchanged. It has no relationships of its own.
 
-As you can see the knowledge graph is well defined and can be expanded indefinitely.
+### Designing Models for Linked Data.
 
+Every entity relationship in NGSI-LD is a direct directional link from one entity to another.
 
+Unlike the looser relationships in NGSI-v2, you should not place information
 
+so for unlike
 
+Can;t jump.
 
+## Traversing links.
 
-Relationships will be dealt with in more detail in a subsequent tutorial.
+> **Example**: Imagine the scenario where a pallet of Products are moved from the warehouse onto the shelves of the
+> store. How would NGSI v2 and NGSI-LD computations differ?
+
+### How is this defined in NGSI-v2?
+
+In NGSI v2 only the **InventoryItem** Entity would be involved. The `stockCount` value would be decremented and the
+`shelfCount` value would incremented. In the NGSI v2 model both the `storeCount` and the `shelfCount` both of these
+attributes had been placed into the **InventoryItem** Entity for pure convenience. It allows for simpler data reading
+and data manipulation. However this convenience model, though a necessary workaround in NGSI-v2 is technically
+incorrect, in reality the **InventoryItem** and **Shelf** should have no direct relationship.
+
+### How is this defined in NGSI-LD?
+
+With linked data concepts it is much easier for computers to navigate between entities and therefore the `shelfCount`
+attribute in **InventoryItem** has moved and is now correctly defined as a `numberOfItems` attribute in the **Shelf**
+entity.
+
+To move a pallet of products onto a shelf it would be possible to navigate the linked data the `@graph` from
+**StockOrder** to **Shelf** as shown:
+
+-   Some `product:XXX` items have been removed from `stockOrder:0001`
+-   Interogating the **StockOrder** is discovered that it is `requestedFor` for a URI e.g. `store:002`
+-   It is discovered from the **StockOrder** model the `requestedFor` URI defines a **Building**
+-   It is discovered from the **Building** model that every **Building** contains `furniture` as an array of URIs.
+-   It is discovered from the **Building** model that these URIs represent **Shelf** units
+-   it is discovered from the **Shelf** model that the `stocks` attribute holds a URI representing **Product** items.
+-   A request the **Shelf** unit which holds the correct **Product** for the `stocks` attribute is maded and the Shelf
+    loaded.
 
 # Prerequisites
 
@@ -195,8 +227,8 @@ The only notable difference to the introductory tutorials is that the required i
 # Start Up
 
 All services can be initialised from the command-line by running the
-[services](https://github.com/FIWARE/tutorials.Relationships-Linked-Data/blob/master/services) Bash script provided within the
-repository. Please clone the repository and create the necessary images by running the commands as shown:
+[services](https://github.com/FIWARE/tutorials.Relationships-Linked-Data/blob/master/services) Bash script provided
+within the repository. Please clone the repository and create the necessary images by running the commands as shown:
 
 ```bash
 git clone git@github.com:FIWARE/tutorials.Relationships-Linked-Data.git
@@ -212,12 +244,6 @@ cd tutorials.Relationships-Linked-Data
 > ```
 
 ---
-
-
-
-
-
-
 
 ---
 
