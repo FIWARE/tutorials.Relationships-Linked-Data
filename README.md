@@ -87,14 +87,15 @@ The richer JSON-LD description language is able to define NSGI-LD entities by li
 
 -   The **Store** is now based on the FIWARE **Building** model. This ensures that it offers standard properties for
     `name`, `address` and category.
-    -   A Building will hold `furniture` this is a 1-many directional relationship from Building to Shelf
+    -   A Building will hold `furniture` this is a 1-many unidirectional relationship from Building to Shelf
 -   **Shelf** is a custom data model defined for the tutorial
-    -   Each **Shelf** is `locatedIn` a **Building**. This is a 1-1 directional relationship from Shelf to Building. It
-        is the reciprical to `furniture` defined above.
-    -   A **Shelf** is `installedBy` a **Person** - this is a unidirectional 1-1 relationship
-    -   A **Shelf** `stocks` a given **Product**. This is another unidirectional 1-1 relationship. A **Product** does
-        not know which **Shelf** it is to be found on.
--   **Inventory Item** has been replaced by **StockOrder**:
+    -   Each **Shelf** is `locatedIn` a **Building**. This is a 1-1 unidirectional relationship from Shelf to Building.
+        It is the reciprical relationship to `furniture` defined above.
+    -   A **Shelf** is `installedBy` a **Person** - this is a unidirectional 1-1 relationship. A shelf knows who
+        installed it, but it is this knowledge is not part of the Person entity itself.
+    -   A **Shelf** `stocks` a given **Product**. This is another unidirectional 1-1 relationship, and again it is not
+        recipricated. A **Product** does not know which **Shelf** it is to be found on.
+-   The bridge table **Inventory Item** has been replaced by **StockOrder**:
     -   A **StockOrder** is `requestedBy` a **Person** - this is a unidirectional 1-1 relationship.
     -   A **StockOrder** is `requestedFor` a **Building** - this is a unidirectional 1-1 relationship.
     -   A **StockOrder** is a request for a specific `orderedProduct` - this unidirectional 1-1 relationship.
@@ -112,16 +113,18 @@ Can;t jump.
 
 ## Traversing links.
 
-> **Example**: Imagine the scenario where a pallet of Products are moved from the warehouse onto the shelves of the
-> store. How would NGSI v2 and NGSI-LD computations differ?
+> **Example**: Imagine the scenario where a pallet of Products are moved from stock in the warehouse onto the shelves of
+> the store. How would NGSI v2 and NGSI-LD computations differ?
 
 ### How is this defined in NGSI-v2?
 
-In NGSI v2 only the **InventoryItem** Entity would be involved. The `stockCount` value would be decremented and the
-`shelfCount` value would incremented. In the NGSI v2 model both the `storeCount` and the `shelfCount` both of these
-attributes had been placed into the **InventoryItem** Entity for pure convenience. It allows for simpler data reading
-and data manipulation. However this convenience model, though a necessary workaround in NGSI-v2 is technically
-incorrect, in reality the **InventoryItem** and **Shelf** should have no direct relationship.
+In NGSI v2 the convenience bridge table **InventoryItem** entity had been created specifically to hold both count on the
+shelf and count in the warehouse in a single location. In any computation only **InventoryItem** Entity would be
+involved. The `stockCount` value would be decremented and the `shelfCount` value would incremented. In the NGSI v2 model
+both the `storeCount` and the `shelfCount` both of these attributes have been placed into the **InventoryItem** Entity
+for pure convenience. This is a necessary workaround for NGSI v2 and it allows for simpler data reading and data
+manipulation. However technically it is ontologically incorrect - `shelfCount` (i.e. the number of Items on the shelf)
+should be an attribute in **Shelf**. There should be no direct relationship between the **InventoryItem** and **Shelf**.
 
 ### How is this defined in NGSI-LD?
 
@@ -129,16 +132,16 @@ With linked data concepts it is much easier for computers to navigate between en
 attribute in **InventoryItem** has moved and is now correctly defined as a `numberOfItems` attribute in the **Shelf**
 entity.
 
-To move a pallet of products onto a shelf it would be possible to navigate the linked data the `@graph` from
-**StockOrder** to **Shelf** as shown:
+To move a pallet of products onto a shelf it would be possible for a computer navigate the relationships in the linked
+data the `@graph` from **StockOrder** to **Shelf** as shown:
 
 -   Some `product:XXX` items have been removed from `stockOrder:0001`
--   Interogating the **StockOrder** is discovered that it is `requestedFor` for a URI e.g. `store:002`
--   It is discovered from the **StockOrder** model the `requestedFor` URI defines a **Building**
+-   Interogating the **StockOrder** is discovered that the **Product** is `requestedFor` for a URI e.g. `store:002`
+-   It is also discovered from the **StockOrder** model that the `requestedFor` URI defines a **Building**
 -   It is discovered from the **Building** model that every **Building** contains `furniture` as an array of URIs.
 -   It is discovered from the **Building** model that these URIs represent **Shelf** units
 -   it is discovered from the **Shelf** model that the `stocks` attribute holds a URI representing **Product** items.
--   A request the **Shelf** unit which holds the correct **Product** for the `stocks` attribute is maded and the Shelf
+-   A request the **Shelf** unit which holds the correct **Product** for the `stocks` attribute is made and the Shelf
     loaded.
 
 # Prerequisites
