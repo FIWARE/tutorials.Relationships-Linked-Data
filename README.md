@@ -80,20 +80,27 @@ Relationships between four models have been created for the NGSI-LD stock manage
     FIWARE
     [**Building** model](https://fiware-datamodels.readthedocs.io/en/latest/Building/Building/doc/spec/index.html). This
     ensures that it offers standard properties for `name`, `address` and category.
-    -   A Building will hold `furniture` this is a 1-many unidirectional relationship.  Building :arrow_right: Shelf
+    -  A Building will hold `furniture` this is a 1-many relationship.
+        -  Building :arrow_right: Shelf. 
 -   The [**Shelf** model](https://fiware.github.io/tutorials.Step-by-Step/schema/Shelf/) is a custom data model defined
     for the tutorial
-    -   Each **Shelf** is `locatedIn` a **Building**. This is a 1-1 unidirectional relationship. Shelf :arrow_right: Building.
+    -   Each **Shelf** is `locatedIn` a **Building**. This is a 1-1 relationship. 
         It is the reciprical relationship to `furniture` defined above.
-    -   A **Shelf** is `installedBy` a **Person** - this is a unidirectional 1-1 relationship. Shelf :arrow_right: Person.  A shelf knows who
+        -  Shelf :arrow_right: Building.
+    -   A **Shelf** is `installedBy` a **Person** - this is a 1-1 relationship.  A shelf knows who
         installed it, but it is this knowledge is not part of the Person entity itself.
-    -   A **Shelf** `stocks` a given **Product**. This is another unidirectional 1-1 relationship - Shelf :arrow_right: Product. and again it is not
+        -  Shelf :arrow_right: Person
+    -   A **Shelf** `stocks` a given **Product**. This is another 1-1 relationship, and again it is not
         recipricated. A **Product** does not know which **Shelf** it is to be found on.
+        -  Shelf :arrow_right: Product
 -   A [**StockOrder** model](https://fiware.github.io/tutorials.Step-by-Step/schema/StockOrder/) replaces the
     **Inventory Item** bridge table defined for NGSI v2 :
-    -   A **StockOrder** is `requestedBy` a **Person** - this is a unidirectional 1-1 relationship. StockOrder :arrow_right: Person.
-    -   A **StockOrder** is `requestedFor` a **Building** - this is a unidirectional 1-1 relationship. StockOrder :arrow_right: Building.
-    -   A **StockOrder** is a request for a specific `orderedProduct` - this unidirectional 1-1 relationship. StockOrder :arrow_right: Product.
+    -   A **StockOrder** is `requestedBy` a **Person** - this is a 1-1 relationship.
+        -  StockOrder :arrow_right: Person.
+    -   A **StockOrder** is `requestedFor` a **Building** - this is a 1-1 relationship.
+        -  StockOrder :arrow_right: Building.
+    -   A **StockOrder** is a request for a specific `orderedProduct` - this 1-1 relationship.
+        -  StockOrder :arrow_right: Product.
 -   The [**Product** model](https://fiware.github.io/tutorials.Step-by-Step/schema/Product/) remains unchanged. It has
     no relationships of its own.
 
