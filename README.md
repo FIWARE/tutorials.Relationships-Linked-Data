@@ -75,7 +75,8 @@ The complete data model must be understandable by both developers and machines.
     [`https://fiware.github.io/tutorials.Step-by-Step/tutorials-context.jsonld`](https://fiware.github.io/tutorials.Step-by-Step/tutorials-context.jsonld) -
     this file will be used to provide the `@context` to power our NGSI-LD data entities.
 
-Four data models have been created for this NGSI-LD stock management system. The relationships between are described below: 
+Four data models have been created for this NGSI-LD stock management system. The relationships between the models
+are described below: 
 
 -   The [**Store** model](https://fiware.github.io/tutorials.Step-by-Step/schema/Store/) is now based on and extends the
     FIWARE
