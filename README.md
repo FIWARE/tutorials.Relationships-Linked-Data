@@ -85,21 +85,28 @@ The richer JSON-LD description language is able to define NSGI-LD entities by li
 
 ![](https://jason-fox.github.io/tutorials.Relationships-Linked-Data/img/entities-ld.png)
 
--   The **Store** is now based on the FIWARE **Building** model. This ensures that it offers standard properties for
+- A full Human readable definition of this data model can be found [online](https://fiware.github.io/tutorials.Step-by-Step/schema).
+- The machine readable JSON-LD defintion for t can be found at [`https://fiware.github.io/tutorials.Step-by-Step/tutorials-context.jsonld`](https://fiware.github.io/tutorials.Step-by-Step/tutorials-context.jsonld) - this file will be used to provide the `@context` to power our NGSI-LD data entities.
+
+Four models have been created for the NGSI-LD stock management system.
+
+-   The [**Store** model](https://fiware.github.io/tutorials.Step-by-Step/schema/Store/) is now based on and extends the FIWARE [**Building** model](https://fiware-datamodels.readthedocs.io/en/latest/Building/Building/doc/spec/index.html). This ensures that it offers standard properties for
     `name`, `address` and category.
     -   A Building will hold `furniture` this is a 1-many unidirectional relationship from Building to Shelf
--   **Shelf** is a custom data model defined for the tutorial
+-   The [**Shelf** model](https://fiware.github.io/tutorials.Step-by-Step/schema/Shelf/) is a custom data model defined for the tutorial
     -   Each **Shelf** is `locatedIn` a **Building**. This is a 1-1 unidirectional relationship from Shelf to Building.
         It is the reciprical relationship to `furniture` defined above.
     -   A **Shelf** is `installedBy` a **Person** - this is a unidirectional 1-1 relationship. A shelf knows who
         installed it, but it is this knowledge is not part of the Person entity itself.
     -   A **Shelf** `stocks` a given **Product**. This is another unidirectional 1-1 relationship, and again it is not
         recipricated. A **Product** does not know which **Shelf** it is to be found on.
--   The bridge table **Inventory Item** has been replaced by **StockOrder**:
+-   A [**StockOrder** model]](https://fiware.github.io/tutorials.Step-by-Step/schema/StockOrder/) replaces the  **Inventory Item** bridge table defined for NGSI v2 :
     -   A **StockOrder** is `requestedBy` a **Person** - this is a unidirectional 1-1 relationship.
     -   A **StockOrder** is `requestedFor` a **Building** - this is a unidirectional 1-1 relationship.
     -   A **StockOrder** is a request for a specific `orderedProduct` - this unidirectional 1-1 relationship.
--   The **Product** entity model remains unchanged. It has no relationships of its own.
+-   The [**Product** model](https://fiware.github.io/tutorials.Step-by-Step/schema/Product/) remains unchanged. It has no relationships of its own.
+
+Additionally some relationships have been defined to linked to `https://schema.org/Person` entities.
 
 ### Designing Models for Linked Data.
 
@@ -113,36 +120,103 @@ Can;t jump.
 
 ## Traversing links.
 
-> **Example**: Imagine the scenario where a pallet of Products are moved from stock in the warehouse onto the shelves of
-> the store. How would NGSI v2 and NGSI-LD computations differ?
+> **Example**: Imagine the scenario where a pallet of Products are moved from stock in the warehouse (`stockCount`) onto the shelves of
+> the store (`storeCount`) . How would NGSI v2 and NGSI-LD computations differ?
 
 ### How is this defined in NGSI-v2?
 
 In NGSI v2 the convenience bridge table **InventoryItem** entity had been created specifically to hold both count on the
-shelf and count in the warehouse in a single location. In any computation only **InventoryItem** Entity would be
+shelf and count in the warehouse in a single location. In any computation only the **InventoryItem** entity would be
 involved. The `stockCount` value would be decremented and the `shelfCount` value would incremented. In the NGSI v2 model
-both the `storeCount` and the `shelfCount` both of these attributes have been placed into the **InventoryItem** Entity
-for pure convenience. This is a necessary workaround for NGSI v2 and it allows for simpler data reading and data
-manipulation. However technically it is ontologically incorrect - `shelfCount` (i.e. the number of Items on the shelf)
-should be an attribute in **Shelf**. There should be no direct relationship between the **InventoryItem** and **Shelf**.
+both the `storeCount` and the `shelfCount` have been placed into the conceptual **InventoryItem** Entity. This is a necessary workaround for NGSI v2 and it allows for simpler data reading and data
+manipulation. However technically it is ontologically incorrect, as there is no such thing as an  **InventoryItem** in the real world, it is really two separate ledgers, products bought for the store and products sold on the shelf,
+which in turn have an indirect relationship.
 
 ### How is this defined in NGSI-LD?
 
-With linked data concepts it is much easier for computers to navigate between entities and therefore the `shelfCount`
-attribute in **InventoryItem** has moved and is now correctly defined as a `numberOfItems` attribute in the **Shelf**
-entity.
+With linked data concepts (specifically `@graph` and `@context`) it is much easier for computers to understand indirect relationships and navigate between linked entities. Therefore
+**Shelf** can be directly assigned a `numberOfItems` attribute and the model is ontologically correct.
+
+Meanwhile another ontologically correct **StockOrder** Entity can be created
+which holds a entry of which items are currently on order for each store. This is a proper context data entity as `stockCount` describes the current state of a product in the warehouse.
 
 To move a pallet of products onto a shelf it would be possible for a computer navigate the relationships in the linked
 data the `@graph` from **StockOrder** to **Shelf** as shown:
 
--   Some `product:XXX` items have been removed from `stockOrder:0001`
--   Interogating the **StockOrder** is discovered that the **Product** is `requestedFor` for a URI e.g. `store:002`
+-   Some `product:XXX` items have been removed from `stockOrder:0001` - decrement `stockCount`.
+-   Interogating the **StockOrder** is discovered that the **Product** is `requestedFor` for a specific URI e.g. `store:002`
+
+```json
+  "@graph": [
+   {
+      "@id": "tutorial:orderedProduct",
+      "@type": "https://uri.etsi.org/ngsi-ld/Relationship",
+      "schema:domainIncludes": [{"@id": "tutorial:StockOrder"}],
+      "schema:rangeIncludes": [{"@id": "tutorial:Product"}],
+      "rdfs:comment": "The Product ordered for a store",
+      "rdfs:label": "orderedProduct"
+    },
+    ...etc
+]
+```
 -   It is also discovered from the **StockOrder** model that the `requestedFor` URI defines a **Building**
+
+```json
+  "@graph": [
+    {
+      "@id": "tutorial:requestedFor",
+      "@type": "https://uri.etsi.org/ngsi-ld/Relationship",
+      "schema:domainIncludes": [{"@id": "tutorial:StockOrder"}],
+      "schema:rangeIncludes": [{"@id": "fiware:Building"}],
+      "rdfs:comment": "Store for which an item is requested",
+      "rdfs:label": "requestedFor"
+    },
+    ...etc
+]
+```
+
 -   It is discovered from the **Building** model that every **Building** contains `furniture` as an array of URIs.
 -   It is discovered from the **Building** model that these URIs represent **Shelf** units
--   it is discovered from the **Shelf** model that the `stocks` attribute holds a URI representing **Product** items.
--   A request the **Shelf** unit which holds the correct **Product** for the `stocks` attribute is made and the Shelf
-    loaded.
+
+```json
+"@graph": [
+    {
+      "@id": "tutorial:furniture",
+      "@type": "https://uri.etsi.org/ngsi-ld/Relationship",
+      "schema:domainIncludes": [{"@id": "fiware:Building"}],
+      "schema:rangeIncludes": [{"@id": "tutorial:Shelf"}],
+      "rdfs:comment": "Units found within a Building",
+      "rdfs:label": "furniture"
+    },
+    ...etc
+]
+```
+
+
+-   It is discovered from the **Shelf** model that the `stocks` attribute holds a URI representing **Product** items.
+
+```json
+"@graph": [
+    {
+      "@id": "tutorial:stocks",
+      "@type": "https://uri.etsi.org/ngsi-ld/Relationship",
+      "schema:domainIncludes": [{"@id": "tutorial:Shelf"}],
+      "schema:rangeIncludes": [{"@id": "tutorial:Product"}],
+      "rdfs:comment": "The product found on a shelf",
+      "rdfs:label": "stocks"
+    },
+    ...etc
+]
+```
+
+
+-   A request the **Shelf** unit which holds the correct **Product** for the `stocks` attribute is made and the Shelf `numberOfItems` attribute can be incremented.
+
+The @grpah
+
+
+
+
 
 # Prerequisites
 
