@@ -67,7 +67,7 @@ The richer JSON-LD description language is able to define NSGI-LD entities by li
 
 ![](https://jason-fox.github.io/tutorials.Relationships-Linked-Data/img/entities-ld.png)
 
-A complete data model must be understandable by both developer and machines.
+The complete data model must be understandable by both developers and machines.
 
 -   A full Human readable definition of this data model can be found
     [online](https://fiware.github.io/tutorials.Step-by-Step/schema).
@@ -75,7 +75,7 @@ A complete data model must be understandable by both developer and machines.
     [`https://fiware.github.io/tutorials.Step-by-Step/tutorials-context.jsonld`](https://fiware.github.io/tutorials.Step-by-Step/tutorials-context.jsonld) -
     this file will be used to provide the `@context` to power our NGSI-LD data entities.
 
-Relationships between four models have been created for the NGSI-LD stock management system.
+Four data models have been created for this NGSI-LD stock management system. The relationships between are described below: 
 
 -   The [**Store** model](https://fiware.github.io/tutorials.Step-by-Step/schema/Store/) is now based on and extends the
     FIWARE
