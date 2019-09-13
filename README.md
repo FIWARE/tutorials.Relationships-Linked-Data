@@ -63,7 +63,7 @@ associative relationships between entities.
 
 ### Data Models for a Stock management system defined using NGSI-LD
 
-The richer JSON-LD description language is able to define NSGI-LD entities by linking entities directly as shown below.
+The richer [JSON-LD](https://json-ld.org/spec/FCGS/json-ld/20130328) description language is able to define NSGI-LD entities by linking entities directly as shown below.
 
 ![](https://jason-fox.github.io/tutorials.Relationships-Linked-Data/img/entities-ld.png)
 
@@ -155,8 +155,8 @@ can decide to update two attributes of one **InventoryItem** Entity or two separ
 
 ### Relationships with Linked Data
 
-With a well defined data model using linked data, every relationship is predefined in advance and is discoverable. Using
-JSON linked-data concepts (specifically `@graph` and `@context`) it is much easier for computers to understand indirect
+With a well defined data model using linked data, every relationship can be predefined in advance and is discoverable. Using
+[JSON-LD](https://json-ld.org/spec/FCGS/json-ld/20130328) concepts (specifically `@graph` and `@context`) it is much easier for computers to understand indirect
 relationships and navigate between linked entities. Due to hese additional annotations it is possible to create usable
 models which are ontologically correct and therefore **Shelf** can now be directly assigned a `numberOfItems` attribute
 and bridge table concept is no longer required. This is necessary as other systems may be interogating **Shelf** directly.
