@@ -151,7 +151,8 @@ on the shelf, which in turn have an indirect relationship.
 
 Since the entity data is not yet machine readable externally, the programmer is free to design models as she sees fit and
 can decide to update two attributes of one **InventoryItem** Entity or two separate attributes on two separate
-**Shelf** and **StockOrder** entities without regards as to whether these really are real concrete items in the real world.
+**Shelf** and **StockOrder** entities without regards as to whether these really are real concrete items in the real world. 
+However this means **external systems** cannot discover information for themselves and must be pre-programmed to know where information is held. 
 
 ### Relationships with Linked Data
 
@@ -165,8 +166,8 @@ Similarly a real **StockOrder** Entity can be created which holds a entry of whi
 store. This is a proper context data entity as `stockCount` describes the current state of a product in the warehouse.
 Once again this describes a single, real world entity and is ontologically correct.
 
-In the linked data scenario, it would be possible for an **external system** to discover relationships and interogate
-our Supermarket. Imagine for example, an
+Unlike the NGSI v2 scenario, with linked data, it would be possible for an **external system** to discover relationships
+and interogate our Supermarket. Imagine for example, an
 [Autonomous Mobile Robot](https://www.intorobotics.com/40-excellent-autonomous-mobile-robots-on-wheels-that-you-can-build-at-home/)
 system which is used to move a pallet of products onto a shelf it would be possible for this **external system** to
 "know" about our supermarket by navigating the relationships in the linked data the `@graph` from **StockOrder** to
@@ -241,6 +242,11 @@ system which is used to move a pallet of products onto a shelf it would be possi
 
 -   A request the **Shelf** unit which holds the correct **Product** for the `stocks` attribute is made and the Shelf
     `numberOfItems` attribute can be incremented.
+    
+Through creating and using standard data models and decribing the linked data properly, it would not matter to the robot
+if the underlying system were to change, provided that the Properties and Relationships resolve to fully qualified names
+(FQN) and a complete `@graph`.  For example the JSON  short name attributes could be amended or the relationships
+redesigned but their real intent (which resolves to a fixed FQN) could still be discovered and used.
 
 # Prerequisites
 
