@@ -52,27 +52,8 @@ four NGSI v2 entity models was defined as shown below:
 
 ![](https://jason-fox.github.io/tutorials.Relationships-Linked-Data/img/entities-v2.png)
 
--   A **Store** is a real world bricks and mortar building. **Store** entities have properties such as:
-    -   A name of the store e.g. "Checkpoint Markt"
-    -   An address "Friedrichstraße 44, 10969 Kreuzberg, Berlin"
-    -   A phyiscal location e.g. _52.5075 N, 13.3903 E_
--   A shelf is a real world device to hold objects which we wish to sell. Each **Shelf** entity has properties such as:
-    -   A name of the shelf e.g. "Wall Unit"
-    -   A phyiscal location e.g. _52.5075 N, 13.3903 E_
-    -   A maximum capacity
-    -   A relationship to the store `refStore` in which the shelf is present
--   A **Product** is defined as something that we sell - it is conceptural object. **Product** entities have properties
-    such as:
-    -   A name of the product e.g. "Vodka"
-    -   A price e.g. 13.99 Euros
-    -   A size e.g. Small
--   An inventory item is another conceptural entity, used to assocate products, stores, shelves and physical objects.
-    **Inventory Item** entities has properties such as:
-    -   An relationship `refProduct` to the product being sold
-    -   An relationship `refStore` to the store in which the product is being sold
-    -   An relationship `refShelf` to the shelf where the product is being displayed
-    -   A stock count of the quantity of the product available in the warehouse
-    -   A stock count of the quantity of the product available on the shelf.
+More details can be found in the NGSI v2
+[Entity Relationships](https://github.com/FIWARE/tutorials.Entity-Relationships) tutorial.
 
 In NGSI v2 relationship attributes are just standard properties attributes. By convention NGSI v2 relationship
 attributes are given names starting `ref` and are defined using the `type="Relationship"`. However, this is merely
@@ -108,39 +89,33 @@ Four models have been created for the NGSI-LD stock management system.
 
 Additionally some relationships have been defined to linked to `https://schema.org/Person` entities.
 
-### Designing Models for Linked Data.
 
-Every entity relationship in NGSI-LD is a direct directional link from one entity to another.
-
-Unlike the looser relationships in NGSI-v2, you should not place information
-
-so for unlike
-
-Can;t jump.
-
-## Traversing links.
+## Traversing links
 
 > **Example**: Imagine the scenario where a pallet of Products are moved from stock in the warehouse (`stockCount`) onto the shelves of
 > the store (`storeCount`) . How would NGSI v2 and NGSI-LD computations differ?
 
-### How is this defined in NGSI-v2?
+### Relationships without Linked Data
 
-In NGSI v2 the convenience bridge table **InventoryItem** entity had been created specifically to hold both count on the
+Without linked data, there is no machine readable way to connect entities together. Every data relationship must be known in advanced somehow. Within an isolated Smart System this is not an issue, since the architect of the system will know in advance _what-connects-to-what_.
+
+For example in the NGSI v2 tutorial, the convenience bridge table **InventoryItem** entity had been created specifically to hold both count on the
 shelf and count in the warehouse in a single location. In any computation only the **InventoryItem** entity would be
 involved. The `stockCount` value would be decremented and the `shelfCount` value would incremented. In the NGSI v2 model
 both the `storeCount` and the `shelfCount` have been placed into the conceptual **InventoryItem** Entity. This is a necessary workaround for NGSI v2 and it allows for simpler data reading and data
 manipulation. However technically it is ontologically incorrect, as there is no such thing as an  **InventoryItem** in the real world, it is really two separate ledgers, products bought for the store and products sold on the shelf,
 which in turn have an indirect relationship.
 
-### How is this defined in NGSI-LD?
+### Relationships with Linked Data
 
-With linked data concepts (specifically `@graph` and `@context`) it is much easier for computers to understand indirect relationships and navigate between linked entities. Therefore
-**Shelf** can be directly assigned a `numberOfItems` attribute and the model is ontologically correct.
+With a well defined data model using linked data, every relationship is defined in advance and is discoverable. Using JSON linked-data concepts (specifically `@graph` and `@context`) it is much easier for computers to understand indirect relationships and navigate between linked entities. Due to hese additional annotatations it is possible to create usable models which are
+ontologically correct and therefore
+**Shelf** can be directly assigned a `numberOfItems` attribute and bridge table concept is no longer required.
 
-Meanwhile another ontologically correct **StockOrder** Entity can be created
-which holds a entry of which items are currently on order for each store. This is a proper context data entity as `stockCount` describes the current state of a product in the warehouse.
+Similarly a **StockOrder** Entity  can be created
+which holds a entry of which items are currently on order for each store. This is a proper context data entity as `stockCount` describes the current state of a product in the warehouse. Once again this describes a real world entity and is ontologically correct.
 
-To move a pallet of products onto a shelf it would be possible for a computer navigate the relationships in the linked
+In the linked data scenario, it would be possible for an **external system** to discover relationships ans interogate the Supermarket. Imagine for example an [Autonomous Mobile Robot](https://www.intorobotics.com/40-excellent-autonomous-mobile-robots-on-wheels-that-you-can-build-at-home/) which is used to  move a pallet of products onto a shelf it would be possible for this **external system** to navigate the relationships in the linked
 data the `@graph` from **StockOrder** to **Shelf** as shown:
 
 -   Some `product:XXX` items have been removed from `stockOrder:0001` - decrement `stockCount`.
@@ -212,9 +187,12 @@ data the `@graph` from **StockOrder** to **Shelf** as shown:
 
 -   A request the **Shelf** unit which holds the correct **Product** for the `stocks` attribute is made and the Shelf `numberOfItems` attribute can be incremented.
 
-The @grpah
+### Comparison between Linked and Non-Linked Data Systems
 
+Obviously within a single isolated Smart System itself, it makes no difference whether a rich, complex linked-data architecture is used or a simpler, non-linked-data system is created. The programmer of an isolated system is free to update two
+attributes of the **InventoryItem**  Entity or two separate **Shelf** and **StockOrder** attributes without regards as to whether these really are real concrete items in the real world.
 
+However if the data is designed to be shared, then linked data is a requirement to avoid data silos. An external system is unable to "know" what relationships are unless they have been provided in a machine readable form.
 
 
 
