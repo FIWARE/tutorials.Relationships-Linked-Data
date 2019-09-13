@@ -41,7 +41,8 @@ complex knowledge graph.
 
 ## Designing Data Models using JSON-LD
 
-In order for computers to be able to navigate linked data structures, a full `@context` must be defined and accessible.
+In order for computers to be able to navigate linked data structures, proper ontologically correct data models
+must be created and a full `@context` must be defined and made accessible.
 We can do this by reviewing and updating the existing data models from the NGSI v2
 [Entity Relationships](https://github.com/FIWARE/tutorials.Entity-Relationships) tutorial.
 
