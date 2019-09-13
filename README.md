@@ -66,60 +66,82 @@ The richer JSON-LD description language is able to define NSGI-LD entities by li
 
 ![](https://jason-fox.github.io/tutorials.Relationships-Linked-Data/img/entities-ld.png)
 
-- A full Human readable definition of this data model can be found [online](https://fiware.github.io/tutorials.Step-by-Step/schema).
-- The machine readable JSON-LD defintion for t can be found at [`https://fiware.github.io/tutorials.Step-by-Step/tutorials-context.jsonld`](https://fiware.github.io/tutorials.Step-by-Step/tutorials-context.jsonld) - this file will be used to provide the `@context` to power our NGSI-LD data entities.
+A complete data model must be understandable by both developer and machines.
 
-Four models have been created for the NGSI-LD stock management system.
+-   A full Human readable definition of this data model can be found
+    [online](https://fiware.github.io/tutorials.Step-by-Step/schema).
+-   The machine readable JSON-LD defintion can be found at
+    [`https://fiware.github.io/tutorials.Step-by-Step/tutorials-context.jsonld`](https://fiware.github.io/tutorials.Step-by-Step/tutorials-context.jsonld) -
+    this file will be used to provide the `@context` to power our NGSI-LD data entities.
 
--   The [**Store** model](https://fiware.github.io/tutorials.Step-by-Step/schema/Store/) is now based on and extends the FIWARE [**Building** model](https://fiware-datamodels.readthedocs.io/en/latest/Building/Building/doc/spec/index.html). This ensures that it offers standard properties for
-    `name`, `address` and category.
+Relationships between four models have been created for the NGSI-LD stock management system.
+
+-   The [**Store** model](https://fiware.github.io/tutorials.Step-by-Step/schema/Store/) is now based on and extends the
+    FIWARE
+    [**Building** model](https://fiware-datamodels.readthedocs.io/en/latest/Building/Building/doc/spec/index.html). This
+    ensures that it offers standard properties for `name`, `address` and category.
     -   A Building will hold `furniture` this is a 1-many unidirectional relationship from Building to Shelf
--   The [**Shelf** model](https://fiware.github.io/tutorials.Step-by-Step/schema/Shelf/) is a custom data model defined for the tutorial
+-   The [**Shelf** model](https://fiware.github.io/tutorials.Step-by-Step/schema/Shelf/) is a custom data model defined
+    for the tutorial
     -   Each **Shelf** is `locatedIn` a **Building**. This is a 1-1 unidirectional relationship from Shelf to Building.
         It is the reciprical relationship to `furniture` defined above.
     -   A **Shelf** is `installedBy` a **Person** - this is a unidirectional 1-1 relationship. A shelf knows who
         installed it, but it is this knowledge is not part of the Person entity itself.
     -   A **Shelf** `stocks` a given **Product**. This is another unidirectional 1-1 relationship, and again it is not
         recipricated. A **Product** does not know which **Shelf** it is to be found on.
--   A [**StockOrder** model]](https://fiware.github.io/tutorials.Step-by-Step/schema/StockOrder/) replaces the  **Inventory Item** bridge table defined for NGSI v2 :
+-   A [**StockOrder** model](https://fiware.github.io/tutorials.Step-by-Step/schema/StockOrder/) replaces the
+    **Inventory Item** bridge table defined for NGSI v2 :
     -   A **StockOrder** is `requestedBy` a **Person** - this is a unidirectional 1-1 relationship.
     -   A **StockOrder** is `requestedFor` a **Building** - this is a unidirectional 1-1 relationship.
     -   A **StockOrder** is a request for a specific `orderedProduct` - this unidirectional 1-1 relationship.
--   The [**Product** model](https://fiware.github.io/tutorials.Step-by-Step/schema/Product/) remains unchanged. It has no relationships of its own.
+-   The [**Product** model](https://fiware.github.io/tutorials.Step-by-Step/schema/Product/) remains unchanged. It has
+    no relationships of its own.
 
-Additionally some relationships have been defined to linked to `https://schema.org/Person` entities.
+Additionally some relationships have been defined to be linked to `https://schema.org/Person` entities. This could be
+outlinks to a separate HR system for example.
 
+## Traversing relationships
 
-## Traversing links
-
-> **Example**: Imagine the scenario where a pallet of Products are moved from stock in the warehouse (`stockCount`) onto the shelves of
-> the store (`storeCount`) . How would NGSI v2 and NGSI-LD computations differ?
+> **Example**: Imagine the scenario where a pallet of Products are moved from stock in the warehouse (`stockCount`) onto
+> the shelves of the store (`storeCount`) . How would NGSI v2 and NGSI-LD computations differ?
 
 ### Relationships without Linked Data
 
-Without linked data, there is no machine readable way to connect entities together. Every data relationship must be known in advanced somehow. Within an isolated Smart System this is not an issue, since the architect of the system will know in advance _what-connects-to-what_.
+Without linked data, there is no machine readable way to connect entities together. Every data relationship must be
+known in advanced somehow. Within an isolated Smart System this is not an issue, since the architect of the system will
+know in advance _what-connects-to-what_.
 
-For example in the NGSI v2 tutorial, the convenience bridge table **InventoryItem** entity had been created specifically to hold both count on the
-shelf and count in the warehouse in a single location. In any computation only the **InventoryItem** entity would be
-involved. The `stockCount` value would be decremented and the `shelfCount` value would incremented. In the NGSI v2 model
-both the `storeCount` and the `shelfCount` have been placed into the conceptual **InventoryItem** Entity. This is a necessary workaround for NGSI v2 and it allows for simpler data reading and data
-manipulation. However technically it is ontologically incorrect, as there is no such thing as an  **InventoryItem** in the real world, it is really two separate ledgers, products bought for the store and products sold on the shelf,
-which in turn have an indirect relationship.
+For example in the simple NGSI v2 Entity Relationships tutorial, a convenience bridge table **InventoryItem** entity had
+been created specifically to hold both count on the shelf and count in the warehouse in a single entity. In any
+computation only the **InventoryItem** entity would be involved. The `stockCount` value would be decremented and the
+`shelfCount` value would incremented. In the NGSI v2 model both the `storeCount` and the `shelfCount` have been placed
+into the conceptual **InventoryItem** Entity. This is a necessary workaround for NGSI v2 and it allows for simpler data
+reading and data manipulation. However technically it is ontologically incorrect, as there is no such thing as an
+**InventoryItem** in the real world, it is really two separate ledgers, products bought for the store and products sold
+on the shelf, which in turn have an indirect relationship.
 
 ### Relationships with Linked Data
 
-With a well defined data model using linked data, every relationship is defined in advance and is discoverable. Using JSON linked-data concepts (specifically `@graph` and `@context`) it is much easier for computers to understand indirect relationships and navigate between linked entities. Due to hese additional annotatations it is possible to create usable models which are
-ontologically correct and therefore
-**Shelf** can be directly assigned a `numberOfItems` attribute and bridge table concept is no longer required.
+With a well defined data model using linked data, every relationship is predefined in advance and is discoverable. Using
+JSON linked-data concepts (specifically `@graph` and `@context`) it is much easier for computers to understand indirect
+relationships and navigate between linked entities. Due to hese additional annotations it is possible to create usable
+models which are ontologically correct and therefore **Shelf** can now be directly assigned a `numberOfItems` attribute
+and bridge table concept is no longer required.
 
-Similarly a **StockOrder** Entity  can be created
-which holds a entry of which items are currently on order for each store. This is a proper context data entity as `stockCount` describes the current state of a product in the warehouse. Once again this describes a real world entity and is ontologically correct.
+Similarly a real **StockOrder** Entity can be created which holds a entry of which items are currently on order for each
+store. This is a proper context data entity as `stockCount` describes the current state of a product in the warehouse.
+Once again this describes a single, real world entity and is ontologically correct.
 
-In the linked data scenario, it would be possible for an **external system** to discover relationships ans interogate the Supermarket. Imagine for example an [Autonomous Mobile Robot](https://www.intorobotics.com/40-excellent-autonomous-mobile-robots-on-wheels-that-you-can-build-at-home/) which is used to  move a pallet of products onto a shelf it would be possible for this **external system** to navigate the relationships in the linked
-data the `@graph` from **StockOrder** to **Shelf** as shown:
+In the linked data scenario, it would be possible for an **external system** to discover relationships and interogate
+our Supermarket. Imagine for example, an
+[Autonomous Mobile Robot](https://www.intorobotics.com/40-excellent-autonomous-mobile-robots-on-wheels-that-you-can-build-at-home/)
+system which is used to move a pallet of products onto a shelf it would be possible for this **external system** to
+"know" about our supermarket by navigating the relationships in the linked data the `@graph` from **StockOrder** to
+**Shelf** as shown:
 
 -   Some `product:XXX` items have been removed from `stockOrder:0001` - decrement `stockCount`.
--   Interogating the **StockOrder** is discovered that the **Product** is `requestedFor` for a specific URI e.g. `store:002`
+-   Interogating the **StockOrder** is discovered that the **Product** is `requestedFor` for a specific URI e.g.
+    `store:002`
 
 ```json
   "@graph": [
@@ -134,6 +156,7 @@ data the `@graph` from **StockOrder** to **Shelf** as shown:
     ...etc
 ]
 ```
+
 -   It is also discovered from the **StockOrder** model that the `requestedFor` URI defines a **Building**
 
 ```json
@@ -167,7 +190,6 @@ data the `@graph` from **StockOrder** to **Shelf** as shown:
 ]
 ```
 
-
 -   It is discovered from the **Shelf** model that the `stocks` attribute holds a URI representing **Product** items.
 
 ```json
@@ -184,17 +206,31 @@ data the `@graph` from **StockOrder** to **Shelf** as shown:
 ]
 ```
 
-
--   A request the **Shelf** unit which holds the correct **Product** for the `stocks` attribute is made and the Shelf `numberOfItems` attribute can be incremented.
+-   A request the **Shelf** unit which holds the correct **Product** for the `stocks` attribute is made and the Shelf
+    `numberOfItems` attribute can be incremented.
 
 ### Comparison between Linked and Non-Linked Data Systems
 
-Obviously within a single isolated Smart System itself, it makes no difference whether a rich, complex linked-data architecture is used or a simpler, non-linked-data system is created. The programmer of an isolated system is free to update two
-attributes of the **InventoryItem**  Entity or two separate **Shelf** and **StockOrder** attributes without regards as to whether these really are real concrete items in the real world.
+Obviously within a single isolated Smart System itself, it makes no difference whether a rich, complex linked-data
+architecture is used or a simpler, non-linked-data system is created. The programmer of an isolated system is free to
+update two attributes of the **InventoryItem** Entity or two separate **Shelf** and **StockOrder** attributes without
+regards as to whether these really are real concrete items in the real world.
 
-However if the data is designed to be shared, then linked data is a requirement to avoid data silos. An external system is unable to "know" what relationships are unless they have been provided in a machine readable form.
+However if the data is designed to be shared, then linked data is a requirement to avoid data silos. An external system
+is unable to "know" what relationships are unless they have been provided in a machine readable form.
 
+### :arrow_forward: Video: Rich Snippets: Product Search
 
+A simple example of an external system interogating for structured data can be found in online product search. Machines
+from third parties such as Google are able to read product information (encoded using a standard
+[**Product** data model](https://jsonld.com/product/)) and display a rich snippet of product information with a standard
+star rating.
+
+[![](http://img.youtube.com/vi/_-rRxKSm2ic/0.jpg)](https://www.youtube.com/watch?v=_-rRxKSm2ic "Rich Snippets")
+
+Click on the image above to watch an introductory video on rich snippets for product search.
+
+Further machine readable data model examples can be found on the [Steal Our JSON-LD](https://jsonld.com/) website.
 
 # Prerequisites
 
