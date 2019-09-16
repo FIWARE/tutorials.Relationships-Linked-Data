@@ -540,6 +540,9 @@ The programmatically the Shelf model is fully described in the
 
 ### Obtain Shelf Information
 
+Initially each shelf is created with `name`, `maxCapacity` and `location` _Properties_ only. A sample shelf is requested
+below.
+
 #### :four: Request:
 
 ```console
@@ -550,6 +553,8 @@ curl -X GET \
 
 #### Response:
 
+The short names have been returned since the `@context` has been supplied in the `Link` header.
+
 ```json
 {
     "@context": "https://fiware.github.io/tutorials.Step-by-Step/datamodels-context.jsonld",
@@ -559,15 +564,50 @@ curl -X GET \
     "maxCapacity": 50,
     "location": {
         "type": "Point",
-        "coordinates": [
-            13.398611,
-            52.554699
-        ]
+        "coordinates": [13.398611, 52.554699]
     }
 }
 ```
 
+## Creating Relationships
+
+To complete the data model within the data model, various additional _Properties_ and _Relationships_ need to be added
+to the entity.
+
+A **Shelf** holds a `numberOfItems` - this is a `Property` of the **Shelf** and contains a `value` representing the
+number of Items. The `value` of this _Property_ (i.e. the number of Items will change over time). _Properties_ have been
+covered in a [previous tutorial](https://github.com/FIWARE/tutorials.Linked-Data) and will not be covered in detail
+here.
+
+A **Shelf** `stocks` a given **Product** - this is a `Relationship` of the **Shelf** Only the URN of the product is
+known by the **Shelf** entity - effectively it points to further information held elsewhere.
+
+To distingiush _Relationships_, they must be given `type="Relationship` and each _Relationship_ has must have an
+`object` sub-attribute, This contrasts with _Properties_ which must a `type="Property` have a `value` attribute. The
+`object` sub-attribute holds the reference to the related entity in the form of a URN.
+
+A **Shelf** is `locatedIn` a given **Building**. Once again this is a `Relationship` of the **Shelf**. The URN of the
+**Building** is known by the **Shelf** entity, but further information is also available:
+
+-   `locatedIn[requestedBy]` is a _Relationship-of-a-Relationship_, this sub-attribute in turn holds an `object`
+    attribute of its own pointing to a **Person**
+-   `locatedIn[installedBy]` is a _Relationship-of-a-Relationship_, this sub-attribute in turn holds an `object`
+    attribute of its own pointing to a **Person**
+-   `locatedIn[statusOfWork]` is a _Property-of-a-Relationship_, this sub-attribute in turn holds an `value` attribute
+    holding the current status of the `locatedIn` action.
+
+As you can see, it is possible to embed further _Properties_ (with a corresponding `value`) or _Relationships_ (with a
+corresponding `object`) inside the entity structure to provide a rich graph of information
+
 ### Adding 1-1 Relationships
+
+Within the `@context` a **Shelf** has been predefined with two relationships. (`stocks` and `locatedIn`)
+
+To create a relationship add a new attribute with `type=Relationship` and an associated object attribute. Metadat about
+the relationships (e.g. `requestedBy`, `installedBy`)can be created by adding subattributes to the relationship. The
+value of object is the URN corresponding to the linked data entity.
+
+Note that the relationship is currently unidirectional. **Shelf** :arrow_right: **Building**.
 
 #### :five: Request:
 
@@ -577,25 +617,25 @@ curl -X POST \
   -H 'Content-Type: application/ld+json' \
   -H 'fiware-servicepath: /' \
   -d '{
+    "numberOfItems": {"type": "Property","value": 50},
     "stocks": {
       "type": "Relationship",
         "object": "urn:ngsi-ld:Product:001"
     },
-    "numberOfItems": {"type": "Property","value": 50},
     "locatedIn" : {
       "type": "Relationship", "object": "urn:ngsi-ld:Building:store001",
       "requestedBy": {
-      "type": "Relationship",
-      "object": "urn:ngsi-ld:Person:bob-the-manager"
-    },
+        "type": "Relationship",
+        "object": "urn:ngsi-ld:Person:bob-the-manager"
+      },
       "installedBy": {
-      "type": "Relationship",
-      "object": "urn:ngsi-ld:Person:employee001"
-    },
-    "statusOfWork": {
-      "type": "Property",
-      "value": "completed"
-    }
+        "type": "Relationship",
+        "object": "urn:ngsi-ld:Person:employee001"
+      },
+      "statusOfWork": {
+        "type": "Property",
+        "value": "completed"
+      }
     },
     "@context": [
     "https://fiware.github.io/tutorials.Step-by-Step/tutorials-context.jsonld",
@@ -606,15 +646,23 @@ curl -X POST \
 
 ### Obtain the Updated Shelf
 
+Having added the additional attributes, it is possible to query for the amended entity.
+
+This example returns the context data of the Shelf entity with the `id=urn:ngsi-ld:Shelf:unit001`.
+
 #### :six: Request:
 
 ```console
 curl -X GET \
-  'http://localhost:1026/ngsi-ld/v1/entities/urn:ngsi-ld:Shelf:unit001/?options=keyValues' \
-  -H 'Link: <https://fiware.github.io/tutorials.Step-by-Step/datamodels-context.jsonld>; rel="http://www.w3.org/ns/json-ld#context"; type="application/ld+json"'
+  http://localhost:1026/ngsi-ld/v1/entities/urn:ngsi-ld:Shelf:unit001
 ```
 
 #### Response:
+
+There are now two additional relationship attributes present `stocks` and `locatedIn`. Both entries have been expanded
+as fully qualified names (FQNs), as defined in the
+[**Shelf** Data Model](https://fiware.github.io/tutorials.Step-by-Step/schema/Shelf/) as the `Link` header was not
+passed in the previous request.
 
 ```json
 {
@@ -657,15 +705,75 @@ curl -X GET \
         "type": "GeoProperty",
         "value": {
             "type": "Point",
-            "coordinates": [
-                13.398611,
-                52.554699
-            ]
+            "coordinates": [13.398611, 52.554699]
         }
     }
 }
 ```
 
+For example, this means that `https://fiware.github.io/tutorials.Step-by-Step/schema/locatedIn` is a well-defined
+relationship within our linked data JSON-LD schema.
+
+### How is the relationship's Fully Qualified Name created ?
+
+One of the central motivations of JSON-LD is making it easy to translate between different representations of what are
+fundamentally the same data types. In this case, the short hand `locatedIn` refers to the unique and computer readable
+`https://fiware.github.io/tutorials.Step-by-Step/schema/locatedIn`
+
+To do this NGSI-LD uses the two core expansion and compaction algorithms of the underlying JSON-LD model.
+
+Looking at the relevant lines in the JSON-LD `@context`:
+
+```json
+    "tutorial": "https://fiware.github.io/tutorials.Step-by-Step/schema/",
+
+    "Shelf": "tutorial:Shelf",
+
+    "locatedIn": {
+      "@id": "tutorial:locatedIn",
+      "@type": "@id"
+    },
+```
+
+You can see that `tutorial` has been mapped to the string `https://fiware.github.io/tutorials.Step-by-Step/schema/` and
+`locatedIn` has been mapped to `tutorial:locatedIn` which using
+
+Furthermore, `locatedIn` has an `@type="@id"` which indicates to a computer that its underlying value is a URN.
+
+### :arrow_forward: Video: JSON-LD Compaction & Expansion
+
+[![](http://img.youtube.com/vi/Tm3fD89dqRE/0.jpg)](https://www.youtube.com/watch?v=Tm3fD89dqRE "JSON-LD Compaction & Expansion")
+
+Click on the image above to watch a video JSON-LD expansion and compaction with referrence to the `@context`.
+
+### What other relationship information can be obtained from the data model?
+
+More information about `Relationships` can be obtained from the `@graph` of the linked data model. For `locatedIn` the
+relevant section definition is as follows:
+
+```json
+    {
+      "@id": "tutorial:locatedIn",
+      "@type": "https://uri.etsi.org/ngsi-ld/Relationship",
+      "schema:domainIncludes": [{"@id": "tutorial:Shelf"}],
+      "schema:rangeIncludes": [{"@id": "fiware:Building"}],
+      "rdfs:comment": "Building in which an item is found",
+      "rdfs:label": "located In"
+    },
+```
+
+This indicates a lot of additional information about the `locatedIn` _Relationship_ in a computer readable fashion:
+
+-   `locatedIn` is really an NGSI-LD relationship (i.e. it has the FQN `https://uri.etsi.org/ngsi-ld/Relationship`)
+-   `locatedIn` is only used on **Shelf** entities
+-   `locatedIn` only points to **Building** entities
+-   `locatedIn` can be defined for humans as _"Building in which an item is found"_
+-   `locatedIn` can be labelled as _"located In"_ when labelling the _Relationship_.
+
+Through reading the NGSI-LD data entity and its associated data model, a computer can obtain as much information as a
+human can from reading the human-readable equivalent data specification:
+
+![](https://jason-fox.github.io/tutorials.Relationships-Linked-Data/img/shelf-specification.png)
 
 ### Find the store in which a specific shelf is located
 
@@ -711,7 +819,6 @@ curl -X GET \
 ]
 ```
 
-
 ### Adding a 1-many relationship
 
 #### :nine: Request:
@@ -748,10 +855,7 @@ curl -X GET \
 {
     "id": "urn:ngsi-ld:Building:store001",
     "type": "Building",
-    "furniture": [
-        "urn:ngsi-ld:Shelf:001",
-        "urn:ngsi-ld:Shelf:002"
-    ]
+    "furniture": ["urn:ngsi-ld:Shelf:001", "urn:ngsi-ld:Shelf:002"]
 }
 ```
 
