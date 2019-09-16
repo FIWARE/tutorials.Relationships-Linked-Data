@@ -386,7 +386,40 @@ The response returns all of the existing **Building** entities, with the attribu
 (FQNs).
 
 ```json
-
+[
+    {
+        "@context": "https://uri.etsi.org/ngsi-ld/v1/ngsi-ld-core-context.jsonld",
+        "id": "urn:ngsi-ld:Building:store001",
+        "type": "https://uri.fiware.org/ns/datamodels#Building",
+        "name": "Bösebrücke Einkauf",
+        "https://schema.org/address": {
+            "streetAddress": "Bornholmer Straße 65",
+            "addressRegion": "Berlin",
+            "addressLocality": "Prenzlauer Berg",
+            "postalCode": "10439"
+        },
+        "https://uri.fiware.org/ns/datamodels#category": ["commercial"],
+        "location": {
+            "type": "Point", "coordinates": [13.3986, 52.5547]
+        }
+    },
+    {
+        "@context": "https://uri.etsi.org/ngsi-ld/v1/ngsi-ld-core-context.jsonld",
+        "id": "urn:ngsi-ld:Building:store002",
+        "type": "https://uri.fiware.org/ns/datamodels#Building",
+        "name": "Checkpoint Markt",
+        "https://schema.org/address": {
+            "streetAddress": "Friedrichstraße 44",
+            "addressRegion": "Berlin",
+            "addressLocality": "Kreuzberg",
+            "postalCode": "10969"
+        },
+        "https://uri.fiware.org/ns/datamodels#category": ["commercial"],
+        "location": {
+            "type": "Point", "coordinates": [13.3903, 52.5075]
+        }
+    },
+    ... etc
 ```
 
 According to the [defined data model](https://fiware.github.io/tutorials.Step-by-Step/schema/Store/):
@@ -421,7 +454,24 @@ curl -X GET \
 However since the full context has been supplied in the `Link` header, the short names are returned.
 
 ```json
-
+[
+    {
+        "@context": "https://fiware.github.io/tutorials.Step-by-Step/datamodels-context.jsonld",
+        "id": "urn:ngsi-ld:Product:001",
+        "type": "Product",
+        "name": "Beer",
+        "price": 0.99,
+        "size": "S"
+    },
+    {
+        "@context": "https://fiware.github.io/tutorials.Step-by-Step/datamodels-context.jsonld",
+        "id": "urn:ngsi-ld:Product:002",
+        "type": "Product",
+        "name": "Red Wine",
+        "price": 10.99,
+        "size": "M"
+    },
+    .. etc
 ```
 
 According to the [defined data model](https://fiware.github.io/tutorials.Step-by-Step/schema/Product/):
@@ -453,7 +503,28 @@ curl -X GET \
 Once again the short names are returned.
 
 ```json
-
+[
+    {
+        "@context": "https://fiware.github.io/tutorials.Step-by-Step/datamodels-context.jsonld",
+        "id": "urn:ngsi-ld:Shelf:unit001",
+        "type": "Shelf",
+        "name": "Corner Unit",
+        "maxCapacity": 50,
+        "location": {
+            "type": "Point", "coordinates": [13.398611, 52.554699]
+        }
+    },
+    {
+        "@context": "https://fiware.github.io/tutorials.Step-by-Step/datamodels-context.jsonld",
+        "id": "urn:ngsi-ld:Shelf:unit002",
+        "type": "Shelf",
+        "name": "Wall Unit 1",
+        "maxCapacity": 100,
+        "location": {
+            "type": "Point", "coordinates": [13.398722, 52.554664]
+        }
+    },
+    ... etc
 ```
 
 According to the [defined data model](https://fiware.github.io/tutorials.Step-by-Step/schema/Shelf/):
@@ -475,6 +546,25 @@ The programmatically the Shelf model is fully described in the
 curl -X GET \
   'http://localhost:1026/ngsi-ld/v1/entities/urn:ngsi-ld:Shelf:unit001/?options=keyValues' \
   -H 'Link: <https://fiware.github.io/tutorials.Step-by-Step/datamodels-context.jsonld>; rel="http://www.w3.org/ns/json-ld#context"; type="application/ld+json"'
+```
+
+#### Response:
+
+```json
+{
+    "@context": "https://fiware.github.io/tutorials.Step-by-Step/datamodels-context.jsonld",
+    "id": "urn:ngsi-ld:Shelf:unit001",
+    "type": "Shelf",
+    "name": "Corner Unit",
+    "maxCapacity": 50,
+    "location": {
+        "type": "Point",
+        "coordinates": [
+            13.398611,
+            52.554699
+        ]
+    }
+}
 ```
 
 ### Adding 1-1 Relationships
@@ -524,6 +614,58 @@ curl -X GET \
   -H 'Link: <https://fiware.github.io/tutorials.Step-by-Step/datamodels-context.jsonld>; rel="http://www.w3.org/ns/json-ld#context"; type="application/ld+json"'
 ```
 
+#### Response:
+
+```json
+{
+    "@context": "https://uri.etsi.org/ngsi-ld/v1/ngsi-ld-core-context.jsonld",
+    "id": "urn:ngsi-ld:Shelf:unit001",
+    "type": "https://fiware.github.io/tutorials.Step-by-Step/schema/Shelf",
+    "name": {
+        "type": "Property",
+        "value": "Corner Unit"
+    },
+    "https://fiware.github.io/tutorials.Step-by-Step/schema/locatedIn": {
+        "type": "Relationship",
+        "object": "urn:ngsi-ld:Building:store001",
+        "installedBy": {
+            "type": "Relationship",
+            "object": "urn:ngsi-ld:Person:employee001"
+        },
+        "requestedBy": {
+            "type": "Relationship",
+            "object": "urn:ngsi-ld:Person:bob-the-manager"
+        },
+        "statusOfWork": {
+            "type": "Property",
+            "value": "completed"
+        }
+    },
+    "https://fiware.github.io/tutorials.Step-by-Step/schema/maxCapacity": {
+        "type": "Property",
+        "value": 50
+    },
+    "https://fiware.github.io/tutorials.Step-by-Step/schema/numberOfItems": {
+        "type": "Property",
+        "value": 50
+    },
+    "https://fiware.github.io/tutorials.Step-by-Step/schema/stocks": {
+        "type": "Relationship",
+        "object": "urn:ngsi-ld:Product:001"
+    },
+    "location": {
+        "type": "GeoProperty",
+        "value": {
+            "type": "Point",
+            "coordinates": [
+                13.398611,
+                52.554699
+            ]
+        }
+    }
+}
+```
+
 
 ### Find the store in which a specific shelf is located
 
@@ -533,6 +675,17 @@ curl -X GET \
 curl -X GET \
   'http://localhost:1026/ngsi-ld/v1/entities/urn:ngsi-ld:Shelf:unit001/?attrs=locatedIn&options=keyValues' \
   -H 'Link: <https://fiware.github.io/tutorials.Step-by-Step/datamodels-context.jsonld>; rel="http://www.w3.org/ns/json-ld#context"; type="application/ld+json"'
+```
+
+#### Response:
+
+```json
+{
+    "@context": "https://fiware.github.io/tutorials.Step-by-Step/datamodels-context.jsonld",
+    "id": "urn:ngsi-ld:Shelf:unit001",
+    "type": "Shelf",
+    "locatedIn": "urn:ngsi-ld:Building:store001"
+}
 ```
 
 ### Find the locations where shelves have been installed
@@ -545,6 +698,19 @@ curl -X GET \
   -H 'Accept: application/json' \
   -H 'Link: <https://fiware.github.io/tutorials.Step-by-Step/datamodels-context.jsonld>; rel="http://www.w3.org/ns/json-ld#context"; type="application/ld+json"'
 ```
+
+#### Response:
+
+```json
+[
+    {
+        "id": "urn:ngsi-ld:Shelf:unit001",
+        "type": "Shelf",
+        "locatedIn": "urn:ngsi-ld:Building:store001"
+    }
+]
+```
+
 
 ### Adding a 1-many relationship
 
@@ -576,6 +742,18 @@ curl -X GET \
   -H 'Link: <https://fiware.github.io/tutorials.Step-by-Step/datamodels-context.jsonld>; rel="http://www.w3.org/ns/json-ld#context"; type="application/ld+json"'
 ```
 
+#### Response:
+
+```json
+{
+    "id": "urn:ngsi-ld:Building:store001",
+    "type": "Building",
+    "furniture": [
+        "urn:ngsi-ld:Shelf:001",
+        "urn:ngsi-ld:Shelf:002"
+    ]
+}
+```
 
 ### Creating Complex Relationships
 
@@ -628,6 +806,18 @@ curl -X GET \
   -H 'Link: <https://fiware.github.io/tutorials.Step-by-Step/datamodels-context.jsonld>; rel="http://www.w3.org/ns/json-ld#context"; type="application/ld+json"'
 ```
 
+#### Response:
+
+```json
+[
+    {
+        "id": "urn:ngsi-ld:StockOrder:001",
+        "type": "StockOrder",
+        "requestedFor": "urn:ngsi-ld:Building:store001"
+    }
+]
+```
+
 ### Find all products sold in a store
 
 #### :one::three: Request:
@@ -639,6 +829,18 @@ curl -X GET \
   -H 'Link: <https://fiware.github.io/tutorials.Step-by-Step/datamodels-context.jsonld>; rel="http://www.w3.org/ns/json-ld#context"; type="application/ld+json"'
 ```
 
+#### Response:
+
+```json
+[
+    {
+        "id": "urn:ngsi-ld:StockOrder:001",
+        "type": "StockOrder",
+        "orderedProduct": "urn:ngsi-ld:Product:001"
+    }
+]
+```
+
 ### Obtain Stock Order
 
 #### :one::four: Request:
@@ -646,6 +848,24 @@ curl -X GET \
 ```console
 curl -X GET \
   'http://localhost:1026/ngsi-ld/v1/entities/urn:ngsi-ld:StockOrder:001?options=keyValues'
+```
+
+#### Response:
+
+```json
+{
+    "@context": "https://uri.etsi.org/ngsi-ld/v1/ngsi-ld-core-context.jsonld",
+    "id": "urn:ngsi-ld:StockOrder:001",
+    "type": "https://fiware.github.io/tutorials.Step-by-Step/schema/StockOrder",
+    "https://fiware.github.io/tutorials.Step-by-Step/schema/orderDate": {
+        "@type": "DateTime",
+        "@value": "2018-08-07T12:00:00Z"
+    },
+    "https://fiware.github.io/tutorials.Step-by-Step/schema/orderedProduct": "urn:ngsi-ld:Product:001",
+    "https://fiware.github.io/tutorials.Step-by-Step/schema/requestedBy": "urn:ngsi-ld:Person:bob-the-manager",
+    "https://fiware.github.io/tutorials.Step-by-Step/schema/requestedFor": "urn:ngsi-ld:Building:store001",
+    "https://fiware.github.io/tutorials.Step-by-Step/schema/stockCount": 10000
+}
 ```
 
 ---
