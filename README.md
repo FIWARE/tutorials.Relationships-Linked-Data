@@ -424,11 +424,11 @@ The response returns all of the existing **Building** entities, with the attribu
 
 According to the [defined data model](https://fiware.github.io/tutorials.Step-by-Step/schema/Store/):
 
--   The `type` attribute is an `https://uri.etsi.org/ngsi-ld/type`
--   The `name` attribute is an `https://uri.etsi.org/ngsi-ld/name`
--   The `location` attribute is an `https://uri.etsi.org/ngsi-ld/location`
--   The `address` attribute is an `http://schema.org/address`
--   The `category` attribute is an `https://uri.fiware.org/ns/datamodels#category`
+-   The `type` attribute has the FQN `https://uri.etsi.org/ngsi-ld/type`
+-   The `name` attribute has the FQN `https://uri.etsi.org/ngsi-ld/name`
+-   The `location` attribute has the FQN `https://uri.etsi.org/ngsi-ld/location`
+-   The `address` attribute has the FQN `http://schema.org/address`
+-   The `category` attribute has the FQN `https://uri.fiware.org/ns/datamodels#category`
 
 `type`, `name` and `location` are defined in the NGSI-LD Core Context:
 [`https://uri.etsi.org/ngsi-ld/v1/ngsi-ld-core-context.jsonld`](https://uri.etsi.org/ngsi-ld/v1/ngsi-ld-core-context.jsonld).
@@ -476,13 +476,13 @@ However since the full context has been supplied in the `Link` header, the short
 
 According to the [defined data model](https://fiware.github.io/tutorials.Step-by-Step/schema/Product/):
 
--   The `type` attribute is an `https://uri.etsi.org/ngsi-ld/type`
--   The `name` attribute is an `https://uri.etsi.org/ngsi-ld/name`
--   The `price` attribute is an `https://fiware.github.io/tutorials.Step-by-Step/schema/price`
--   The `size` attribute is an `https://fiware.github.io/tutorials.Step-by-Step/schema/size`
--   The `currency` attribute is an `https://fiware.github.io/tutorials.Step-by-Step/schema/currency`
+-   The `type` attribute has the FQN `https://uri.etsi.org/ngsi-ld/type`
+-   The `name` attribute has the FQN `https://uri.etsi.org/ngsi-ld/name`
+-   The `price` attribute has the FQN `https://fiware.github.io/tutorials.Step-by-Step/schema/price`
+-   The `size` attribute has the FQN `https://fiware.github.io/tutorials.Step-by-Step/schema/size`
+-   The `currency` attribute has the FQN `https://fiware.github.io/tutorials.Step-by-Step/schema/currency`
 
-The programmatically the Product model is fully described in the
+The programmatically the Product model and its attributes are fully described in the
 [`https://fiware.github.io/tutorials.Step-by-Step/tutorials-context.jsonld`](https://fiware.github.io/tutorials.Step-by-Step/tutorials-context.jsonld)
 
 ### Display all Shelves
@@ -529,13 +529,13 @@ Once again the short names are returned.
 
 According to the [defined data model](https://fiware.github.io/tutorials.Step-by-Step/schema/Shelf/):
 
--   The `type` attribute is an `https://uri.etsi.org/ngsi-ld/type`
--   The `name` attribute is an `https://uri.etsi.org/ngsi-ld/name`
--   The `location` attribute is an `https://uri.etsi.org/ngsi-ld/location`
--   The `maxCapacity` attribute is an `https://fiware.github.io/tutorials.Step-by-Step/schema/maxCapacity`
--   The `numberOfItems` attribute is an `https://fiware.github.io/tutorials.Step-by-Step/schema/numberOfItems`
+-   The `type` attribute has the FQN `https://uri.etsi.org/ngsi-ld/type`
+-   The `name` attribute has the FQN `https://uri.etsi.org/ngsi-ld/name`
+-   The `location` attribute has the FQN `https://uri.etsi.org/ngsi-ld/location`
+-   The `maxCapacity` attribute has the FQN `https://fiware.github.io/tutorials.Step-by-Step/schema/maxCapacity`
+-   The `numberOfItems` attribute has the FQN `https://fiware.github.io/tutorials.Step-by-Step/schema/numberOfItems`
 
-The programmatically the Shelf model is fully described in the
+The programmatically the Shelf model and its attributes are fully described in the
 [`https://fiware.github.io/tutorials.Step-by-Step/tutorials-context.jsonld`](https://fiware.github.io/tutorials.Step-by-Step/tutorials-context.jsonld)
 
 ### Obtain Shelf Information
@@ -777,6 +777,10 @@ human can from reading the human-readable equivalent data specification:
 
 ### Find the store in which a specific shelf is located
 
+This example returns the `locatedIn` value associated with a given `Shelf` unit.
+
+If the `id` and `type` of a data entity are known, a specific field can be requested by using the `attrs` parameter.
+
 #### :seven: Request:
 
 ```
@@ -796,7 +800,10 @@ curl -X GET \
 }
 ```
 
-### Find the locations where shelves have been installed
+### Find the ids of all Shelf Units in a Store
+
+This example returns the `locatedIn` URNs of all **Shelf** entities found within `urn:ngsi-ld:Building:store001`. This
+is purely an instance of using the `q` parameter to filter on attribute value
 
 #### :eight: Request:
 
@@ -809,6 +816,8 @@ curl -X GET \
 
 #### Response:
 
+The response contains an array displaying
+
 ```json
 [
     {
@@ -820,6 +829,11 @@ curl -X GET \
 ```
 
 ### Adding a 1-many relationship
+
+To add a 1-many relationship, add an array as the value of `object` attribute. This can be used for simple links without
+additional data. This method is used to add **Shelf** entities as `furniture` in the **Store**.
+
+This is the reciprocal relationship to the `locatedIn` attribute on **Shelf**
 
 #### :nine: Request:
 
@@ -839,6 +853,11 @@ curl -X POST \
 ```
 
 ### Finding all shelf units found within a Store
+
+To find all the `furniture` within a **Building**, simply make a request to retrieve the `furniture` attribute.
+
+Because the repicrocal relationship already exists, Additional information can be obtained from the **Shelf** entities
+themselves.
 
 #### :one::zero: Request:
 

@@ -205,7 +205,8 @@
 					{
 						"key": "Link",
 						"value": "<https://fiware.github.io/tutorials.Step-by-Step/datamodels-context.jsonld>; rel=\"http://www.w3.org/ns/json-ld#context\"; type=\"application/ld+json\"",
-						"type": "text"
+						"type": "text",
+						"disabled": true
 					},
 					{
 						"key": "",
@@ -280,12 +281,12 @@
 						}
 					]
 				},
-				"description": "This example returns the `refStore` value associated with a given `Shelf` unit. \n\nIf the `id` and `type` of a data entity are known, a specific field can be requested by combining the `options=values` parameter and the `attrs` parameter. \n\nThe URN returned has a standard format: `urn:ngsi-ld:<entity-type>:<entity-id>`, which has been used as the `id` of the **Store** entity itself (based on the NGSI-LD [draft recommendation](https://docbox.etsi.org/ISG/CIM/Open/ISG_CIM_NGSI-LD_API_Draft_for_public_review.pdf)), therefore it is a simple matter to request more information about the linked store by making a query to the `/entities` endpoint.\n\n```\nhttp://{{orion}}/v2/entities/urn:ngsi-ld:Store:001?options=keyValues\n```"
+				"description": "This example returns the `locatedIn` value associated with a given `Shelf` unit. \n\nIf the `id` and `type` of a data entity are known, a specific field can be requested by using the `attrs` parameter."
 			},
 			"response": []
 		},
 		{
-			"name": "Find where all Shelf Units are installed",
+			"name": "Find the ids of all Shelf Units in a Store",
 			"request": {
 				"method": "GET",
 				"header": [
@@ -302,7 +303,7 @@
 					}
 				],
 				"url": {
-					"raw": "http://{{orion}}/ngsi-ld/v1/entities/?type=Shelf&options=keyValues&attrs=locatedIn",
+					"raw": "http://{{orion}}/ngsi-ld/v1/entities/?type=Shelf&options=keyValues&q=locatedIn==\"urn:ngsi-ld:Building:store001\"&attrs=locatedIn",
 					"protocol": "http",
 					"host": [
 						"{{orion}}"
@@ -323,12 +324,16 @@
 							"value": "keyValues"
 						},
 						{
+							"key": "q",
+							"value": "locatedIn==\"urn:ngsi-ld:Building:store001\""
+						},
+						{
 							"key": "attrs",
 							"value": "locatedIn"
 						}
 					]
 				},
-				"description": "This example returns the URN of all stores in which the product `id=urn:ngsi-ld:Product:001` is sold. The URN returned has a standard format: `urn:ngsi-ld:<entity-type>:<entity-id>`.\n\nBecause we have based the `id` of the **Store** entity on the NGSI-LD [draft recommendation](https://docbox.etsi.org/ISG/CIM/Open/ISG_CIM_NGSI-LD_API_Draft_for_public_review.pdf)), therefore it is a simple matter to request more information about the linked store by making a query to the `/entities` endpoint.\n\n```\nhttp://{{orion}}/v2/entities/urn:ngsi-ld:Store:001?options=keyValues\n```\n\nSince there is no direct relationship between product and store, a query must be made to find all entities which have both `refProduct` and `refStore` attributes.\n\nIn  our current context the `type` parameter is optional since only one type of entity contains the fields requested in the request"
+				"description": "This example returns the `locatedIn` URNs of all **Shelf** entities found within `urn:ngsi-ld:Building:store001`. This is purely an instance of using the `q` parameter to filter on attribute value"
 			},
 			"response": []
 		},
@@ -360,7 +365,7 @@
 						"attrs"
 					]
 				},
-				"description": "There are two ways to add a 1-many relationship. The simplest method is to add an array as \nthe value of  `object` attribute. This can be used for simple links without additional data.\nThis method is used to add `furniture` to the **Store.\n\n\nAn alternative is to add a `relationship` to  another object which itself holds further information,\nthis is the case with the `stockList` attribute."
+				"description": "To add a 1-many relationship, add an array as \nthe value of  `object` attribute. This can be used for simple links without additional data.\nThis method is used to add **Shelf** entities as `furniture` in the **Store**.\n\nThis is the reciprocal relationship to the `locatedIn` attribute on **Shelf**"
 			},
 			"response": []
 		},
@@ -404,7 +409,7 @@
 						}
 					]
 				},
-				"description": "This example returns the `name` of all `Shelf` entities associated with the `shop1`.\n\nThe value of the query parameter `q` holds a URN of the form `urn:ngsi-ld:<entity-type>:<entity-id>` which corresponds to the the Relationship URN in order to filter the information returned."
+				"description": "To find all the `furniture` within a **Building**, simply make a request to \nretrieve the `furniture` attribute. \n\nBecause the repicrocal relationship already exists,\nAdditional information can be obtained from the **Shelf** entities themselves."
 			},
 			"response": []
 		},
@@ -435,7 +440,7 @@
 						}
 					]
 				},
-				"description": "This example returns the context data of the `Shelf` entity with the `id=urn:ngsi-ld:Shelf:unit001`.\n\nThe response now includes a new relationship property `refStore`, which has been added in the previous step."
+				"description": "This example returns the context data of the `Building` entity with the `id=urn:ngsi-ld:Building:store001`.\n\nThe response now includes the additional relationship property `furniture`, which has been added in the previous step."
 			},
 			"response": []
 		},
@@ -628,7 +633,7 @@
 	],
 	"variable": [
 		{
-			"id": "f09860c0-9158-433f-a3f4-48eb291f1c21",
+			"id": "7c7ec412-b02a-4916-8a1a-7d625da7b27a",
 			"key": "orion",
 			"value": "localhost:1026",
 			"type": "string"
