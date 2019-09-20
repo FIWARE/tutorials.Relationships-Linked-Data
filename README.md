@@ -96,7 +96,7 @@ data models from the NGSI v2 [Entity Relationships](https://github.com/FIWARE/tu
 As a reminder, four types of entity were created in the NGSI v2 stock management system. The relationship between the
 four NGSI v2 entity models was defined as shown below:
 
-![](https://jason-fox.github.io/tutorials.Relationships-Linked-Data/img/entities-v2.png)
+![](https://fiware.github.io/tutorials.Relationships-Linked-Data/img/entities-v2.png)
 
 More details can be found in the NGSI v2
 [Entity Relationships](https://github.com/FIWARE/tutorials.Entity-Relationships) tutorial.
@@ -111,7 +111,7 @@ associative relationships between entities.
 The richer [JSON-LD](https://json-ld.org/spec/FCGS/json-ld/20130328) description language is able to define NSGI-LD
 entities by linking entities directly as shown below.
 
-![](https://jason-fox.github.io/tutorials.Relationships-Linked-Data/img/entities-ld.png)
+![](https://fiware.github.io/tutorials.Relationships-Linked-Data/img/entities-ld.png)
 
 The complete data model must be understandable by both developers and machines.
 
@@ -819,7 +819,7 @@ This indicates a lot of additional information about the `locatedIn` _Relationsh
 Through reading the NGSI-LD data entity and its associated data model, a computer can obtain as much information as a
 human can from reading the human-readable equivalent data specification:
 
-![](https://jason-fox.github.io/tutorials.Relationships-Linked-Data/img/shelf-specification.png)
+![](https://fiware.github.io/tutorials.Relationships-Linked-Data/img/shelf-specification.png)
 
 ### Find the store in which a specific shelf is located
 
