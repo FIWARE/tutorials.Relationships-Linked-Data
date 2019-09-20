@@ -56,7 +56,7 @@ The tutorial uses [cUrl](https://ec.haxx.se/) commands throughout, but is also a
         -   [Creating Complex Relationships](#creating-complex-relationships)
         -   [Find all stores in which a product is sold](#find-all-stores-in-which-a-product-is-sold)
         -   [Find all products sold in a store](#find-all-products-sold-in-a-store)
-        -   [Obtain Stock Order](#obtain-stock-order
+        -   [Obtain Stock Order](#obtain-stock-order)
 
 </details>
 
