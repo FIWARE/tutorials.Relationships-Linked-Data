@@ -18,7 +18,53 @@ The tutorial uses [cUrl](https://ec.haxx.se/) commands throughout, but is also a
 
 [![Run in Postman](https://run.pstmn.io/button.svg)](https://app.getpostman.com/run-collection/125db8d3a1ea3dab8e3f)
 
+## Contents
+
+<details>
+<summary><strong>Details</strong></summary>
+
+-   [Relationships in Linked Data](#relationships-in-linked-data)
+    -   [Designing Data Models using JSON-LD](#designing-data-models-using-json-ld)
+        -   [Revision: Data Models for a Stock management system as defined using NGSI-v2](#revision-data-models-for-a-stock-management-system-as-defined-using-ngsi-v2)
+        -   [Data Models for a Stock management system defined using NGSI-LD](#data-models-for-a-stock-management-system-defined-using-ngsi-ld)
+    -   [Comparison between Linked and Non-Linked Data Systems](#comparison-between-linked-and-non-linked-data-systems)
+        -   [:arrow_forward: Video: Rich Snippets: Product Search](#arrow_forward-video-rich-snippets-product-search)
+    -   [Traversing relationships](#traversing-relationships)
+        -   [Relationships without Linked Data](#relationships-without-linked-data)
+        -   [Relationships with Linked Data](#relationships-with-linked-data)
+-   [Prerequisites](#prerequisites)
+    -   [Docker](#docker)
+    -   [Cygwin](#cygwin)
+-   [Architecture](#architecture)
+-   [Start Up](#start-up)
+-   [Creating and Associating Data Entities](#creating-and-associating-data-entities)
+    -   [Reviewing existing entities](#reviewing-existing-entities)
+        -   [Display all Buildings](#display-all-buildings)
+        -   [Display all Products](#display-all-products)
+        -   [Display all Shelves](#display-all-shelves)
+        -   [Obtain Shelf Information](#obtain-shelf-information)
+    -   [Creating Relationships](#creating-relationships)
+        -   [Adding 1-1 Relationships](#adding-1-1-relationships)
+        -   [Obtain the Updated Shelf](#obtain-the-updated-shelf)
+        -   [How is the relationship's Fully Qualified Name created ?](#how-is-the-relationships-fully-qualified-name-created-)
+        -   [:arrow_forward: Video: JSON-LD Compaction & Expansion](#arrow_forward-video-json-ld-compaction--expansion)
+        -   [What other relationship information can be obtained from the data model?](#what-other-relationship-information-can-be-obtained-from-the-data-model)
+        -   [Find the store in which a specific shelf is located](#find-the-store-in-which-a-specific-shelf-is-located)
+        -   [Find the ids of all Shelf Units in a Store](#find-the-ids-of-all-shelf-units-in-a-store)
+        -   [Adding a 1-many relationship](#adding-a-1-many-relationship)
+        -   [Finding all shelf units found within a Store](#finding-all-shelf-units-found-within-a-store)
+        -   [Creating Complex Relationships](#creating-complex-relationships)
+        -   [Find all stores in which a product is sold](#find-all-stores-in-which-a-product-is-sold)
+        -   [Find all products sold in a store](#find-all-products-sold-in-a-store)
+        -   [Obtain Stock Order](#obtain-stock-order
+
+</details>
+
 # Relationships in Linked Data
+
+> “It’s hard to communicate anything exactly and that’s why perfect relationships between people are difficult to find.”
+>
+> ― Gustave Flaubert, L'Éducation sentimentale
 
 All NGSI data entity attributes can be divided into one of two types.
 
@@ -880,6 +926,14 @@ curl -X GET \
 
 ### Creating Complex Relationships
 
+To create a more complex relationship, and additional data entity must be created which holds the current state of the
+links between real world items. In the case of the NGSI-LD data model we have already created, a **StockOrder** can be
+used to link **Product**, **Building** and **Person** entities and the state of the relationships between them. As well
+as _Relationship_ attributes, a **StockOrder** can hold _Property_ attributes (such as the `stockCount`) and other more
+complex metadata such as _Properties-of-Properties_ or _Properties-of-Relationships_
+
+The **StockOrder** is created as a standard NGSI-LD data entity.
+
 #### :one::one: Request:
 
 ```console
@@ -920,6 +974,12 @@ curl -X POST \
 
 ### Find all stores in which a product is sold
 
+Since _Relationship_ attributes are just like any other attribute, standard `q` parameter queries can be made on the
+**StockOrder** to obtain which entity relates to it. For example the query below returns an array of stores in which a
+given product is sold.
+
+The query `q==orderedProduct="urn:ngsi-ld:Product:001"` is used to filter the entities.
+
 #### :one::two: Request:
 
 ```console
@@ -930,6 +990,8 @@ curl -X GET \
 ```
 
 #### Response:
+
+The response returns an array of `requestedFor` attributes in the response.
 
 ```json
 [
@@ -943,6 +1005,10 @@ curl -X GET \
 
 ### Find all products sold in a store
 
+The query below returns an array of stores in which a given product is sold.
+
+The query `q==requestedFor="urn:ngsi-ld:Building:store001"` is used to filter the entities.
+
 #### :one::three: Request:
 
 ```console
@@ -953,6 +1019,9 @@ curl -X GET \
 ```
 
 #### Response:
+
+The response returns an array of `orderedProduct` attributes in the response. This is the reciprocal of the previous
+request.
 
 ```json
 [
@@ -966,6 +1035,9 @@ curl -X GET \
 
 ### Obtain Stock Order
 
+A complete stock order can be obtained by making a standard GET request to the `/ngsi-ld/v1/entities/` endpoint and
+adding the appropriate URN.
+
 #### :one::four: Request:
 
 ```console
@@ -974,6 +1046,8 @@ curl -X GET \
 ```
 
 #### Response:
+
+The response returns the fully expanded entity.
 
 ```json
 {
