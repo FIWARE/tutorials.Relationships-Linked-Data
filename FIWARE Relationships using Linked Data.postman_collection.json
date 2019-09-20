@@ -7,6 +7,21 @@
 	},
 	"item": [
 		{
+			"name": "Obtain full Linked Data model context",
+			"request": {
+				"method": "GET",
+				"header": [],
+				"url": {
+					"raw": "{{datamodels-context.jsonld}}",
+					"host": [
+						"{{datamodels-context.jsonld}}"
+					]
+				},
+				"description": "Information about the data models and relationships used within this tutorial\ncan be obtained by requesting the full `@context` and `@graph`."
+			},
+			"response": []
+		},
+		{
 			"name": "Display all Buildings",
 			"request": {
 				"method": "GET",
@@ -52,7 +67,7 @@
 					{
 						"key": "Link",
 						"type": "text",
-						"value": "<https://fiware.github.io/tutorials.Step-by-Step/datamodels-context.jsonld>; rel=\"http://www.w3.org/ns/json-ld#context\"; type=\"application/ld+json\""
+						"value": "<{{datamodels-context.jsonld}}>; rel=\"http://www.w3.org/ns/json-ld#context\"; type=\"application/ld+json\""
 					}
 				],
 				"url": {
@@ -89,7 +104,7 @@
 					{
 						"key": "Link",
 						"type": "text",
-						"value": "<https://fiware.github.io/tutorials.Step-by-Step/datamodels-context.jsonld>; rel=\"http://www.w3.org/ns/json-ld#context\"; type=\"application/ld+json\""
+						"value": "<{{datamodels-context.jsonld}}>; rel=\"http://www.w3.org/ns/json-ld#context\"; type=\"application/ld+json\""
 					}
 				],
 				"url": {
@@ -125,7 +140,7 @@
 				"header": [
 					{
 						"key": "Link",
-						"value": "<https://fiware.github.io/tutorials.Step-by-Step/datamodels-context.jsonld>; rel=\"http://www.w3.org/ns/json-ld#context\"; type=\"application/ld+json\"",
+						"value": "<{{datamodels-context.jsonld}}>; rel=\"http://www.w3.org/ns/json-ld#context\"; type=\"application/ld+json\"",
 						"type": "text"
 					}
 				],
@@ -204,7 +219,7 @@
 				"header": [
 					{
 						"key": "Link",
-						"value": "<https://fiware.github.io/tutorials.Step-by-Step/datamodels-context.jsonld>; rel=\"http://www.w3.org/ns/json-ld#context\"; type=\"application/ld+json\"",
+						"value": "<{{datamodels-context.jsonld}}>; rel=\"http://www.w3.org/ns/json-ld#context\"; type=\"application/ld+json\"",
 						"type": "text",
 						"disabled": true
 					},
@@ -247,7 +262,7 @@
 				"header": [
 					{
 						"key": "Link",
-						"value": "<https://fiware.github.io/tutorials.Step-by-Step/datamodels-context.jsonld>; rel=\"http://www.w3.org/ns/json-ld#context\"; type=\"application/ld+json\"",
+						"value": "<{{datamodels-context.jsonld}}>; rel=\"http://www.w3.org/ns/json-ld#context\"; type=\"application/ld+json\"",
 						"type": "text"
 					}
 				],
@@ -293,7 +308,7 @@
 					{
 						"key": "Link",
 						"type": "text",
-						"value": "<https://fiware.github.io/tutorials.Step-by-Step/datamodels-context.jsonld>; rel=\"http://www.w3.org/ns/json-ld#context\"; type=\"application/ld+json\""
+						"value": "<{{datamodels-context.jsonld}}>; rel=\"http://www.w3.org/ns/json-ld#context\"; type=\"application/ld+json\""
 					},
 					{
 						"key": "Accept",
@@ -376,7 +391,7 @@
 				"header": [
 					{
 						"key": "Link",
-						"value": "<https://fiware.github.io/tutorials.Step-by-Step/datamodels-context.jsonld>; rel=\"http://www.w3.org/ns/json-ld#context\"; type=\"application/ld+json\"",
+						"value": "<{{datamodels-context.jsonld}}>; rel=\"http://www.w3.org/ns/json-ld#context\"; type=\"application/ld+json\"",
 						"type": "text"
 					},
 					{
@@ -482,7 +497,7 @@
 				"header": [
 					{
 						"key": "Link",
-						"value": "<https://fiware.github.io/tutorials.Step-by-Step/datamodels-context.jsonld>; rel=\"http://www.w3.org/ns/json-ld#context\"; type=\"application/ld+json\"",
+						"value": "<{{datamodels-context.jsonld}}>; rel=\"http://www.w3.org/ns/json-ld#context\"; type=\"application/ld+json\"",
 						"type": "text"
 					},
 					{
@@ -534,7 +549,7 @@
 				"header": [
 					{
 						"key": "Link",
-						"value": "<https://fiware.github.io/tutorials.Step-by-Step/datamodels-context.jsonld>; rel=\"http://www.w3.org/ns/json-ld#context\"; type=\"application/ld+json\"",
+						"value": "<{{datamodels-context.jsonld}}>; rel=\"http://www.w3.org/ns/json-ld#context\"; type=\"application/ld+json\"",
 						"type": "text"
 					},
 					{
@@ -633,9 +648,15 @@
 	],
 	"variable": [
 		{
-			"id": "7c7ec412-b02a-4916-8a1a-7d625da7b27a",
+			"id": "5fb3b1d6-0db0-4711-9ea0-29e50de614e5",
 			"key": "orion",
 			"value": "localhost:1026",
+			"type": "string"
+		},
+		{
+			"id": "af7c10bd-3272-41cd-a8c3-f65e9375cb6e",
+			"key": "datamodels-context.jsonld",
+			"value": "https://fiware.github.io/tutorials.Step-by-Step/tutorials-context.jsonld",
 			"type": "string"
 		}
 	]
