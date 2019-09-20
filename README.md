@@ -422,8 +422,9 @@ It is therefore possible to request all building entities without supplying a kn
 #### :one: Request:
 
 ```console
-curl -X GET \
-  'http://localhost:1026/ngsi-ld/v1/entities?type=https://uri.fiware.org/ns/datamodels%23Building&options=keyValues'
+curl -G -X GET \
+  'http://localhost:1026/ngsi-ld/v1/entities' \
+  -d 'type=https://uri.fiware.org/ns/datamodels%23Building&options=keyValues'
 ```
 
 #### Response:
@@ -490,8 +491,10 @@ Requesting the **Product** entities can be done by supplying the FQN of the enti
 #### :two: Request:
 
 ```console
-curl -X GET \
-  'http://localhost:1026/ngsi-ld/v1/entities?type=https://fiware.github.io/tutorials.Step-by-Step/schema/Product&options=keyValues' \
+curl -G -X GET \
+  'http://localhost:1026/ngsi-ld/v1/entities' \
+  -d 'type=https://fiware.github.io/tutorials.Step-by-Step/schema/Product' \
+  -d 'options=keyValues' \
   -H 'Link: <https://fiware.github.io/tutorials.Step-by-Step/datamodels-context.jsonld>; rel="http://www.w3.org/ns/json-ld#context"; type="application/ld+json"'
 ```
 
@@ -539,8 +542,10 @@ provided the full context has been supplied in the `Link` header.
 #### :three: Request:
 
 ```console
-curl -X GET \
-  'http://localhost:1026/ngsi-ld/v1/entities?type=Shelf&options=keyValues' \
+curl -G -X GET \
+  'http://localhost:1026/ngsi-ld/v1/entities' \
+  -d 'type=Shelf' \
+  -d 'options=keyValues' \
   -H 'Link: <https://fiware.github.io/tutorials.Step-by-Step/datamodels-context.jsonld>; rel="http://www.w3.org/ns/json-ld#context"; type="application/ld+json"'
 ```
 
@@ -592,8 +597,9 @@ below.
 #### :four: Request:
 
 ```console
-curl -X GET \
-  'http://localhost:1026/ngsi-ld/v1/entities/urn:ngsi-ld:Shelf:unit001/?options=keyValues' \
+curl -G -X GET \
+  'http://localhost:1026/ngsi-ld/v1/entities/urn:ngsi-ld:Shelf:unit001/' \
+  -d 'options=keyValues' \
   -H 'Link: <https://fiware.github.io/tutorials.Step-by-Step/datamodels-context.jsonld>; rel="http://www.w3.org/ns/json-ld#context"; type="application/ld+json"'
 ```
 
@@ -830,8 +836,10 @@ If the `id` and `type` of a data entity are known, a specific field can be reque
 #### :seven: Request:
 
 ```
-curl -X GET \
-  'http://localhost:1026/ngsi-ld/v1/entities/urn:ngsi-ld:Shelf:unit001/?attrs=locatedIn&options=keyValues' \
+curl -G -X GET \
+  'http://localhost:1026/ngsi-ld/v1/entities/urn:ngsi-ld:Shelf:unit001/' \
+  -d 'attrs=locatedIn' \
+  -d 'options=keyValues' \
   -H 'Link: <https://fiware.github.io/tutorials.Step-by-Step/datamodels-context.jsonld>; rel="http://www.w3.org/ns/json-ld#context"; type="application/ld+json"'
 ```
 
@@ -854,8 +862,11 @@ is purely an instance of using the `q` parameter to filter on attribute value
 #### :eight: Request:
 
 ```console
-curl -X GET \
-  'http://localhost:1026/ngsi-ld/v1/entities/?type=Shelf&options=keyValues&attrs=locatedIn' \
+curl -G -X GET \
+  'http://localhost:1026/ngsi-ld/v1/entities/' \
+  -d 'type=Shelf' \
+  -d 'options=keyValues' \
+  -d 'attrs=locatedIn' \
   -H 'Accept: application/json' \
   -H 'Link: <https://fiware.github.io/tutorials.Step-by-Step/datamodels-context.jsonld>; rel="http://www.w3.org/ns/json-ld#context"; type="application/ld+json"'
 ```
@@ -908,8 +919,10 @@ themselves.
 #### :one::zero: Request:
 
 ```console
-curl -X GET \
-  'http://localhost:1026/ngsi-ld/v1/entities/urn:ngsi-ld:Building:store001?options=keyValues&attrs=furniture' \
+curl -G -X GET \
+  'http://localhost:1026/ngsi-ld/v1/entities/urn:ngsi-ld:Building:store001' \
+  -d 'options=keyValues' \
+  -d 'attrs=furniture' \
   -H 'Accept: application/json' \
   -H 'Link: <https://fiware.github.io/tutorials.Step-by-Step/datamodels-context.jsonld>; rel="http://www.w3.org/ns/json-ld#context"; type="application/ld+json"'
 ```
@@ -983,8 +996,12 @@ The query `q==orderedProduct="urn:ngsi-ld:Product:001"` is used to filter the en
 #### :one::two: Request:
 
 ```console
-curl -X GET \
-  'http://localhost:1026/ngsi-ld/v1/entities/?type=StockOrder&q=orderedProduct==%22urn:ngsi-ld:Product:001%22&attrs=requestedFor&options=keyValues' \
+curl -G -X GET \
+  'http://localhost:1026/ngsi-ld/v1/entities/' \
+  -d 'type=StockOrder'
+  -d 'q=orderedProduct==%22urn:ngsi-ld:Product:001%22' \
+  -d 'attrs=requestedFor' \
+  -d 'options=keyValues' \
   -H 'Accept: application/json' \
   -H 'Link: <https://fiware.github.io/tutorials.Step-by-Step/datamodels-context.jsonld>; rel="http://www.w3.org/ns/json-ld#context"; type="application/ld+json"'
 ```
@@ -1012,8 +1029,12 @@ The query `q==requestedFor="urn:ngsi-ld:Building:store001"` is used to filter th
 #### :one::three: Request:
 
 ```console
-curl -X GET \
-  'http://localhost:1026/ngsi-ld/v1/entities/?type=StockOrder&q=requestedFor==%22urn:ngsi-ld:Building:store001%22&options=keyValues&attrs=orderedProduct' \
+curl -G -X GET \
+  'http://localhost:1026/ngsi-ld/v1/entities/' \
+  -d 'type=StockOrder' \
+  -d 'q=requestedFor==%22urn:ngsi-ld:Building:store001%22' \
+  -d 'options=keyValues' \
+  -d 'attrs=orderedProduct' \
   -H 'Accept: application/json' \
   -H 'Link: <https://fiware.github.io/tutorials.Step-by-Step/datamodels-context.jsonld>; rel="http://www.w3.org/ns/json-ld#context"; type="application/ld+json"'
 ```
@@ -1041,8 +1062,9 @@ adding the appropriate URN.
 #### :one::four: Request:
 
 ```console
-curl -X GET \
-  'http://localhost:1026/ngsi-ld/v1/entities/urn:ngsi-ld:StockOrder:001?options=keyValues'
+curl -G -X GET \
+  'http://localhost:1026/ngsi-ld/v1/entities/urn:ngsi-ld:StockOrder:001' \
+  -d 'options=keyValues'
 ```
 
 #### Response:
