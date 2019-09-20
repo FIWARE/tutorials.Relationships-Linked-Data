@@ -835,7 +835,7 @@ If the `id` and `type` of a data entity are known, a specific field can be reque
 
 #### :seven: Request:
 
-```
+```console
 curl -G -X GET \
   'http://localhost:1026/ngsi-ld/v1/entities/urn:ngsi-ld:Shelf:unit001/' \
   -d 'attrs=locatedIn' \
