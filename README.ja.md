@@ -264,8 +264,8 @@ NGSI v2 シナリオとは異なり、リンクト・データを使用すると
       "@type": "https://uri.etsi.org/ngsi-ld/Relationship",
       "schema:domainIncludes": [{"@id": "tutorial:StockOrder"}],
       "schema:rangeIncludes": [{"@id": "fiware:Building"}],
-      "rdfs:comment": "Store for which an item is requested",
-      "rdfs:label": "requestedFor"
+      "rdfs:comment": "品目が要求される店舗",
+      "rdfs:label": "要求対象"
     },
     ...etc
 ]
@@ -281,8 +281,8 @@ NGSI v2 シナリオとは異なり、リンクト・データを使用すると
       "@type": "https://uri.etsi.org/ngsi-ld/Relationship",
       "schema:domainIncludes": [{"@id": "fiware:Building"}],
       "schema:rangeIncludes": [{"@id": "tutorial:Shelf"}],
-      "rdfs:comment": "Units found within a Building",
-      "rdfs:label": "furniture"
+      "rdfs:comment": "建物内で見つかったユニット",
+      "rdfs:label": "家具"
     },
     ...etc
 ]
@@ -297,8 +297,8 @@ NGSI v2 シナリオとは異なり、リンクト・データを使用すると
       "@type": "https://uri.etsi.org/ngsi-ld/Relationship",
       "schema:domainIncludes": [{"@id": "tutorial:Shelf"}],
       "schema:rangeIncludes": [{"@id": "tutorial:Product"}],
-      "rdfs:comment": "The product found on a shelf",
-      "rdfs:label": "stocks"
+      "rdfs:comment": "棚の上にある製品",
+      "rdfs:label": "株式"
     },
     ...etc
 ]
@@ -513,7 +513,7 @@ curl -G -X GET \
 
 `type`, `name`, `location` は NGSI-LD コア・コンテキストで定義されます :
 [`https://uri.etsi.org/ngsi-ld/v1/ngsi-ld-core-context.jsonld`](https://uri.etsi.org/ngsi-ld/v1/ngsi-ld-core-context.jsonld)。
-他の属性は、チュートリアル独自のコンテキストを使用して定義されます : 
+他の属性は、チュートリアル独自のコンテキストを使用して定義されます :
 [`https://fiware.github.io/tutorials.Step-by-Step/tutorials-context.jsonld`](https://fiware.github.io/tutorials.Step-by-Step/tutorials-context.jsonld)。
 `category` と `address` はどちらも _common_ 属性であり、その定義はそれぞれ FIWARE データモデル と
 `schema.org` から取り込まれます。
@@ -559,7 +559,7 @@ curl -G -X GET \
     .. etc
 ```
 
-[定義されたデータモデル](https://fiware.github.io/tutorials.Step-by-Step/schema/Product/) によると : 
+[定義されたデータモデル](https://fiware.github.io/tutorials.Step-by-Step/schema/Product/) によると :
 
 -   `type` 属性には FQN `https://uri.etsi.org/ngsi-ld/type` があります
 -   `name` 属性には FQN `https://uri.etsi.org/ngsi-ld/name` があります
@@ -617,7 +617,7 @@ curl -G -X GET \
     ... etc
 ```
 
-[定義済みデータモデル](https://fiware.github.io/tutorials.Step-by-Step/schema/Shelf/)によると : 
+[定義済みデータモデル](https://fiware.github.io/tutorials.Step-by-Step/schema/Shelf/)によると :
 
 -   `type` 属性には FQN `https://uri.etsi.org/ngsi-ld/type` があります
 -   `name` 属性には FQN `https://uri.etsi.org/ngsi-ld/name` があります
@@ -688,9 +688,9 @@ _Relationships_ を区別するには、それらに `type="Relationship"` を�
 **Building** の URN は **Shelf** エンティティによって認識されますが、詳細情報も利用できます :
 
 -   `locatedIn[requestedBy]` は _Relationship-of-a-Relationship_ であり、このサブ属性は順番に **Person**
-    を指す独自の `object` 属性を保持します    
+    を指す独自の `object` 属性を保持します
 -   `locatedIn[installedBy]` は _Relationship-of-a-Relationship_ であり、このサブ属性は順番に **Person**
-    を指す独自の `object` 属性を保持します 
+    を指す独自の `object` 属性を保持します
 -   `locatedIn[statusOfWork]` は _Property-of-a-Relationship_ であり、このサブ属性は順番に `locatedIn`
     アクションの現在のステータスを保持する `value` 属性を保持します
 
