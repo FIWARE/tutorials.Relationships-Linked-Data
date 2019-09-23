@@ -18,6 +18,8 @@ The tutorial uses [cUrl](https://ec.haxx.se/) commands throughout, but is also a
 
 [![Run in Postman](https://run.pstmn.io/button.svg)](https://app.getpostman.com/run-collection/7ae2d2d3f42bbdf59c45)
 
+-   このチュートリアルは[日本語](README.ja.md)でもご覧いただけます。
+
 ## Contents
 
 <details>
@@ -73,7 +75,7 @@ All NGSI data entity attributes can be divided into one of two types.
 
 For each entity, the _Property_ attributes (including various subtypes such as _GeoProperty_ , _TemporalProperty_ and
 time values) define the current state something in the real world. As the state of the entity changes the `value` of
-each _Property_ is updated to align with the last real world reading of the the attribute. All _Property_ attributes
+each _Property_ is updated to align with the last real world reading of the attribute. All _Property_ attributes
 relate to the state of a single entity.
 
 _Relationship_ attributes correspond to the interactions **between** entities (which are expected to change over time).
@@ -117,7 +119,7 @@ The complete data model must be understandable by both developers and machines.
 
 -   A full Human readable definition of this data model can be found
     [online](https://fiware.github.io/tutorials.Step-by-Step/schema).
--   The machine readable JSON-LD defintion can be found at
+-   The machine readable JSON-LD definition can be found at
     [`https://fiware.github.io/tutorials.Step-by-Step/tutorials-context.jsonld`](https://fiware.github.io/tutorials.Step-by-Step/tutorials-context.jsonld) -
     this file will be used to provide the `@context` to power our NGSI-LD data entities.
 
@@ -132,13 +134,13 @@ described below:
         -   Building :arrow_right: Shelf.
 -   The [**Shelf** model](https://fiware.github.io/tutorials.Step-by-Step/schema/Shelf/) is a custom data model defined
     for the tutorial
-    -   Each **Shelf** is `locatedIn` a **Building**. This is a 1-1 relationship. It is the reciprical relationship to
+    -   Each **Shelf** is `locatedIn` a **Building**. This is a 1-1 relationship. It is the reciprocal relationship to
         `furniture` defined above.
         -   Shelf :arrow_right: Building.
     -   A **Shelf** is `installedBy` a **Person** - this is a 1-1 relationship. A shelf knows who installed it, but it
         is this knowledge is not part of the Person entity itself.
         -   Shelf :arrow_right: Person
-    -   A **Shelf** `stocks` a given **Product**. This is another 1-1 relationship, and again it is not recipricated. A
+    -   A **Shelf** `stocks` a given **Product**. This is another 1-1 relationship, and again it is not reciprocated. A
         **Product** does not know which **Shelf** it is to be found on.
         -   Shelf :arrow_right: Product
 -   A [**StockOrder** model](https://fiware.github.io/tutorials.Step-by-Step/schema/StockOrder/) replaces the
@@ -147,7 +149,7 @@ described below:
         -   StockOrder :arrow_right: Person.
     -   A **StockOrder** is `requestedFor` a **Building** - this is a 1-1 relationship.
         -   StockOrder :arrow_right: Building.
-    -   A **StockOrder** is a request for a specific `orderedProduct` - this 1-1 relationship.
+    -   A **StockOrder** is a request for a specific `orderedProduct` - this is a 1-1 relationship.
         -   StockOrder :arrow_right: Product.
 -   The [**Product** model](https://fiware.github.io/tutorials.Step-by-Step/schema/Product/) remains unchanged. It has
     no relationships of its own.
@@ -164,7 +166,7 @@ they have been provided in a machine readable form.
 
 ### :arrow_forward: Video: Rich Snippets: Product Search
 
-A simple example of an external system interogating for structured data can be found in online product search. Machines
+A simple example of an external system interrogating for structured data can be found in online product search. Machines
 from third parties such as Google are able to read product information (encoded using a standard
 [**Product** data model](https://jsonld.com/product/)) and display a rich snippet of product information with a standard
 star rating.
@@ -208,14 +210,14 @@ Using [JSON-LD](https://json-ld.org/spec/FCGS/json-ld/20130328) concepts (specif
 much easier for computers to understand indirect relationships and navigate between linked entities. Due to hese
 additional annotations it is possible to create usable models which are ontologically correct and therefore **Shelf**
 can now be directly assigned a `numberOfItems` attribute and bridge table concept is no longer required. This is
-necessary as other systems may be interogating **Shelf** directly.
+necessary as other systems may be interrogating **Shelf** directly.
 
 Similarly a real **StockOrder** Entity can be created which holds a entry of which items are currently on order for each
 store. This is a proper context data entity as `stockCount` describes the current state of a product in the warehouse.
 Once again this describes a single, real world entity and is ontologically correct.
 
 Unlike the NGSI v2 scenario, with linked data, it would be possible for an **external system** to discover relationships
-and interogate our Supermarket. Imagine for example, an
+and interrogate our Supermarket. Imagine for example, an
 [Autonomous Mobile Robot](https://www.intorobotics.com/40-excellent-autonomous-mobile-robots-on-wheels-that-you-can-build-at-home/)
 system which is used to move a pallet of products onto a shelf it would be possible for this **external system** to
 "know" about our supermarket by navigating the relationships in the linked data the `@graph` from **StockOrder** to
@@ -291,9 +293,9 @@ system which is used to move a pallet of products onto a shelf it would be possi
 -   A request the **Shelf** unit which holds the correct **Product** for the `stocks` attribute is made and the Shelf
     `numberOfItems` attribute can be incremented.
 
-Through creating and using standard data models and decribing the linked data properly, it would not matter to the robot
+Through creating and using standard data models and describing the linked data properly, it would not matter to the robot
 if the underlying system were to change, provided that the Properties and Relationships resolve to fully qualified names
-(FQN) and a complete `@graph`. For example the JSON short name attributes could be amended or the relationships
+(FQNs) and a complete `@graph`. For example the JSON short name attributes could be amended or the relationships
 redesigned but their real intent (which resolves to a fixed FQN) could still be discovered and used.
 
 # Prerequisites
@@ -308,10 +310,10 @@ technology which allows to different components isolated into their respective e
 -   To install Docker on Linux follow the instructions [here](https://docs.docker.com/install/)
 
 **Docker Compose** is a tool for defining and running multi-container Docker applications. A
-[YAML file](https://raw.githubusercontent.com/Fiware/tutorials.Identity-Management/master/docker-compose.yml) is used
-configure the required services for the application. This means all container services can be brought up in a single
-command. Docker Compose is installed by default as part of Docker for Windows and Docker for Mac, however Linux users
-will need to follow the instructions found [here](https://docs.docker.com/compose/install/)
+[YAML file](https://raw.githubusercontent.com/fiware/tutorials.Relationships-Linked-Data/master/docker-compose.yml)
+is used configure the required services for the application. This means all container services can be brought up in a
+single command. Docker Compose is installed by default as part of Docker for Windows and Docker for Mac, however Linux
+users will need to follow the instructions found [here](https://docs.docker.com/compose/install/)
 
 ## Cygwin
 
@@ -372,7 +374,7 @@ mongo-db:
 ```
 
 Both containers are residing on the same network - the Orion Context Broker is listening on Port `1026` and MongoDB is
-listening on the default port `27071`. Both containers are also exposing the same ports externally - this is purely for
+listening on the default port `27017`. Both containers are also exposing the same ports externally - this is purely for
 the tutorial access - so that cUrl or Postman can access them without being part of the same network. The command-line
 initialization should be self explanatory.
 
@@ -481,7 +483,7 @@ According to the [defined data model](https://fiware.github.io/tutorials.Step-by
 [`https://uri.etsi.org/ngsi-ld/v1/ngsi-ld-core-context.jsonld`](https://uri.etsi.org/ngsi-ld/v1/ngsi-ld-core-context.jsonld).
 The other attributes are defined using the Tutorial's own Context:
 [`https://fiware.github.io/tutorials.Step-by-Step/tutorials-context.jsonld`](https://fiware.github.io/tutorials.Step-by-Step/tutorials-context.jsonld).
-Both `category` and `address` are _common_ attributes the defintions of which are brought in from the FIWARE data models
+Both `category` and `address` are _common_ attributes the definitions of which are brought in from the FIWARE data models
 and `schema.org` respectively.
 
 ### Display all Products
@@ -634,8 +636,8 @@ here.
 A **Shelf** `stocks` a given **Product** - this is a `Relationship` of the **Shelf** Only the URN of the product is
 known by the **Shelf** entity - effectively it points to further information held elsewhere.
 
-To distingiush _Relationships_, they must be given `type="Relationship` and each _Relationship_ has must have an
-`object` sub-attribute, This contrasts with _Properties_ which must a `type="Property` have a `value` attribute. The
+To distinguish _Relationships_, they must be given `type="Relationship"` and each _Relationship_ has must have an
+`object` sub-attribute, this contrasts with _Properties_ which must a `type="Property"` have a `value` attribute. The
 `object` sub-attribute holds the reference to the related entity in the form of a URN.
 
 A **Shelf** is `locatedIn` a given **Building**. Once again this is a `Relationship` of the **Shelf**. The URN of the
@@ -796,7 +798,7 @@ Furthermore, `locatedIn` has an `@type="@id"` which indicates to a computer that
 
 [![](http://img.youtube.com/vi/Tm3fD89dqRE/0.jpg)](https://www.youtube.com/watch?v=Tm3fD89dqRE "JSON-LD Compaction & Expansion")
 
-Click on the image above to watch a video JSON-LD expansion and compaction with referrence to the `@context`.
+Click on the image above to watch a video JSON-LD expansion and compaction with reference to the `@context`.
 
 ### What other relationship information can be obtained from the data model?
 
@@ -913,7 +915,7 @@ curl -X POST \
 
 To find all the `furniture` within a **Building**, simply make a request to retrieve the `furniture` attribute.
 
-Because the repicrocal relationship already exists, Additional information can be obtained from the **Shelf** entities
+Because the reicprocal relationship already exists, Additional information can be obtained from the **Shelf** entities
 themselves.
 
 #### :one::zero: Request:
