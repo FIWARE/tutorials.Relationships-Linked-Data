@@ -52,7 +52,7 @@ The tutorial uses [cUrl](https://ec.haxx.se/) commands throughout, but is also a
         -   [:arrow_forward: Video: JSON-LD Compaction & Expansion](#arrow_forward-video-json-ld-compaction--expansion)
         -   [What other relationship information can be obtained from the data model?](#what-other-relationship-information-can-be-obtained-from-the-data-model)
         -   [Find the store in which a specific shelf is located](#find-the-store-in-which-a-specific-shelf-is-located)
-        -   [Find the ids of all Shelf Units in a Store](#find-the-ids-of-all-shelf-units-in-a-store)
+        -   [Find the IDs of all Shelf Units in a Store](#find-the-ids-of-all-shelf-units-in-a-store)
         -   [Adding a 1-many relationship](#adding-a-1-many-relationship)
         -   [Finding all shelf units found within a Store](#finding-all-shelf-units-found-within-a-store)
         -   [Creating Complex Relationships](#creating-complex-relationships)
@@ -856,7 +856,7 @@ curl -G -X GET \
 }
 ```
 
-### Find the ids of all Shelf Units in a Store
+### Find the IDs of all Shelf Units in a Store
 
 This example returns the `locatedIn` URNs of all **Shelf** entities found within `urn:ngsi-ld:Building:store001`. This
 is purely an instance of using the `q` parameter to filter on attribute value
