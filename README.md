@@ -74,11 +74,11 @@ All NGSI data entity attributes can be divided into one of two types.
 -   _Relationship_ attributes
 
 For each entity, the _Property_ attributes (including various subtypes such as _GeoProperty_ , _TemporalProperty_ and
-time values) define the current state something in the real world. As the state of the entity changes the `value` of
+time values) define the current state of something in the real world. As the state of the entity changes the `value` of
 each _Property_ is updated to align with the last real world reading of the attribute. All _Property_ attributes
 relate to the state of a single entity.
 
-_Relationship_ attributes correspond to the interactions **between** entities (which are expected to change over time).
+_Relationship_ attributes correspond to the associations **between** entities (which might change over time).
 They effectively provide the graph linking the nodes of the data entities together. Each _Relationship_ attribute holds
 an `object` in the form of a URN - effectively a pointer to another object. _Relationship_ attributes do not hold data
 themselves.
@@ -93,7 +93,7 @@ In order for computers to be able to navigate linked data structures, proper ont
 created and a full `@context` must be defined and made accessible. We can do this by reviewing and updating the existing
 data models from the NGSI v2 [Entity Relationships](https://github.com/FIWARE/tutorials.Entity-Relationships) tutorial.
 
-### Revision: Data Models for a Stock management system as defined using NGSI-v2
+### Revision: Data Models for a Stock management system as defined using NGSI v2
 
 As a reminder, four types of entity were created in the NGSI v2 stock management system. The relationship between the
 four NGSI v2 entity models was defined as shown below:
