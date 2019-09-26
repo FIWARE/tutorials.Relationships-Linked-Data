@@ -497,7 +497,7 @@ curl -G -X GET \
   'http://localhost:1026/ngsi-ld/v1/entities' \
   -d 'type=https://fiware.github.io/tutorials.Step-by-Step/schema/Product' \
   -d 'options=keyValues' \
-  -H 'Link: <https://fiware.github.io/tutorials.Step-by-Step/datamodels-context.jsonld>; rel="http://www.w3.org/ns/json-ld#context"; type="application/ld+json"'
+  -H 'Link: <https://fiware.github.io/tutorials.Step-by-Step/data-models-context.jsonld>; rel="http://www.w3.org/ns/json-ld#context"; type="application/ld+json"'
 ```
 
 #### Response:
@@ -507,7 +507,7 @@ However since the full context has been supplied in the `Link` header, the short
 ```json
 [
     {
-        "@context": "https://fiware.github.io/tutorials.Step-by-Step/datamodels-context.jsonld",
+        "@context": "https://fiware.github.io/tutorials.Step-by-Step/data-models-context.jsonld",
         "id": "urn:ngsi-ld:Product:001",
         "type": "Product",
         "name": "Beer",
@@ -515,7 +515,7 @@ However since the full context has been supplied in the `Link` header, the short
         "size": "S"
     },
     {
-        "@context": "https://fiware.github.io/tutorials.Step-by-Step/datamodels-context.jsonld",
+        "@context": "https://fiware.github.io/tutorials.Step-by-Step/data-models-context.jsonld",
         "id": "urn:ngsi-ld:Product:002",
         "type": "Product",
         "name": "Red Wine",
@@ -548,7 +548,7 @@ curl -G -X GET \
   'http://localhost:1026/ngsi-ld/v1/entities' \
   -d 'type=Shelf' \
   -d 'options=keyValues' \
-  -H 'Link: <https://fiware.github.io/tutorials.Step-by-Step/datamodels-context.jsonld>; rel="http://www.w3.org/ns/json-ld#context"; type="application/ld+json"'
+  -H 'Link: <https://fiware.github.io/tutorials.Step-by-Step/data-models-context.jsonld>; rel="http://www.w3.org/ns/json-ld#context"; type="application/ld+json"'
 ```
 
 #### Response:
@@ -558,7 +558,7 @@ Once again the short names are returned.
 ```json
 [
     {
-        "@context": "https://fiware.github.io/tutorials.Step-by-Step/datamodels-context.jsonld",
+        "@context": "https://fiware.github.io/tutorials.Step-by-Step/data-models-context.jsonld",
         "id": "urn:ngsi-ld:Shelf:unit001",
         "type": "Shelf",
         "name": "Corner Unit",
@@ -568,7 +568,7 @@ Once again the short names are returned.
         }
     },
     {
-        "@context": "https://fiware.github.io/tutorials.Step-by-Step/datamodels-context.jsonld",
+        "@context": "https://fiware.github.io/tutorials.Step-by-Step/data-models-context.jsonld",
         "id": "urn:ngsi-ld:Shelf:unit002",
         "type": "Shelf",
         "name": "Wall Unit 1",
@@ -602,7 +602,7 @@ below.
 curl -G -X GET \
   'http://localhost:1026/ngsi-ld/v1/entities/urn:ngsi-ld:Shelf:unit001/' \
   -d 'options=keyValues' \
-  -H 'Link: <https://fiware.github.io/tutorials.Step-by-Step/datamodels-context.jsonld>; rel="http://www.w3.org/ns/json-ld#context"; type="application/ld+json"'
+  -H 'Link: <https://fiware.github.io/tutorials.Step-by-Step/data-models-context.jsonld>; rel="http://www.w3.org/ns/json-ld#context"; type="application/ld+json"'
 ```
 
 #### Response:
@@ -611,7 +611,7 @@ The short names have been returned since the `@context` has been supplied in the
 
 ```json
 {
-    "@context": "https://fiware.github.io/tutorials.Step-by-Step/datamodels-context.jsonld",
+    "@context": "https://fiware.github.io/tutorials.Step-by-Step/data-models-context.jsonld",
     "id": "urn:ngsi-ld:Shelf:unit001",
     "type": "Shelf",
     "name": "Corner Unit",
@@ -842,14 +842,14 @@ curl -G -X GET \
   'http://localhost:1026/ngsi-ld/v1/entities/urn:ngsi-ld:Shelf:unit001/' \
   -d 'attrs=locatedIn' \
   -d 'options=keyValues' \
-  -H 'Link: <https://fiware.github.io/tutorials.Step-by-Step/datamodels-context.jsonld>; rel="http://www.w3.org/ns/json-ld#context"; type="application/ld+json"'
+  -H 'Link: <https://fiware.github.io/tutorials.Step-by-Step/data-models-context.jsonld>; rel="http://www.w3.org/ns/json-ld#context"; type="application/ld+json"'
 ```
 
 #### Response:
 
 ```json
 {
-    "@context": "https://fiware.github.io/tutorials.Step-by-Step/datamodels-context.jsonld",
+    "@context": "https://fiware.github.io/tutorials.Step-by-Step/data-models-context.jsonld",
     "id": "urn:ngsi-ld:Shelf:unit001",
     "type": "Shelf",
     "locatedIn": "urn:ngsi-ld:Building:store001"
@@ -870,7 +870,7 @@ curl -G -X GET \
   -d 'options=keyValues' \
   -d 'attrs=locatedIn' \
   -H 'Accept: application/json' \
-  -H 'Link: <https://fiware.github.io/tutorials.Step-by-Step/datamodels-context.jsonld>; rel="http://www.w3.org/ns/json-ld#context"; type="application/ld+json"'
+  -H 'Link: <https://fiware.github.io/tutorials.Step-by-Step/data-models-context.jsonld>; rel="http://www.w3.org/ns/json-ld#context"; type="application/ld+json"'
 ```
 
 #### Response:
@@ -906,7 +906,7 @@ curl -X POST \
         "object": [ "urn:ngsi-ld:Shelf:001", "urn:ngsi-ld:Shelf:002"]
     },
     "@context": [
-      "https://fiware.github.io/tutorials.Step-by-Step/datamodels-context.jsonld"
+      "https://fiware.github.io/tutorials.Step-by-Step/data-models-context.jsonld"
     ]
 }'
 ```
@@ -926,7 +926,7 @@ curl -G -X GET \
   -d 'options=keyValues' \
   -d 'attrs=furniture' \
   -H 'Accept: application/json' \
-  -H 'Link: <https://fiware.github.io/tutorials.Step-by-Step/datamodels-context.jsonld>; rel="http://www.w3.org/ns/json-ld#context"; type="application/ld+json"'
+  -H 'Link: <https://fiware.github.io/tutorials.Step-by-Step/data-models-context.jsonld>; rel="http://www.w3.org/ns/json-ld#context"; type="application/ld+json"'
 ```
 
 #### Response:
@@ -982,7 +982,7 @@ curl -X POST \
     }
   },
   "@context": [
-    "https://fiware.github.io/tutorials.Step-by-Step/datamodels-context.jsonld"
+    "https://fiware.github.io/tutorials.Step-by-Step/data-models-context.jsonld"
   ]
 }'
 ```
@@ -1005,7 +1005,7 @@ curl -G -X GET \
   -d 'attrs=requestedFor' \
   -d 'options=keyValues' \
   -H 'Accept: application/json' \
-  -H 'Link: <https://fiware.github.io/tutorials.Step-by-Step/datamodels-context.jsonld>; rel="http://www.w3.org/ns/json-ld#context"; type="application/ld+json"'
+  -H 'Link: <https://fiware.github.io/tutorials.Step-by-Step/data-models-context.jsonld>; rel="http://www.w3.org/ns/json-ld#context"; type="application/ld+json"'
 ```
 
 #### Response:
@@ -1038,7 +1038,7 @@ curl -G -X GET \
   -d 'options=keyValues' \
   -d 'attrs=orderedProduct' \
   -H 'Accept: application/json' \
-  -H 'Link: <https://fiware.github.io/tutorials.Step-by-Step/datamodels-context.jsonld>; rel="http://www.w3.org/ns/json-ld#context"; type="application/ld+json"'
+  -H 'Link: <https://fiware.github.io/tutorials.Step-by-Step/data-models-context.jsonld>; rel="http://www.w3.org/ns/json-ld#context"; type="application/ld+json"'
 ```
 
 #### Response:
