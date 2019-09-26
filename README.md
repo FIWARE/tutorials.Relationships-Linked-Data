@@ -225,7 +225,7 @@ system which is used to move a pallet of products onto a shelf it would be possi
 
 -   Some `product:XXX` items have been removed from `stockOrder:0001` - decrement `stockCount`.
 -   Interogating the **StockOrder** is discovered that the **Product** is `requestedFor` for a specific URI e.g.
-    `urn:ngsi-ld:Store:store002`
+    `urn:ngsi-ld:Building:store002`
 
 ```json
   "@graph": [
