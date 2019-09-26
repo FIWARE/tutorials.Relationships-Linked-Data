@@ -128,7 +128,7 @@ described below:
 
 -   The [**Store** model](https://fiware.github.io/tutorials.Step-by-Step/schema/Store/) is now based on and extends the
     FIWARE
-    [**Building** model](https://fiware-data-models.readthedocs.io/en/latest/Building/Building/doc/spec/index.html). This
+    [**Building** model](https://fiware-datamodels.readthedocs.io/en/latest/Building/Building/doc/spec/index.html). This
     ensures that it offers standard properties for `name`, `address` and `category`.
     -   A Building will hold `furniture` this is a 1-many relationship.
         -   Building :arrow_right: Shelf.
@@ -225,7 +225,7 @@ system which is used to move a pallet of products onto a shelf it would be possi
 
 -   Some `product:XXX` items have been removed from `stockOrder:0001` - decrement `stockCount`.
 -   Interogating the **StockOrder** is discovered that the **Product** is `requestedFor` for a specific URI e.g.
-    `urn:ngsi-ld:Store:store:002`
+    `urn:ngsi-ld:Store:store002`
 
 ```json
   "@graph": [
