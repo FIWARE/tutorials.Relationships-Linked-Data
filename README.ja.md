@@ -8,7 +8,7 @@
 
 このチュートリアルでは、リンクト・データのエンティティ間のリレーションシップと、 **JSON-LD** および **NGSI-LD** の概念
 を使用してエンティティを調べ、あるエンティティから別のエンティティにナビゲートする方法について説明します。
-このチュートリアルでは、スーパー・マーケットチェーンのストア・ファインダ・アプリケーションに基づいた一連のシンプルな
+このチュートリアルでは、スーパーマーケット・チェーンのストア・ファインダ・アプリケーションに基づいた一連のシンプルな
 リンクト・データのデータモデルについて説明し、1対1、1対多、および多対多のリレーションシップを保持するモデルの設計方法を
 示します。この **NGSI-LD** チュートリアルは、以前の _Understanding Entities and Relationships_ (エンティティと
 リレーションシップの理解) のチュートリアル (**NGSI v2** インターフェイスに基づいていました) に直接類似しています。
@@ -29,7 +29,7 @@
         -   [リビジョン : NGSI-v2 を使用して定義された在庫管理システムのデータモデル](#revision-data-models-for-a-stock-management-system-as-defined-using-ngsi-v2)
         -   [NGSI-LD を使用して定義された在庫管理システムのデータモデル](#data-models-for-a-stock-management-system-defined-using-ngsi-ld)
     -   [リンクト・データ・システムとリンクト・データでないシステムの比較](#comparison-between-linked-and-non-linked-data-systems)
-        -   [:arrow_forward: ビデオ : リッチ・スニペット : 商品検索](#arrow_forward-video-rich-snippets-product-search)
+        -   [:arrow_forward: ビデオ : リッチ・スニペット : 製品検索](#arrow_forward-video-rich-snippets-product-search)
     -   [リレーションシップの探索](#traversing-relationships)
         -   [リンクト・データのないリレーションシップ](#relationships-without-linked-data)
         -   [リンクト・データとのリレーションシップ](#relationships-with-linked-data)
@@ -41,7 +41,7 @@
 -   [データ・エンティティの作成と関連付け](#creating-and-associating-data-entities)
     -   [既存のエンティティの確認](#reviewing-existing-entities)
         -   [すべての建物を表示](#display-all-buildings)
-        -   [すべての商品を表示](#display-all-products)
+        -   [すべての製品を表示](#display-all-products)
         -   [すべての棚を表示](#display-all-shelves)
         -   [棚情報の取得](#obtain-shelf-information)
     -   [リレーションシップの作成](#creating-relationships)
@@ -55,8 +55,8 @@
         -   [1対多のリレーションシップの追加](#adding-a-1-many-relationship)
         -   [ストア内で見つかったすべての棚ユニットの検索](#finding-all-shelf-units-found-with-a-store)
         -   [複雑なリレーションシップの作成](#creating-complex-relationships)
-        -   [商品が販売されているすべてのストアを検索](#find-all-stores-in-which-a-product-is-sold)
-        -   [ストアで販売されているすべての商品を検索](#find-all-products-sold-in-a-store)
+        -   [製品が販売されているすべてのストアを検索](#find-all-stores-in-which-a-product-is-sold)
+        -   [ストアで販売されているすべての製品を検索](#find-all-products-sold-in-a-store)
         -   [在庫オーダーを取得](#obtain-stock-order)
 -   [次のステップ](#next-steps)
     - [License](#license)
@@ -81,7 +81,7 @@
 は、現実世界の現在の状態を定義します。エンティティの状態が変化すると、各 _Property_ の `value` が更新され、属性の最後の
 実世界の読み取り値と一致します。すべての _Property_ 属性は、単一のエンティティの状態に関連しています。
 
-_Relationship_ 属性は、エンティティ **間** の相互作用 (時間とともに変化することが予想されます) に対応します。データ・
+_Relationship_ 属性は、エンティティ**間**の相互作用 (時間とともに変化することが予想されます) に対応します。データ・
 エンティティのノードをリンクするグラフを効果的に提供します。各 _Relationship_ 属性は、URN の形式で `object` を
 保持します。事実上、別のオブジェクトへのポインタです。_Relationship_ 属性はデータ自体を保持しません。
 
@@ -176,15 +176,15 @@ NGSI v2 では、リレーションシップ属性は単なる標準プロパテ
 
 <a name="arrow_forward-video-rich-snippets-product-search"></a>
 
-### :arrow_forward: ビデオ : リッチ・スニペット : 商品検索
+### :arrow_forward: ビデオ : リッチ・スニペット : 製品検索
 
-構造化データを問い合わせる外部システムの簡単な例は、オンライン商品検索で見つけることができます。Google などの
-サードパーティ製のマシンは、商品情報を読み取り (標準 [**Product** データモデル](https://jsonld.com/product/)
-を使用してエンコードされた情報)、標準の星評価を持つ商品情報のリッチ・スニペットを表示できます。
+構造化データを問い合わせる外部システムの簡単な例は、オンライン製品検索で見つけることができます。Google などの
+サードパーティ製のマシンは、製品情報を読み取り (標準 [**Product** データモデル](https://jsonld.com/product/)
+を使用してエンコードされた情報)、標準の星評価を持つ製品情報のリッチ・スニペットを表示できます。
 
 [![](http://img.youtube.com/vi/_-rRxKSm2ic/0.jpg)](https://www.youtube.com/watch?v=_-rRxKSm2ic "Rich Snippets")
 
-上の画像をクリックして、商品検索用のリッチ・スニペットの紹介ビデオをご覧ください。
+上の画像をクリックして、製品検索用のリッチ・スニペットの紹介ビデオをご覧ください。
 
 マシン・リーダブルなデータモデルの例は、[Steal Our JSON-LD](https://jsonld.com/) Web サイトにあります。
 
@@ -192,7 +192,7 @@ NGSI v2 では、リレーションシップ属性は単なる標準プロパテ
 
 ## リレーションシップの探索 (Traversing relationships)
 
-> **例** : 商品のパレットが倉庫の在庫 (`stockCount`) からストアの棚 (`storeCount`) に移動されるシナリオを
+> **例** : 製品のパレットが倉庫の在庫 (`stockCount`) からストアの棚 (`storeCount`) に移動されるシナリオを
 > 想像してください。NGSI v2 と NGSI-LD の処理はどのように異なりますか？
 
 <a name="relationships-without-linked-data"></a>
@@ -208,7 +208,7 @@ NGSI v2 では、リレーションシップ属性は単なる標準プロパテ
 **InventoryItem** エンティティのみが関係します。`stockCount` 値は減り、`shelfCount` 値は増えます。NGSI v2 モデルでは、
 `storeCount` と `shelfCount` の両方が概念的な **InventoryItem** エンティティに配置されています。これは NGSI v2
 に必要な回避策であり、より簡単なデータ読み取りとデータ操作を可能にします。しかし、オントロジー的に正しくありません。
-実世界には **InventoryItem** のようなものはなく、実際には2つの別々の台帳、ストア用に購入した商品と棚で販売した商品であり、
+実世界には **InventoryItem** のようなものはなく、実際には2つの別々の台帳、ストア用に購入した製品と棚で販売した製品であり、
 間接的なリレーションシップがあります。
 
 エンティティ・データはまだ外部から機械で読み取れないため、プログラマは適切と思われるモデルを自由に設計でき、これらが
@@ -222,19 +222,19 @@ NGSI v2 では、リレーションシップ属性は単なる標準プロパテ
 
 リンクト・データを使用して適切に定義されたデータモデルを使用すると、すべてのリレーションシップを事前に事前定義でき、
 検出可能です。[JSON-LD](https://json-ld.org/spec/FCGS/json-ld/20130328) の概念 (特に `@graph` と `@ context`)
-を使用すると、コンピュータが間接的なリレーションシップを理解しすくなり、リンクされたエンティティ間をナビゲートします。
+を使用すると、コンピュータが間接的なリレーションシップを理解しやすくなり、リンクされたエンティティ間をナビゲートします。
 これらの追加の注釈 (additional annotations) により、オントロジー的に正しい使用可能なモデルを作成することができ、
 したがって **Shelf** に `numberOfItems` 属性を直接割り当てることができ、ブリッジ・テーブルの概念は不要になりました。
 これは、他のシステムが **Shelf** に直接問い合わせている可能性があるため必要です。
 
-同様に、実際の **StockOrder** エンティティを作成して、各ストアで現在オーダー中のアイテムのエントリを保持できます。
-`stockCount` は倉庫内の商品の現在の状態を表すため、これは適切なコンテキストデータ・エンティティです。繰り返しますが、
+同様に、実際の **StockOrder** エンティティを作成して、各ストアで現在注文中のアイテムのエントリを保持できます。
+`stockCount` は倉庫内の製品の現在の状態を表すため、これは適切なコンテキストデータ・エンティティです。繰り返しますが、
 これは単一の現実世界のエンティティを表し、オントロジー的に正しいものです。
 
 NGSI v2 シナリオとは異なり、リンクト・データを使用すると、**外部システム**がリレーションシップを検出し、
 スーパーマーケットに問い合わせることができます。たとえば、
 [自律移動ロボット](https://www.intorobotics.com/40-excellent-autonomous-mobile-robots-on-wheels-that-you-can-build-at-home/)
-のシステムは商品のパレットを棚に移動するために使用されます。図に示すように、リンクト・データ `@graph`
+のシステムは製品のパレットを棚に移動するために使用されます。図に示すように、リンクト・データ `@graph`
 のリレーションシップを **StockOrder** から **Shelf** ナビゲートすることで、スーパーマーケットについて "知る" (know)
 ことができます :
 
@@ -264,7 +264,7 @@ NGSI v2 シナリオとは異なり、リンクト・データを使用すると
       "@type": "https://uri.etsi.org/ngsi-ld/Relationship",
       "schema:domainIncludes": [{"@id": "tutorial:StockOrder"}],
       "schema:rangeIncludes": [{"@id": "fiware:Building"}],
-      "rdfs:comment": "品目が要求される店舗",
+      "rdfs:comment": "アイテムが要求されたストア",
       "rdfs:label": "要求対象"
     },
     ...etc
@@ -298,7 +298,7 @@ NGSI v2 シナリオとは異なり、リンクト・データを使用すると
       "schema:domainIncludes": [{"@id": "tutorial:Shelf"}],
       "schema:rangeIncludes": [{"@id": "tutorial:Product"}],
       "rdfs:comment": "棚の上にある製品",
-      "rdfs:label": "株式"
+      "rdfs:label": "在庫"
     },
     ...etc
 ]
@@ -309,8 +309,8 @@ NGSI v2 シナリオとは異なり、リンクト・データを使用すると
 
 標準データモデルを作成して使用し、リンクト・データを適切に説明することで、プロパティとリレーションシップが完全修飾名
 (FQNs) と完全な `@graph` に解決される場合、基になるシステムが変更されてもロボットにとっては問題になりません。たとえば、
-JSON のショートネーム属性を修正したり、リレーションシップを再設計したりすることはできますが、それらの実際の意図
-(固定された FQN に解決される) は引き続き検出および使用できます。
+JSON の短縮名属性 (short name attributes) を修正したり、リレーションシップを再設計したりすることはできますが、
+それらの実際の意図 (固定された FQN に解決される) は引き続き検出および使用できます。
 
 
 <a name="prerequisites"></a>
@@ -520,7 +520,7 @@ curl -G -X GET \
 
 <a name="display-all-products"></a>
 
-### すべての商品を表示
+### すべての製品を表示
 
 **Product** エンティティのリクエストは、リクエストでエンティティ `type` の FQN を提供することでも実行できます。
 
@@ -536,7 +536,7 @@ curl -G -X GET \
 
 #### レスポンス :
 
-ただし、完全なコンテキストが `Link` ヘッダで提供されているため、短い名前が返されます。
+ただし、完全なコンテキストが `Link` ヘッダで提供されているため、短縮名が返されます。
 
 ```json
 [
@@ -567,7 +567,7 @@ curl -G -X GET \
 -   `size` 属性には FQN `https://fiware.github.io/tutorials.Step-by-Step/schema/size` があります
 -   `currency` 属性には FQN `https://fiware.github.io/tutorials.Step-by-Step/schema/currency` があります
 
-プログラム的に商品モデルとその属性は、
+プログラム的に製品のモデルとその属性は、
 [`https://fiware.github.io/tutorials.Step-by-Step/tutorials-context.jsonld`](https://fiware.github.io/tutorials.Step-by-Step/tutorials-context.jsonld)
 で完全に説明されています。
 
@@ -576,7 +576,7 @@ curl -G -X GET \
 ### すべての棚を表示
 
 **Product** エンティティのリクエストは、完全なコンテキストが `Link` ヘッダで提供されている場合、リクエストで
-エンティティ `type` のショートを提供することでも実行できます。
+エンティティ `type` の短縮名を提供することでも実行できます。
 
 #### :three: リクエスト :
 
@@ -590,7 +590,7 @@ curl -G -X GET \
 
 #### レスポンス :
 
-再び短い名前が返されます。
+再び短縮名 (short names) が返されます。
 
 ```json
 [
@@ -649,7 +649,7 @@ curl -G -X GET \
 
 #### レスポンス :
 
-`@context` が `Link` ヘッダで提供されているため、短い名前が返されています。
+`@context` が `Link` ヘッダで提供されているため、短縮名が返されています。
 
 ```json
 {
@@ -677,7 +677,7 @@ curl -G -X GET \
 [以前のチュートリアル](https://github.com/FIWARE/tutorials.Linked-Data)で説明されており、
 ここでは詳細には説明しません。
 
-**Shelf** は与えられた **Product** を `stocks` します。これは **Shelf** の `Relationship` です。商品の URN
+**Shelf** は与えられた **Product** を `stocks` します。これは **Shelf** の `Relationship` です。製品の URN
 のみが **Shelf** エンティティによって認識されます。事実上、他の場所に保持されている詳細情報を指します。
 
 _Relationships_ を区別するには、それらに `type="Relationship"` を与え、各 _Relationship_ に `object` サブ属性
@@ -821,7 +821,7 @@ curl -X GET \
 ### リレーションシップの完全修飾名はどのように作成されますか？
 
 JSON-LD の中心的な動機の1つは、基本的に同じデータ型の異なる表現間での翻訳を容易にすることです。この場合、
-ショート・ハンドの `locatedIn` は、コンピュータで読み取り可能な一意の
+簡略表記 (short hand) の `locatedIn` は、コンピュータで読み取り可能な一意の
 `https://fiware.github.io/tutorials.Step-by-Step/schema/locatedIn` を指します。
 
 これを行うために、NGSI-LD は、基礎となる JSON-LD モデルの2つのコア拡張および圧縮アルゴリズムを使用します。
@@ -1054,10 +1054,10 @@ curl -X POST \
 
 <a name="find-all-stores-in-which-a-product-is-sold"></a>
 
-### 商品が販売されているすべてのストアを検索
+### 製品が販売されているすべてのストアを検索
 
 _Relationship_ 属性は他の属性とまったく同じであるため、**StockOrder** で標準の `q` パラメータークエリを実行して、
-それに関連するエンティティを取得できます。たとえば、次のクエリは、特定の商品が販売されているストアの配列を返します。
+それに関連するエンティティを取得できます。たとえば、次のクエリは、特定の製品が販売されているストアの配列を返します。
 
 クエリの `q==orderedProduct="urn:ngsi-ld:Product:001"` は、エンティティのフィルタリングに使用されます。
 
@@ -1091,9 +1091,9 @@ curl -G -X GET \
 
 <a name="find-all-products-sold-in-a-store"></a>
 
-### ストアで販売されているすべての商品を検索
+### ストアで販売されているすべての製品を検索
 
-以下のクエリは、特定の商品が販売されているストアの配列を返します。
+以下のクエリは、特定の製品が販売されているストアの配列を返します。
 
 クエリ `q==requestedFor="urn:ngsi-ld:Building:store001"` を使用してエンティティをフィルタリングします。
 
