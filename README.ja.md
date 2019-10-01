@@ -19,10 +19,10 @@
 
 [![Run in Postman](https://run.pstmn.io/button.svg)](https://app.getpostman.com/run-collection/7ae2d2d3f42bbdf59c45)
 
-## Contents
+## コンテンツ
 
 <details>
-<summary><strong>Details</strong></summary>
+<summary><strong>詳細</strong></summary>
 
 -   [リンクト・データのリレーションシップ](#relationships-in-linked-data)
     -   [JSON-LD を使用したデータモデルの設計](#designing-data-models-using-json-ld)
