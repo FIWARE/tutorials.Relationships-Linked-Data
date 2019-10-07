@@ -34,7 +34,7 @@
 					}
 				],
 				"url": {
-					"raw": "http://{{orion}}/ngsi-ld/v1/entities?type=https://uri.fiware.org/ns/datamodels%23Building&options=keyValues",
+					"raw": "http://{{orion}}/ngsi-ld/v1/entities?type=https://uri.fiware.org/ns/data-models%23Building&options=keyValues",
 					"protocol": "http",
 					"host": [
 						"{{orion}}"
@@ -47,7 +47,7 @@
 					"query": [
 						{
 							"key": "type",
-							"value": "https://uri.fiware.org/ns/datamodels%23Building"
+							"value": "https://uri.fiware.org/ns/data-models%23Building"
 						},
 						{
 							"key": "options",
@@ -432,7 +432,21 @@
 			"name": "Obtain Updated Building",
 			"request": {
 				"method": "GET",
-				"header": [],
+				"header": [
+					{
+						"key": "Link",
+						"value": "<{{datamodels-context.jsonld}}>; rel=\"http://www.w3.org/ns/json-ld#context\"; type=\"application/ld+json\"",
+						"type": "text",
+						"disabled": true
+					},
+					{
+						"key": "Accept",
+						"value": "application/json",
+						"type": "text",
+						"name": "Accept",
+						"disabled": true
+					}
+				],
 				"url": {
 					"raw": "http://{{orion}}/ngsi-ld/v1/entities/urn:ngsi-ld:Building:store001/?",
 					"protocol": "http",
@@ -648,13 +662,13 @@
 	],
 	"variable": [
 		{
-			"id": "293b0365-38dc-4389-8847-6bc7a755c4a1",
+			"id": "fc921316-7bf1-4200-ae9e-eed29e4a7831",
 			"key": "orion",
 			"value": "localhost:1026",
 			"type": "string"
 		},
 		{
-			"id": "4047d000-8812-410b-b7c3-9e40d2225037",
+			"id": "cbea6c3d-5f01-4bb1-b141-ae07fc72475a",
 			"key": "datamodels-context.jsonld",
 			"value": "https://fiware.github.io/tutorials.Step-by-Step/tutorials-context.jsonld",
 			"type": "string"

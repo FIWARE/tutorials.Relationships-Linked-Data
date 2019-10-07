@@ -450,7 +450,7 @@ cd tutorials.Relationships-Linked-Data
 
 スーパーマーケットのストアは、FIWARE
 [**Building** model](https://fiware-datamodels.readthedocs.io/en/latest/Building/Building/doc/spec/index.html)
-および、このタイプの列挙値は、`https://uri.fiware.org/ns/datamodels%23Building` に展開される `fiware:Building` です。
+および、このタイプの列挙値は、`https://uri.fiware.org/ns/data-models%23Building` に展開される `fiware:Building` です。
 したがって、既知のコンテキストを提供せずに、すべての建物エンティティをリクエストできます。
 
 
@@ -459,7 +459,7 @@ cd tutorials.Relationships-Linked-Data
 ```console
 curl -G -X GET \
   'http://localhost:1026/ngsi-ld/v1/entities' \
-  -d 'type=https://uri.fiware.org/ns/datamodels%23Building&options=keyValues'
+  -d 'type=https://uri.fiware.org/ns/data-models%23Building&options=keyValues'
 ```
 
 #### レスポンス :
@@ -471,7 +471,7 @@ curl -G -X GET \
     {
         "@context": "https://uri.etsi.org/ngsi-ld/v1/ngsi-ld-core-context.jsonld",
         "id": "urn:ngsi-ld:Building:store001",
-        "type": "https://uri.fiware.org/ns/datamodels#Building",
+        "type": "https://uri.fiware.org/ns/data-models#Building",
         "name": "Bösebrücke Einkauf",
         "https://schema.org/address": {
             "streetAddress": "Bornholmer Straße 65",
@@ -479,7 +479,7 @@ curl -G -X GET \
             "addressLocality": "Prenzlauer Berg",
             "postalCode": "10439"
         },
-        "https://uri.fiware.org/ns/datamodels#category": ["commercial"],
+        "https://uri.fiware.org/ns/data-models#category": ["commercial"],
         "location": {
             "type": "Point", "coordinates": [13.3986, 52.5547]
         }
@@ -487,7 +487,7 @@ curl -G -X GET \
     {
         "@context": "https://uri.etsi.org/ngsi-ld/v1/ngsi-ld-core-context.jsonld",
         "id": "urn:ngsi-ld:Building:store002",
-        "type": "https://uri.fiware.org/ns/datamodels#Building",
+        "type": "https://uri.fiware.org/ns/data-models#Building",
         "name": "Checkpoint Markt",
         "https://schema.org/address": {
             "streetAddress": "Friedrichstraße 44",
@@ -495,7 +495,7 @@ curl -G -X GET \
             "addressLocality": "Kreuzberg",
             "postalCode": "10969"
         },
-        "https://uri.fiware.org/ns/datamodels#category": ["commercial"],
+        "https://uri.fiware.org/ns/data-models#category": ["commercial"],
         "location": {
             "type": "Point", "coordinates": [13.3903, 52.5075]
         }
@@ -509,7 +509,7 @@ curl -G -X GET \
 -   `name` 属性には FQN `https://uri.etsi.org/ngsi-ld/name` があります
 -   `location`属性には FQN `https://uri.etsi.org/ngsi-ld/location` があります
 -   `address`属性には FQN `http://schema.org/address` があります
--   `category`属性には FQN `https://uri.fiware.org/ns/datamodels#category` があります
+-   `category`属性には FQN `https://uri.fiware.org/ns/data-models#category` があります
 
 `type`, `name`, `location` は NGSI-LD コア・コンテキストで定義されます :
 [`https://uri.etsi.org/ngsi-ld/v1/ngsi-ld-core-context.jsonld`](https://uri.etsi.org/ngsi-ld/v1/ngsi-ld-core-context.jsonld)。

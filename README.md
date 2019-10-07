@@ -418,7 +418,7 @@ computer readable JSON-LD `@context` Data Models is included in the request.
 
 The Stores of the supermarket have been created using the FIWARE
 [**Building** model](https://fiware-datamodels.readthedocs.io/en/latest/Building/Building/doc/spec/index.html) and the
-enumerated value of this type is `fiware:Building` which expands to `https://uri.fiware.org/ns/datamodels%23Building`.
+enumerated value of this type is `fiware:Building` which expands to `https://uri.fiware.org/ns/data-models%23Building`.
 It is therefore possible to request all building entities without supplying a known context.
 
 #### :one: Request:
@@ -426,7 +426,7 @@ It is therefore possible to request all building entities without supplying a kn
 ```console
 curl -G -X GET \
   'http://localhost:1026/ngsi-ld/v1/entities' \
-  -d 'type=https://uri.fiware.org/ns/datamodels%23Building&options=keyValues'
+  -d 'type=https://uri.fiware.org/ns/data-models%23Building&options=keyValues'
 ```
 
 #### Response:
@@ -439,7 +439,7 @@ The response returns all of the existing **Building** entities, with the attribu
     {
         "@context": "https://uri.etsi.org/ngsi-ld/v1/ngsi-ld-core-context.jsonld",
         "id": "urn:ngsi-ld:Building:store001",
-        "type": "https://uri.fiware.org/ns/datamodels#Building",
+        "type": "https://uri.fiware.org/ns/data-models#Building",
         "name": "Bösebrücke Einkauf",
         "https://schema.org/address": {
             "streetAddress": "Bornholmer Straße 65",
@@ -447,7 +447,7 @@ The response returns all of the existing **Building** entities, with the attribu
             "addressLocality": "Prenzlauer Berg",
             "postalCode": "10439"
         },
-        "https://uri.fiware.org/ns/datamodels#category": ["commercial"],
+        "https://uri.fiware.org/ns/data-models#category": ["commercial"],
         "location": {
             "type": "Point", "coordinates": [13.3986, 52.5547]
         }
@@ -455,7 +455,7 @@ The response returns all of the existing **Building** entities, with the attribu
     {
         "@context": "https://uri.etsi.org/ngsi-ld/v1/ngsi-ld-core-context.jsonld",
         "id": "urn:ngsi-ld:Building:store002",
-        "type": "https://uri.fiware.org/ns/datamodels#Building",
+        "type": "https://uri.fiware.org/ns/data-models#Building",
         "name": "Checkpoint Markt",
         "https://schema.org/address": {
             "streetAddress": "Friedrichstraße 44",
@@ -463,7 +463,7 @@ The response returns all of the existing **Building** entities, with the attribu
             "addressLocality": "Kreuzberg",
             "postalCode": "10969"
         },
-        "https://uri.fiware.org/ns/datamodels#category": ["commercial"],
+        "https://uri.fiware.org/ns/data-models#category": ["commercial"],
         "location": {
             "type": "Point", "coordinates": [13.3903, 52.5075]
         }
@@ -477,7 +477,7 @@ According to the [defined data model](https://fiware.github.io/tutorials.Step-by
 -   The `name` attribute has the FQN `https://uri.etsi.org/ngsi-ld/name`
 -   The `location` attribute has the FQN `https://uri.etsi.org/ngsi-ld/location`
 -   The `address` attribute has the FQN `http://schema.org/address`
--   The `category` attribute has the FQN `https://uri.fiware.org/ns/datamodels#category`
+-   The `category` attribute has the FQN `https://uri.fiware.org/ns/data-models#category`
 
 `type`, `name` and `location` are defined in the NGSI-LD Core Context:
 [`https://uri.etsi.org/ngsi-ld/v1/ngsi-ld-core-context.jsonld`](https://uri.etsi.org/ngsi-ld/v1/ngsi-ld-core-context.jsonld).
