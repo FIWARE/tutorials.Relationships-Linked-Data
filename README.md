@@ -74,11 +74,11 @@ All NGSI data entity attributes can be divided into one of two types.
 -   _Relationship_ attributes
 
 For each entity, the _Property_ attributes (including various subtypes such as _GeoProperty_ , _TemporalProperty_ and
-time values) define the current state something in the real world. As the state of the entity changes the `value` of
+time values) define the current state of something in the real world. As the state of the entity changes the `value` of
 each _Property_ is updated to align with the last real world reading of the attribute. All _Property_ attributes
 relate to the state of a single entity.
 
-_Relationship_ attributes correspond to the interactions **between** entities (which are expected to change over time).
+_Relationship_ attributes correspond to the associations **between** entities (which might change over time).
 They effectively provide the graph linking the nodes of the data entities together. Each _Relationship_ attribute holds
 an `object` in the form of a URN - effectively a pointer to another object. _Relationship_ attributes do not hold data
 themselves.
@@ -93,7 +93,7 @@ In order for computers to be able to navigate linked data structures, proper ont
 created and a full `@context` must be defined and made accessible. We can do this by reviewing and updating the existing
 data models from the NGSI v2 [Entity Relationships](https://github.com/FIWARE/tutorials.Entity-Relationships) tutorial.
 
-### Revision: Data Models for a Stock management system as defined using NGSI-v2
+### Revision: Data Models for a Stock management system as defined using NGSI v2
 
 As a reminder, four types of entity were created in the NGSI v2 stock management system. The relationship between the
 four NGSI v2 entity models was defined as shown below:
@@ -103,7 +103,7 @@ four NGSI v2 entity models was defined as shown below:
 More details can be found in the NGSI v2
 [Entity Relationships](https://github.com/FIWARE/tutorials.Entity-Relationships) tutorial.
 
-In NGSI v2 relationship attributes are just standard properties attributes. By convention NGSI v2 relationship
+In NGSI v2 relationship attributes are just standard attributes. By convention NGSI v2 relationship
 attributes are given names starting `ref` and are defined using the `type="Relationship"`. However, this is merely
 convention and may not be followed in all cases. There is no infallible mechanism for detecting which attributes are
 associative relationships between entities.
@@ -129,7 +129,7 @@ described below:
 -   The [**Store** model](https://fiware.github.io/tutorials.Step-by-Step/schema/Store/) is now based on and extends the
     FIWARE
     [**Building** model](https://fiware-datamodels.readthedocs.io/en/latest/Building/Building/doc/spec/index.html). This
-    ensures that it offers standard properties for `name`, `address` and category.
+    ensures that it offers standard properties for `name`, `address` and `category`.
     -   A Building will hold `furniture` this is a 1-many relationship.
         -   Building :arrow_right: Shelf.
 -   The [**Shelf** model](https://fiware.github.io/tutorials.Step-by-Step/schema/Shelf/) is a custom data model defined
@@ -225,7 +225,7 @@ system which is used to move a pallet of products onto a shelf it would be possi
 
 -   Some `product:XXX` items have been removed from `stockOrder:0001` - decrement `stockCount`.
 -   Interogating the **StockOrder** is discovered that the **Product** is `requestedFor` for a specific URI e.g.
-    `store:002`
+    `urn:ngsi-ld:Building:store002`
 
 ```json
   "@graph": [
@@ -497,7 +497,7 @@ curl -G -X GET \
   'http://localhost:1026/ngsi-ld/v1/entities' \
   -d 'type=https://fiware.github.io/tutorials.Step-by-Step/schema/Product' \
   -d 'options=keyValues' \
-  -H 'Link: <https://fiware.github.io/tutorials.Step-by-Step/datamodels-context.jsonld>; rel="http://www.w3.org/ns/json-ld#context"; type="application/ld+json"'
+  -H 'Link: <https://fiware.github.io/tutorials.Step-by-Step/data-models-context.jsonld>; rel="http://www.w3.org/ns/json-ld#context"; type="application/ld+json"'
 ```
 
 #### Response:
@@ -507,7 +507,7 @@ However since the full context has been supplied in the `Link` header, the short
 ```json
 [
     {
-        "@context": "https://fiware.github.io/tutorials.Step-by-Step/datamodels-context.jsonld",
+        "@context": "https://fiware.github.io/tutorials.Step-by-Step/data-models-context.jsonld",
         "id": "urn:ngsi-ld:Product:001",
         "type": "Product",
         "name": "Beer",
@@ -515,7 +515,7 @@ However since the full context has been supplied in the `Link` header, the short
         "size": "S"
     },
     {
-        "@context": "https://fiware.github.io/tutorials.Step-by-Step/datamodels-context.jsonld",
+        "@context": "https://fiware.github.io/tutorials.Step-by-Step/data-models-context.jsonld",
         "id": "urn:ngsi-ld:Product:002",
         "type": "Product",
         "name": "Red Wine",
@@ -548,7 +548,7 @@ curl -G -X GET \
   'http://localhost:1026/ngsi-ld/v1/entities' \
   -d 'type=Shelf' \
   -d 'options=keyValues' \
-  -H 'Link: <https://fiware.github.io/tutorials.Step-by-Step/datamodels-context.jsonld>; rel="http://www.w3.org/ns/json-ld#context"; type="application/ld+json"'
+  -H 'Link: <https://fiware.github.io/tutorials.Step-by-Step/data-models-context.jsonld>; rel="http://www.w3.org/ns/json-ld#context"; type="application/ld+json"'
 ```
 
 #### Response:
@@ -558,7 +558,7 @@ Once again the short names are returned.
 ```json
 [
     {
-        "@context": "https://fiware.github.io/tutorials.Step-by-Step/datamodels-context.jsonld",
+        "@context": "https://fiware.github.io/tutorials.Step-by-Step/data-models-context.jsonld",
         "id": "urn:ngsi-ld:Shelf:unit001",
         "type": "Shelf",
         "name": "Corner Unit",
@@ -568,7 +568,7 @@ Once again the short names are returned.
         }
     },
     {
-        "@context": "https://fiware.github.io/tutorials.Step-by-Step/datamodels-context.jsonld",
+        "@context": "https://fiware.github.io/tutorials.Step-by-Step/data-models-context.jsonld",
         "id": "urn:ngsi-ld:Shelf:unit002",
         "type": "Shelf",
         "name": "Wall Unit 1",
@@ -602,7 +602,7 @@ below.
 curl -G -X GET \
   'http://localhost:1026/ngsi-ld/v1/entities/urn:ngsi-ld:Shelf:unit001/' \
   -d 'options=keyValues' \
-  -H 'Link: <https://fiware.github.io/tutorials.Step-by-Step/datamodels-context.jsonld>; rel="http://www.w3.org/ns/json-ld#context"; type="application/ld+json"'
+  -H 'Link: <https://fiware.github.io/tutorials.Step-by-Step/data-models-context.jsonld>; rel="http://www.w3.org/ns/json-ld#context"; type="application/ld+json"'
 ```
 
 #### Response:
@@ -611,7 +611,7 @@ The short names have been returned since the `@context` has been supplied in the
 
 ```json
 {
-    "@context": "https://fiware.github.io/tutorials.Step-by-Step/datamodels-context.jsonld",
+    "@context": "https://fiware.github.io/tutorials.Step-by-Step/data-models-context.jsonld",
     "id": "urn:ngsi-ld:Shelf:unit001",
     "type": "Shelf",
     "name": "Corner Unit",
@@ -657,7 +657,7 @@ corresponding `object`) inside the entity structure to provide a rich graph of i
 
 Within the `@context` a **Shelf** has been predefined with two relationships. (`stocks` and `locatedIn`)
 
-To create a relationship add a new attribute with `type=Relationship` and an associated object attribute. Metadat about
+To create a relationship add a new attribute with `type=Relationship` and an associated object attribute. Metadata about
 the relationships (e.g. `requestedBy`, `installedBy`)can be created by adding subattributes to the relationship. The
 value of object is the URN corresponding to the linked data entity.
 
@@ -692,7 +692,7 @@ curl -X POST \
       }
     },
     "@context": [
-    "https://fiware.github.io/tutorials.Step-by-Step/tutorials-context.jsonld",
+        "https://fiware.github.io/tutorials.Step-by-Step/tutorials-context.jsonld",
         "https://uri.etsi.org/ngsi-ld/v1/ngsi-ld-core-context.jsonld"
     ]
 }'
@@ -842,14 +842,14 @@ curl -G -X GET \
   'http://localhost:1026/ngsi-ld/v1/entities/urn:ngsi-ld:Shelf:unit001/' \
   -d 'attrs=locatedIn' \
   -d 'options=keyValues' \
-  -H 'Link: <https://fiware.github.io/tutorials.Step-by-Step/datamodels-context.jsonld>; rel="http://www.w3.org/ns/json-ld#context"; type="application/ld+json"'
+  -H 'Link: <https://fiware.github.io/tutorials.Step-by-Step/data-models-context.jsonld>; rel="http://www.w3.org/ns/json-ld#context"; type="application/ld+json"'
 ```
 
 #### Response:
 
 ```json
 {
-    "@context": "https://fiware.github.io/tutorials.Step-by-Step/datamodels-context.jsonld",
+    "@context": "https://fiware.github.io/tutorials.Step-by-Step/data-models-context.jsonld",
     "id": "urn:ngsi-ld:Shelf:unit001",
     "type": "Shelf",
     "locatedIn": "urn:ngsi-ld:Building:store001"
@@ -870,7 +870,7 @@ curl -G -X GET \
   -d 'options=keyValues' \
   -d 'attrs=locatedIn' \
   -H 'Accept: application/json' \
-  -H 'Link: <https://fiware.github.io/tutorials.Step-by-Step/datamodels-context.jsonld>; rel="http://www.w3.org/ns/json-ld#context"; type="application/ld+json"'
+  -H 'Link: <https://fiware.github.io/tutorials.Step-by-Step/data-models-context.jsonld>; rel="http://www.w3.org/ns/json-ld#context"; type="application/ld+json"'
 ```
 
 #### Response:
@@ -906,7 +906,7 @@ curl -X POST \
         "object": [ "urn:ngsi-ld:Shelf:001", "urn:ngsi-ld:Shelf:002"]
     },
     "@context": [
-    "https://fiware.github.io/tutorials.Step-by-Step/datamodels-context.jsonld"
+      "https://fiware.github.io/tutorials.Step-by-Step/data-models-context.jsonld"
     ]
 }'
 ```
@@ -926,7 +926,7 @@ curl -G -X GET \
   -d 'options=keyValues' \
   -d 'attrs=furniture' \
   -H 'Accept: application/json' \
-  -H 'Link: <https://fiware.github.io/tutorials.Step-by-Step/datamodels-context.jsonld>; rel="http://www.w3.org/ns/json-ld#context"; type="application/ld+json"'
+  -H 'Link: <https://fiware.github.io/tutorials.Step-by-Step/data-models-context.jsonld>; rel="http://www.w3.org/ns/json-ld#context"; type="application/ld+json"'
 ```
 
 #### Response:
@@ -963,8 +963,8 @@ curl -X POST \
     "object": "urn:ngsi-ld:Building:store001"
   },
   "requestedBy": {
-  "type": "Relationship",
-  "object": "urn:ngsi-ld:Person:bob-the-manager"
+    "type": "Relationship",
+    "object": "urn:ngsi-ld:Person:bob-the-manager"
   },
   "orderedProduct": {
     "type": "Relationship",
@@ -982,7 +982,7 @@ curl -X POST \
     }
   },
   "@context": [
-    "https://fiware.github.io/tutorials.Step-by-Step/datamodels-context.jsonld"
+    "https://fiware.github.io/tutorials.Step-by-Step/data-models-context.jsonld"
   ]
 }'
 ```
@@ -1005,7 +1005,7 @@ curl -G -X GET \
   -d 'attrs=requestedFor' \
   -d 'options=keyValues' \
   -H 'Accept: application/json' \
-  -H 'Link: <https://fiware.github.io/tutorials.Step-by-Step/datamodels-context.jsonld>; rel="http://www.w3.org/ns/json-ld#context"; type="application/ld+json"'
+  -H 'Link: <https://fiware.github.io/tutorials.Step-by-Step/data-models-context.jsonld>; rel="http://www.w3.org/ns/json-ld#context"; type="application/ld+json"'
 ```
 
 #### Response:
@@ -1038,7 +1038,7 @@ curl -G -X GET \
   -d 'options=keyValues' \
   -d 'attrs=orderedProduct' \
   -H 'Accept: application/json' \
-  -H 'Link: <https://fiware.github.io/tutorials.Step-by-Step/datamodels-context.jsonld>; rel="http://www.w3.org/ns/json-ld#context"; type="application/ld+json"'
+  -H 'Link: <https://fiware.github.io/tutorials.Step-by-Step/data-models-context.jsonld>; rel="http://www.w3.org/ns/json-ld#context"; type="application/ld+json"'
 ```
 
 #### Response:
