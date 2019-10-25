@@ -472,35 +472,48 @@ curl -G -X GET \
         "@context": "https://uri.etsi.org/ngsi-ld/v1/ngsi-ld-core-context.jsonld",
         "id": "urn:ngsi-ld:Building:store001",
         "type": "https://uri.fiware.org/ns/data-models#Building",
-        "name": "Bösebrücke Einkauf",
         "https://schema.org/address": {
             "streetAddress": "Bornholmer Straße 65",
             "addressRegion": "Berlin",
             "addressLocality": "Prenzlauer Berg",
             "postalCode": "10439"
         },
-        "https://uri.fiware.org/ns/data-models#category": ["commercial"],
+        "name": "Bösebrücke Einkauf",
+        "https://uri.fiware.org/ns/data-models#category": [
+            "https://uri.fiware.org/ns/data-models#commercial"
+        ],
         "location": {
-            "type": "Point", "coordinates": [13.3986, 52.5547]
+            "type": "Point",
+            "coordinates": [
+                13.3986,
+                52.5547
+            ]
         }
     },
     {
         "@context": "https://uri.etsi.org/ngsi-ld/v1/ngsi-ld-core-context.jsonld",
         "id": "urn:ngsi-ld:Building:store002",
         "type": "https://uri.fiware.org/ns/data-models#Building",
-        "name": "Checkpoint Markt",
         "https://schema.org/address": {
             "streetAddress": "Friedrichstraße 44",
             "addressRegion": "Berlin",
             "addressLocality": "Kreuzberg",
             "postalCode": "10969"
         },
-        "https://uri.fiware.org/ns/data-models#category": ["commercial"],
+        "name": "Checkpoint Markt",
+        "https://uri.fiware.org/ns/data-models#category": [
+            "https://uri.fiware.org/ns/data-models#commercial"
+        ],
         "location": {
-            "type": "Point", "coordinates": [13.3903, 52.5075]
+            "type": "Point",
+            "coordinates": [
+                13.3903,
+                52.5075
+            ]
         }
     },
-    ... etc
+    ...etc
+]
 ```
 
 [定義済みデータモデル](https://fiware.github.io/tutorials.Step-by-Step/schema/Store/) によると :
@@ -541,22 +554,23 @@ curl -G -X GET \
 ```json
 [
     {
-        "@context": "https://fiware.github.io/tutorials.Step-by-Step/datamodels-context.jsonld",
+        "@context": "https://fiware.github.io/tutorials.Step-by-Step/tutorials-context.jsonld",
         "id": "urn:ngsi-ld:Product:001",
         "type": "Product",
-        "name": "Beer",
         "price": 0.99,
-        "size": "S"
+        "size": "S",
+        "name": "Beer"
     },
     {
-        "@context": "https://fiware.github.io/tutorials.Step-by-Step/datamodels-context.jsonld",
+        "@context": "https://fiware.github.io/tutorials.Step-by-Step/tutorials-context.jsonld",
         "id": "urn:ngsi-ld:Product:002",
         "type": "Product",
-        "name": "Red Wine",
         "price": 10.99,
-        "size": "M"
+        "size": "M",
+        "name": "Red Wine"
     },
-    .. etc
+   ...etc
+]
 ```
 
 [定義されたデータモデル](https://fiware.github.io/tutorials.Step-by-Step/schema/Product/) によると :
@@ -595,26 +609,35 @@ curl -G -X GET \
 ```json
 [
     {
-        "@context": "https://fiware.github.io/tutorials.Step-by-Step/datamodels-context.jsonld",
+        "@context": "https://fiware.github.io/tutorials.Step-by-Step/tutorials-context.jsonld",
         "id": "urn:ngsi-ld:Shelf:unit001",
         "type": "Shelf",
-        "name": "Corner Unit",
         "maxCapacity": 50,
+        "name": "Corner Unit",
         "location": {
-            "type": "Point", "coordinates": [13.398611, 52.554699]
+            "type": "Point",
+            "coordinates": [
+                13.398611,
+                52.554699
+            ]
         }
     },
     {
-        "@context": "https://fiware.github.io/tutorials.Step-by-Step/datamodels-context.jsonld",
+        "@context": "https://fiware.github.io/tutorials.Step-by-Step/tutorials-context.jsonld",
         "id": "urn:ngsi-ld:Shelf:unit002",
         "type": "Shelf",
-        "name": "Wall Unit 1",
         "maxCapacity": 100,
+        "name": "Wall Unit 1",
         "location": {
-            "type": "Point", "coordinates": [13.398722, 52.554664]
+            "type": "Point",
+            "coordinates": [
+                13.398722,
+                52.554664
+            ]
         }
     },
-    ... etc
+    ...etc
+]
 ```
 
 [定義済みデータモデル](https://fiware.github.io/tutorials.Step-by-Step/schema/Shelf/)によると :
@@ -653,14 +676,16 @@ curl -G -X GET \
 
 ```json
 {
-    "@context": "https://fiware.github.io/tutorials.Step-by-Step/datamodels-context.jsonld",
+    "@context": "https://fiware.github.io/tutorials.Step-by-Step/tutorials-context.jsonld",
     "id": "urn:ngsi-ld:Shelf:unit001",
     "type": "Shelf",
-    "name": "Corner Unit",
     "maxCapacity": 50,
+    "name": "Corner Unit",
     "location": {
         "type": "Point",
-        "coordinates": [13.398611, 52.554699]
+        "coordinates": [
+          13.398611, 52.554699
+        ]
     }
 }
 ```
@@ -737,10 +762,7 @@ curl -X POST \
         "value": "completed"
       }
     },
-    "@context": [
-    "https://fiware.github.io/tutorials.Step-by-Step/tutorials-context.jsonld",
-        "https://uri.etsi.org/ngsi-ld/v1/ngsi-ld-core-context.jsonld"
-    ]
+    "@context": "https://fiware.github.io/tutorials.Step-by-Step/data-models-context.jsonld"
 }'
 ```
 
@@ -771,24 +793,20 @@ curl -X GET \
     "@context": "https://uri.etsi.org/ngsi-ld/v1/ngsi-ld-core-context.jsonld",
     "id": "urn:ngsi-ld:Shelf:unit001",
     "type": "https://fiware.github.io/tutorials.Step-by-Step/schema/Shelf",
-    "name": {
-        "type": "Property",
-        "value": "Corner Unit"
-    },
     "https://fiware.github.io/tutorials.Step-by-Step/schema/locatedIn": {
         "type": "Relationship",
         "object": "urn:ngsi-ld:Building:store001",
-        "installedBy": {
+        "https://fiware.github.io/tutorials.Step-by-Step/schema/installedBy": {
             "type": "Relationship",
             "object": "urn:ngsi-ld:Person:employee001"
         },
-        "requestedBy": {
+        "https://fiware.github.io/tutorials.Step-by-Step/schema/requestedBy": {
             "type": "Relationship",
             "object": "urn:ngsi-ld:Person:bob-the-manager"
         },
-        "statusOfWork": {
+        "https://fiware.github.io/tutorials.Step-by-Step/schema/statusOfWork": {
             "type": "Property",
-            "value": "completed"
+            "value": "https://fiware.github.io/tutorials.Step-by-Step/schema/completed"
         }
     },
     "https://fiware.github.io/tutorials.Step-by-Step/schema/maxCapacity": {
@@ -803,11 +821,18 @@ curl -X GET \
         "type": "Relationship",
         "object": "urn:ngsi-ld:Product:001"
     },
+    "name": {
+        "type": "Property",
+        "value": "Corner Unit"
+    },
     "location": {
         "type": "GeoProperty",
         "value": {
             "type": "Point",
-            "coordinates": [13.398611, 52.554699]
+            "coordinates": [
+                13.398611,
+                52.554699
+            ]
         }
     }
 }
@@ -907,7 +932,7 @@ curl -G -X GET \
 
 ```json
 {
-    "@context": "https://fiware.github.io/tutorials.Step-by-Step/datamodels-context.jsonld",
+    "@context": "https://fiware.github.io/tutorials.Step-by-Step/tutorials-context.jsonld",
     "id": "urn:ngsi-ld:Shelf:unit001",
     "type": "Shelf",
     "locatedIn": "urn:ngsi-ld:Building:store001"
@@ -967,9 +992,7 @@ curl -X POST \
       "type": "Relationship",
         "object": [ "urn:ngsi-ld:Shelf:001", "urn:ngsi-ld:Shelf:002"]
     },
-    "@context": [
-    "https://fiware.github.io/tutorials.Step-by-Step/datamodels-context.jsonld"
-    ]
+    "@context": "https://fiware.github.io/tutorials.Step-by-Step/data-models-context.jsonld"
 }'
 ```
 

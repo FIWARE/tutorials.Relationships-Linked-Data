@@ -75,12 +75,12 @@ All NGSI data entity attributes can be divided into one of two types.
 
 For each entity, the _Property_ attributes (including various subtypes such as _GeoProperty_ , _TemporalProperty_ and
 time values) define the current state of something in the real world. As the state of the entity changes the `value` of
-each _Property_ is updated to align with the last real world reading of the attribute. All _Property_ attributes
-relate to the state of a single entity.
+each _Property_ is updated to align with the last real world reading of the attribute. All _Property_ attributes relate
+to the state of a single entity.
 
-_Relationship_ attributes correspond to the associations **between** entities (which might change over time).
-They effectively provide the graph linking the nodes of the data entities together. Each _Relationship_ attribute holds
-an `object` in the form of a URN - effectively a pointer to another object. _Relationship_ attributes do not hold data
+_Relationship_ attributes correspond to the associations **between** entities (which might change over time). They
+effectively provide the graph linking the nodes of the data entities together. Each _Relationship_ attribute holds an
+`object` in the form of a URN - effectively a pointer to another object. _Relationship_ attributes do not hold data
 themselves.
 
 Both properties and relationships may in turn have a linked embedded structure (of _properties-of-properties_ or
@@ -103,10 +103,10 @@ four NGSI v2 entity models was defined as shown below:
 More details can be found in the NGSI v2
 [Entity Relationships](https://github.com/FIWARE/tutorials.Entity-Relationships) tutorial.
 
-In NGSI v2 relationship attributes are just standard attributes. By convention NGSI v2 relationship
-attributes are given names starting `ref` and are defined using the `type="Relationship"`. However, this is merely
-convention and may not be followed in all cases. There is no infallible mechanism for detecting which attributes are
-associative relationships between entities.
+In NGSI v2 relationship attributes are just standard attributes. By convention NGSI v2 relationship attributes are given
+names starting `ref` and are defined using the `type="Relationship"`. However, this is merely convention and may not be
+followed in all cases. There is no infallible mechanism for detecting which attributes are associative relationships
+between entities.
 
 ### Data Models for a Stock management system defined using NGSI-LD
 
@@ -293,9 +293,9 @@ system which is used to move a pallet of products onto a shelf it would be possi
 -   A request the **Shelf** unit which holds the correct **Product** for the `stocks` attribute is made and the Shelf
     `numberOfItems` attribute can be incremented.
 
-Through creating and using standard data models and describing the linked data properly, it would not matter to the robot
-if the underlying system were to change, provided that the Properties and Relationships resolve to fully qualified names
-(FQNs) and a complete `@graph`. For example the JSON short name attributes could be amended or the relationships
+Through creating and using standard data models and describing the linked data properly, it would not matter to the
+robot if the underlying system were to change, provided that the Properties and Relationships resolve to fully qualified
+names (FQNs) and a complete `@graph`. For example the JSON short name attributes could be amended or the relationships
 redesigned but their real intent (which resolves to a fixed FQN) could still be discovered and used.
 
 # Prerequisites
@@ -310,8 +310,8 @@ technology which allows to different components isolated into their respective e
 -   To install Docker on Linux follow the instructions [here](https://docs.docker.com/install/)
 
 **Docker Compose** is a tool for defining and running multi-container Docker applications. A
-[YAML file](https://raw.githubusercontent.com/fiware/tutorials.Relationships-Linked-Data/master/docker-compose.yml)
-is used configure the required services for the application. This means all container services can be brought up in a
+[YAML file](https://raw.githubusercontent.com/fiware/tutorials.Relationships-Linked-Data/master/docker-compose.yml) is
+used configure the required services for the application. This means all container services can be brought up in a
 single command. Docker Compose is installed by default as part of Docker for Windows and Docker for Mac, however Linux
 users will need to follow the instructions found [here](https://docs.docker.com/compose/install/)
 
@@ -440,35 +440,38 @@ The response returns all of the existing **Building** entities, with the attribu
         "@context": "https://uri.etsi.org/ngsi-ld/v1/ngsi-ld-core-context.jsonld",
         "id": "urn:ngsi-ld:Building:store001",
         "type": "https://uri.fiware.org/ns/data-models#Building",
-        "name": "Bösebrücke Einkauf",
         "https://schema.org/address": {
             "streetAddress": "Bornholmer Straße 65",
             "addressRegion": "Berlin",
             "addressLocality": "Prenzlauer Berg",
             "postalCode": "10439"
         },
-        "https://uri.fiware.org/ns/data-models#category": ["commercial"],
+        "name": "Bösebrücke Einkauf",
+        "https://uri.fiware.org/ns/data-models#category": ["https://uri.fiware.org/ns/data-models#commercial"],
         "location": {
-            "type": "Point", "coordinates": [13.3986, 52.5547]
+            "type": "Point",
+            "coordinates": [13.3986, 52.5547]
         }
     },
     {
         "@context": "https://uri.etsi.org/ngsi-ld/v1/ngsi-ld-core-context.jsonld",
         "id": "urn:ngsi-ld:Building:store002",
         "type": "https://uri.fiware.org/ns/data-models#Building",
-        "name": "Checkpoint Markt",
         "https://schema.org/address": {
             "streetAddress": "Friedrichstraße 44",
             "addressRegion": "Berlin",
             "addressLocality": "Kreuzberg",
             "postalCode": "10969"
         },
-        "https://uri.fiware.org/ns/data-models#category": ["commercial"],
+        "name": "Checkpoint Markt",
+        "https://uri.fiware.org/ns/data-models#category": ["https://uri.fiware.org/ns/data-models#commercial"],
         "location": {
-            "type": "Point", "coordinates": [13.3903, 52.5075]
+            "type": "Point",
+            "coordinates": [13.3903, 52.5075]
         }
     },
-    ... etc
+    ...etc
+]
 ```
 
 According to the [defined data model](https://fiware.github.io/tutorials.Step-by-Step/schema/Store/):
@@ -483,8 +486,8 @@ According to the [defined data model](https://fiware.github.io/tutorials.Step-by
 [`https://uri.etsi.org/ngsi-ld/v1/ngsi-ld-core-context.jsonld`](https://uri.etsi.org/ngsi-ld/v1/ngsi-ld-core-context.jsonld).
 The other attributes are defined using the Tutorial's own Context:
 [`https://fiware.github.io/tutorials.Step-by-Step/tutorials-context.jsonld`](https://fiware.github.io/tutorials.Step-by-Step/tutorials-context.jsonld).
-Both `category` and `address` are _common_ attributes the definitions of which are brought in from the FIWARE data models
-and `schema.org` respectively.
+Both `category` and `address` are _common_ attributes the definitions of which are brought in from the FIWARE data
+models and `schema.org` respectively.
 
 ### Display all Products
 
@@ -507,22 +510,23 @@ However since the full context has been supplied in the `Link` header, the short
 ```json
 [
     {
-        "@context": "https://fiware.github.io/tutorials.Step-by-Step/data-models-context.jsonld",
+        "@context": "https://fiware.github.io/tutorials.Step-by-Step/tutorials-context.jsonld",
         "id": "urn:ngsi-ld:Product:001",
         "type": "Product",
-        "name": "Beer",
         "price": 0.99,
-        "size": "S"
+        "size": "S",
+        "name": "Beer"
     },
     {
-        "@context": "https://fiware.github.io/tutorials.Step-by-Step/data-models-context.jsonld",
+        "@context": "https://fiware.github.io/tutorials.Step-by-Step/tutorials-context.jsonld",
         "id": "urn:ngsi-ld:Product:002",
         "type": "Product",
-        "name": "Red Wine",
         "price": 10.99,
-        "size": "M"
+        "size": "M",
+        "name": "Red Wine"
     },
-    .. etc
+    ...etc
+]
 ```
 
 According to the [defined data model](https://fiware.github.io/tutorials.Step-by-Step/schema/Product/):
@@ -558,26 +562,29 @@ Once again the short names are returned.
 ```json
 [
     {
-        "@context": "https://fiware.github.io/tutorials.Step-by-Step/data-models-context.jsonld",
+        "@context": "https://fiware.github.io/tutorials.Step-by-Step/tutorials-context.jsonld",
         "id": "urn:ngsi-ld:Shelf:unit001",
         "type": "Shelf",
-        "name": "Corner Unit",
         "maxCapacity": 50,
+        "name": "Corner Unit",
         "location": {
-            "type": "Point", "coordinates": [13.398611, 52.554699]
+            "type": "Point",
+            "coordinates": [13.398611, 52.554699]
         }
     },
     {
-        "@context": "https://fiware.github.io/tutorials.Step-by-Step/data-models-context.jsonld",
+        "@context": "https://fiware.github.io/tutorials.Step-by-Step/tutorials-context.jsonld",
         "id": "urn:ngsi-ld:Shelf:unit002",
         "type": "Shelf",
-        "name": "Wall Unit 1",
         "maxCapacity": 100,
+        "name": "Wall Unit 1",
         "location": {
-            "type": "Point", "coordinates": [13.398722, 52.554664]
+            "type": "Point",
+            "coordinates": [13.398722, 52.554664]
         }
     },
-    ... etc
+    ...etc
+]
 ```
 
 According to the [defined data model](https://fiware.github.io/tutorials.Step-by-Step/schema/Shelf/):
@@ -611,11 +618,11 @@ The short names have been returned since the `@context` has been supplied in the
 
 ```json
 {
-    "@context": "https://fiware.github.io/tutorials.Step-by-Step/data-models-context.jsonld",
+    "@context": "https://fiware.github.io/tutorials.Step-by-Step/tutorials-context.jsonld",
     "id": "urn:ngsi-ld:Shelf:unit001",
     "type": "Shelf",
-    "name": "Corner Unit",
     "maxCapacity": 50,
+    "name": "Corner Unit",
     "location": {
         "type": "Point",
         "coordinates": [13.398611, 52.554699]
@@ -691,10 +698,7 @@ curl -X POST \
         "value": "completed"
       }
     },
-    "@context": [
-        "https://fiware.github.io/tutorials.Step-by-Step/tutorials-context.jsonld",
-        "https://uri.etsi.org/ngsi-ld/v1/ngsi-ld-core-context.jsonld"
-    ]
+    "@context": "https://fiware.github.io/tutorials.Step-by-Step/data-models-context.jsonld"
 }'
 ```
 
@@ -723,24 +727,20 @@ passed in the previous request.
     "@context": "https://uri.etsi.org/ngsi-ld/v1/ngsi-ld-core-context.jsonld",
     "id": "urn:ngsi-ld:Shelf:unit001",
     "type": "https://fiware.github.io/tutorials.Step-by-Step/schema/Shelf",
-    "name": {
-        "type": "Property",
-        "value": "Corner Unit"
-    },
     "https://fiware.github.io/tutorials.Step-by-Step/schema/locatedIn": {
         "type": "Relationship",
         "object": "urn:ngsi-ld:Building:store001",
-        "installedBy": {
+        "https://fiware.github.io/tutorials.Step-by-Step/schema/installedBy": {
             "type": "Relationship",
             "object": "urn:ngsi-ld:Person:employee001"
         },
-        "requestedBy": {
+        "https://fiware.github.io/tutorials.Step-by-Step/schema/requestedBy": {
             "type": "Relationship",
             "object": "urn:ngsi-ld:Person:bob-the-manager"
         },
-        "statusOfWork": {
+        "https://fiware.github.io/tutorials.Step-by-Step/schema/statusOfWork": {
             "type": "Property",
-            "value": "completed"
+            "value": "https://fiware.github.io/tutorials.Step-by-Step/schema/completed"
         }
     },
     "https://fiware.github.io/tutorials.Step-by-Step/schema/maxCapacity": {
@@ -754,6 +754,10 @@ passed in the previous request.
     "https://fiware.github.io/tutorials.Step-by-Step/schema/stocks": {
         "type": "Relationship",
         "object": "urn:ngsi-ld:Product:001"
+    },
+    "name": {
+        "type": "Property",
+        "value": "Corner Unit"
     },
     "location": {
         "type": "GeoProperty",
@@ -849,7 +853,7 @@ curl -G -X GET \
 
 ```json
 {
-    "@context": "https://fiware.github.io/tutorials.Step-by-Step/data-models-context.jsonld",
+    "@context": "https://fiware.github.io/tutorials.Step-by-Step/tutorials-context.jsonld",
     "id": "urn:ngsi-ld:Shelf:unit001",
     "type": "Shelf",
     "locatedIn": "urn:ngsi-ld:Building:store001"
@@ -905,9 +909,7 @@ curl -X POST \
       "type": "Relationship",
         "object": [ "urn:ngsi-ld:Shelf:001", "urn:ngsi-ld:Shelf:002"]
     },
-    "@context": [
-      "https://fiware.github.io/tutorials.Step-by-Step/data-models-context.jsonld"
-    ]
+    "@context": "https://fiware.github.io/tutorials.Step-by-Step/data-models-context.jsonld"
 }'
 ```
 
@@ -981,9 +983,7 @@ curl -X POST \
         "@value": "2018-08-07T12:00:00Z"
     }
   },
-  "@context": [
-    "https://fiware.github.io/tutorials.Step-by-Step/data-models-context.jsonld"
-  ]
+  "@context": "https://fiware.github.io/tutorials.Step-by-Step/data-models-context.jsonld"
 }'
 ```
 
