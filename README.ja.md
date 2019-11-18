@@ -414,7 +414,7 @@ mongo-db:
 イメージを作成してください :
 
 ```bash
-git clone git@github.com:FIWARE/tutorials.Relationships-Linked-Data.git
+git clone https://github.com/FIWARE/tutorials.Relationships-Linked-Data.git
 cd tutorials.Relationships-Linked-Data
 
 ./services start
