@@ -11,7 +11,7 @@ can be used to interrogate entities and navigate from one entity to another. The
 linked-data data models based around the supermarket chain’s store finder application, and demonstrates how to design
 models holding one-to-one, one-to-many and many-to-many relationships. This **NGSI-LD** tutorial is a direct analogue to
 the earlier _Understanding Entities and Relationships_ tutorial (which was based on the **NGSI v2** interface). The
-differences in relationships created using **NSGI v2** and **NGSI-LD** are highlighted and discussed in detail.
+differences in relationships created using **NGSI v2** and **NGSI-LD** are highlighted and discussed in detail.
 
 The tutorial uses [cUrl](https://ec.haxx.se/) commands throughout, but is also available as
 [Postman documentation](https://fiware.github.io/tutorials.Relationships-Linked-Data/)
@@ -110,7 +110,7 @@ between entities.
 
 ### Data Models for a Stock management system defined using NGSI-LD
 
-The richer [JSON-LD](https://json-ld.org/spec/FCGS/json-ld/20130328) description language is able to define NSGI-LD
+The richer [JSON-LD](https://json-ld.org/spec/FCGS/json-ld/20130328) description language is able to define NGSI-LD
 entities by linking entities directly as shown below.
 
 ![](https://fiware.github.io/tutorials.Relationships-Linked-Data/img/entities-ld.png)
@@ -322,7 +322,7 @@ to provide a command-line functionality similar to a Linux distribution on Windo
 
 # Architecture
 
-The demo application will send and receive NGSI-LD calls to a compliant context broker. Since both NSGI v2 and NSGI-LD
+The demo application will send and receive NGSI-LD calls to a compliant context broker. Since both NGSI v2 and NGSI-LD
 interfaces are available to an experimental version fo the
 [Orion Context Broker](https://fiware-orion.readthedocs.io/en/latest/), our demo application will only make use of one
 FIWARE component.

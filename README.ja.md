@@ -12,7 +12,7 @@
 リンクト・データのデータモデルについて説明し、1対1、1対多、および多対多のリレーションシップを保持するモデルの設計方法を
 示します。この **NGSI-LD** チュートリアルは、以前の _Understanding Entities and Relationships_ (エンティティと
 リレーションシップの理解) のチュートリアル (**NGSI v2** インターフェイスに基づいていました) に直接類似しています。
-**NSGI v2** と **NGSI-LD** を使用して作成されたリレーションシップの違いが強調表示され、詳細に説明されています。
+**NGSI v2** と **NGSI-LD** を使用して作成されたリレーションシップの違いが強調表示され、詳細に説明されています。
 
 チュートリアルでは [cUrl](https://ec.haxx.se/) コマンドを使用していますが、
 [Postman documentation](https://fiware.github.io/tutorials.Relationships-Linked-Data/) としても利用できます。
@@ -120,7 +120,7 @@ NGSI v2 では、リレーションシップ属性は単なる標準プロパテ
 ### NGSI-LD を使用して定義された在庫管理システムのデータモデル
 
 より豊富な [JSON-LD](https://json-ld.org/spec/FCGS/json-ld/20130328) 記述言語は、以下に示すようにエンティティを直接
-リンクすることで NSGI-LD エンティティを定義できます。
+リンクすることで NGSI-LD エンティティを定義できます。
 
 ![](https://fiware.github.io/tutorials.Relationships-Linked-Data/img/entities-ld.png)
 
@@ -345,7 +345,7 @@ JSON の短縮名属性 (short name attributes) を修正したり、リレー�
 
 # アーキテクチャ
 
-デモ・アプリケーションは、準拠している Context Broker と NGSI-LD の呼び出しを送受信します。NSGI v2 と NSGI-LD
+デモ・アプリケーションは、準拠している Context Broker と NGSI-LD の呼び出しを送受信します。NGSI v2 と NGSI-LD
 の両方のインターフェースが [Orion Context Broker](https://fiware-orion.readthedocs.io/en/latest/)
 の実験版で利用可能であるため、私たちのデモ・アプリケーションは1つ FIWARE コンポーネントのみを利用します。
 
