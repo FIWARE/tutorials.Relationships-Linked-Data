@@ -1192,4 +1192,4 @@ curl -G -X GET \
 
 ## License
 
-[MIT](LICENSE) © 2019 FIWARE Foundation e.V.
+[MIT](LICENSE) © 2019-2020 FIWARE Foundation e.V.
