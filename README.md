@@ -447,7 +447,7 @@ The response returns all of the existing **Building** entities, with the attribu
             "postalCode": "10439"
         },
         "name": "Bösebrücke Einkauf",
-        "https://uri.fiware.org/ns/data-models#category": ["https://uri.fiware.org/ns/data-models#commercial"],
+        "https://uri.fiware.org/ns/data-models#category": "https://uri.fiware.org/ns/data-models#commercial",
         "location": {
             "type": "Point",
             "coordinates": [13.3986, 52.5547]
@@ -464,7 +464,7 @@ The response returns all of the existing **Building** entities, with the attribu
             "postalCode": "10969"
         },
         "name": "Checkpoint Markt",
-        "https://uri.fiware.org/ns/data-models#category": ["https://uri.fiware.org/ns/data-models#commercial"],
+        "https://uri.fiware.org/ns/data-models#category": "https://uri.fiware.org/ns/data-models#commercial",
         "location": {
             "type": "Point",
             "coordinates": [13.3903, 52.5075]

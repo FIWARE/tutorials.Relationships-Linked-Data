@@ -8,17 +8,10 @@
 
 
 curl () {
-  docker run --network fiware_default --rm appropriate/curl -s \
+  docker run --network fiware_default --rm appropriate/curl -s -o /dev/null \
     "$@"
   printf "."
 }
-
-echo -e "⏳ Waiting for \033[1;34mOrion\033[0m to be available\n"
-while [ `docker run --network fiware_default --rm appropriate/curl -s -o /dev/null -w %{http_code} 'http://orion:1026/version'` -eq 000 ]
-do 
-  echo -e "Context Broker HTTP state: " `curl -s -o /dev/null -w %{http_code} 'http://orion:1026/version'` " (waiting for 200)"
-  sleep 1
-done
 
 echo -e "Loading \033[1;34mNGSI-LD\033[0m data using the '"${TUTORIAL_DATA_MODELS_CONTEXT}"' schema."
 printf "⏳ Loading context data "
@@ -28,7 +21,7 @@ printf "⏳ Loading context data "
 #
 
 curl -X POST \
-  'http://orion:1026/ngsi-ld/v1/entities' \
+  'http://'"${CONTEXT_BROKER}"'/ngsi-ld/v1/entities/' \
   -H 'Content-Type: application/ld+json' \
   -d '{
     "id": "urn:ngsi-ld:Building:store001",
@@ -44,17 +37,14 @@ curl -X POST \
         "value": {"type": "Point", "coordinates": [13.3986, 52.5547]}
     },
     "name": { "type": "Property", "value": "Bösebrücke Einkauf"},
-    "@context": [
-      "'"${TUTORIAL_DATA_MODELS_CONTEXT}"'",
-      "https://uri.etsi.org/ngsi-ld/v1/ngsi-ld-core-context.jsonld"
-    ]
+    "@context": "'"${TUTORIAL_DATA_MODELS_CONTEXT}"'"
 }'
 
 
 
 
 curl -X POST \
-  'http://orion:1026/ngsi-ld/v1/entities' \
+  'http://'"${CONTEXT_BROKER}"'/ngsi-ld/v1/entities/' \
   -H 'Content-Type: application/ld+json' \
   -d '{
     "id": "urn:ngsi-ld:Building:store002",
@@ -70,14 +60,11 @@ curl -X POST \
         "value": {"type": "Point", "coordinates": [13.3903,52.5075]}
     },
     "name": { "type": "Property", "value": "Checkpoint Markt"},
-    "@context": [
-      "'"${TUTORIAL_DATA_MODELS_CONTEXT}"'",
-      "https://uri.etsi.org/ngsi-ld/v1/ngsi-ld-core-context.jsonld"
-    ]
+    "@context": "'"${TUTORIAL_DATA_MODELS_CONTEXT}"'"
 }'
 
 curl -X POST \
-  'http://orion:1026/ngsi-ld/v1/entities' \
+  'http://'"${CONTEXT_BROKER}"'/ngsi-ld/v1/entities/' \
   -H 'Content-Type: application/ld+json' \
   -d '{
     "id": "urn:ngsi-ld:Building:store003",
@@ -93,15 +80,12 @@ curl -X POST \
         "value": {"type": "Point", "coordinates": [13.4447,52.5031]}
     },
     "name": { "type": "Property", "value": "East Side Galleria"},
-    "@context": [
-      "'"${TUTORIAL_DATA_MODELS_CONTEXT}"'",
-      "https://uri.etsi.org/ngsi-ld/v1/ngsi-ld-core-context.jsonld"
-    ]
+    "@context": "'"${TUTORIAL_DATA_MODELS_CONTEXT}"'"
 }'
 
 
 curl -X POST \
-  'http://orion:1026/ngsi-ld/v1/entities' \
+  'http://'"${CONTEXT_BROKER}"'/ngsi-ld/v1/entities/' \
   -H 'Content-Type: application/ld+json' \
   -d '{
     "id": "urn:ngsi-ld:Building:store004",
@@ -117,10 +101,7 @@ curl -X POST \
       "value": {"type": "Point", "coordinates": [13.4094,52.5208]}
     },
     "name": { "type": "Property", "value": "Tower Trödelmarkt"},
-    "@context": [
-      "'"${TUTORIAL_DATA_MODELS_CONTEXT}"'",
-      "https://uri.etsi.org/ngsi-ld/v1/ngsi-ld-core-context.jsonld"
-    ]
+    "@context": "'"${TUTORIAL_DATA_MODELS_CONTEXT}"'"
 }'
 
 #
@@ -131,7 +112,7 @@ curl -X POST \
 
 
 curl -X POST \
-  'http://orion:1026/ngsi-ld/v1/entities' \
+  'http://'"${CONTEXT_BROKER}"'/ngsi-ld/v1/entities/' \
   -H 'Content-Type: application/ld+json' \
   -d '{
     "id": "urn:ngsi-ld:Shelf:unit001",
@@ -142,14 +123,11 @@ curl -X POST \
     },
     "maxCapacity": {"type": "Property","value": 50},
     "name": {"type": "Property","value": "Corner Unit"},
-    "@context": [
-      "'"${TUTORIAL_DATA_MODELS_CONTEXT}"'",
-      "https://uri.etsi.org/ngsi-ld/v1/ngsi-ld-core-context.jsonld"
-    ]
+    "@context": "'"${TUTORIAL_DATA_MODELS_CONTEXT}"'"
 }'
 
 curl -X POST \
-  'http://orion:1026/ngsi-ld/v1/entities' \
+  'http://'"${CONTEXT_BROKER}"'/ngsi-ld/v1/entities/' \
   -H 'Content-Type: application/ld+json' \
   -d '{
     "id": "urn:ngsi-ld:Shelf:unit002",
@@ -160,14 +138,11 @@ curl -X POST \
     },
     "maxCapacity": {"type": "Property","value": 100},
     "name": {"type": "Property","value": "Wall Unit 1"},
-    "@context": [
-      "'"${TUTORIAL_DATA_MODELS_CONTEXT}"'",
-      "https://uri.etsi.org/ngsi-ld/v1/ngsi-ld-core-context.jsonld"
-    ]
+    "@context": "'"${TUTORIAL_DATA_MODELS_CONTEXT}"'"
 }'
 
 curl -X POST \
-  'http://orion:1026/ngsi-ld/v1/entities' \
+  'http://'"${CONTEXT_BROKER}"'/ngsi-ld/v1/entities/' \
   -H 'Content-Type: application/ld+json' \
   -d '{
     "id": "urn:ngsi-ld:Shelf:unit003",
@@ -178,14 +153,11 @@ curl -X POST \
     },
     "maxCapacity": {"type": "Property","value": 100},
     "name": {"type": "Property","value": "Wall Unit 2"},
-    "@context": [
-      "'"${TUTORIAL_DATA_MODELS_CONTEXT}"'",
-      "https://uri.etsi.org/ngsi-ld/v1/ngsi-ld-core-context.jsonld"
-    ]
+    "@context": "'"${TUTORIAL_DATA_MODELS_CONTEXT}"'"
 }'
 
 curl -X POST \
-  'http://orion:1026/ngsi-ld/v1/entities' \
+  'http://'"${CONTEXT_BROKER}"'/ngsi-ld/v1/entities/' \
   -H 'Content-Type: application/ld+json' \
   -d '{
     "id": "urn:ngsi-ld:Shelf:unit004",
@@ -196,14 +168,11 @@ curl -X POST \
     },
     "maxCapacity": {"type": "Property","value": 50},
     "name": {"type": "Property","value": "Corner Unit"},
-    "@context": [
-      "'"${TUTORIAL_DATA_MODELS_CONTEXT}"'",
-      "https://uri.etsi.org/ngsi-ld/v1/ngsi-ld-core-context.jsonld"
-    ]
+    "@context": "'"${TUTORIAL_DATA_MODELS_CONTEXT}"'"
 }'
 
 curl -X POST \
-  'http://orion:1026/ngsi-ld/v1/entities' \
+  'http://'"${CONTEXT_BROKER}"'/ngsi-ld/v1/entities/' \
   -H 'Content-Type: application/ld+json' \
   -d '{
     "id": "urn:ngsi-ld:Shelf:unit005",
@@ -214,15 +183,12 @@ curl -X POST \
     },
     "maxCapacity": {"type": "Property","value": 100},
     "name": {"type": "Property","value": "Long Wall Unit"},
-    "@context": [
-      "'"${TUTORIAL_DATA_MODELS_CONTEXT}"'",
-      "https://uri.etsi.org/ngsi-ld/v1/ngsi-ld-core-context.jsonld"
-    ]
+    "@context": "'"${TUTORIAL_DATA_MODELS_CONTEXT}"'"
 }'
 
 
 curl -X POST \
-  'http://orion:1026/ngsi-ld/v1/entities' \
+  'http://'"${CONTEXT_BROKER}"'/ngsi-ld/v1/entities/' \
   -H 'Content-Type: application/ld+json' \
   -d '{
     "id": "urn:ngsi-ld:Shelf:unit006",
@@ -233,14 +199,11 @@ curl -X POST \
     },
     "maxCapacity": {"type": "Property","value": 50},
     "name": {"type": "Property","value": "Corner Unit"},
-    "@context": [
-      "'"${TUTORIAL_DATA_MODELS_CONTEXT}"'",
-      "https://uri.etsi.org/ngsi-ld/v1/ngsi-ld-core-context.jsonld"
-    ]
+    "@context": "'"${TUTORIAL_DATA_MODELS_CONTEXT}"'"
 }'
 
 curl -X POST \
-  'http://orion:1026/ngsi-ld/v1/entities' \
+  'http://'"${CONTEXT_BROKER}"'/ngsi-ld/v1/entities/' \
   -H 'Content-Type: application/ld+json' \
   -d '{
     "id": "urn:ngsi-ld:Shelf:unit007",
@@ -251,14 +214,11 @@ curl -X POST \
     },
     "maxCapacity": {"type": "Property","value": 100},
     "name": {"type": "Property","value": "Wall Unit"},
-    "@context": [
-      "'"${TUTORIAL_DATA_MODELS_CONTEXT}"'",
-      "https://uri.etsi.org/ngsi-ld/v1/ngsi-ld-core-context.jsonld"
-    ]
+    "@context": "'"${TUTORIAL_DATA_MODELS_CONTEXT}"'"
 }'
 
 curl -X POST \
-  'http://orion:1026/ngsi-ld/v1/entities' \
+  'http://'"${CONTEXT_BROKER}"'/ngsi-ld/v1/entities/' \
   -H 'Content-Type: application/ld+json' \
   -d '{
     "id": "urn:ngsi-ld:Shelf:unit008",
@@ -269,14 +229,11 @@ curl -X POST \
     },
     "maxCapacity": {"type": "Property","value": 100},
     "name": {"type": "Property","value": "Wall Unit 2"},
-    "@context": [
-      "'"${TUTORIAL_DATA_MODELS_CONTEXT}"'",
-      "https://uri.etsi.org/ngsi-ld/v1/ngsi-ld-core-context.jsonld"
-    ]
+    "@context": "'"${TUTORIAL_DATA_MODELS_CONTEXT}"'"
 }'
 
 curl -X POST \
-  'http://orion:1026/ngsi-ld/v1/entities' \
+  'http://'"${CONTEXT_BROKER}"'/ngsi-ld/v1/entities/' \
   -H 'Content-Type: application/ld+json' \
   -d '{
     "id": "urn:ngsi-ld:Shelf:unit009",
@@ -287,14 +244,11 @@ curl -X POST \
     },
     "maxCapacity": {"type": "Property","value": 50},
     "name": {"type": "Property","value": "Corner Unit"},
-    "@context": [
-      "'"${TUTORIAL_DATA_MODELS_CONTEXT}"'",
-      "https://uri.etsi.org/ngsi-ld/v1/ngsi-ld-core-context.jsonld"
-    ]
+    "@context": "'"${TUTORIAL_DATA_MODELS_CONTEXT}"'"
 }'
 
 curl -X POST \
-  'http://orion:1026/ngsi-ld/v1/entities' \
+  'http://'"${CONTEXT_BROKER}"'/ngsi-ld/v1/entities/' \
   -H 'Content-Type: application/ld+json' \
   -d '{
     "id": "urn:ngsi-ld:Shelf:unit010",
@@ -305,10 +259,7 @@ curl -X POST \
     },
     "maxCapacity": {"type": "Property","value": 200},
     "name": {"type": "Property","value": "Long Wall Unit"},
-    "@context": [
-      "'"${TUTORIAL_DATA_MODELS_CONTEXT}"'",
-      "https://uri.etsi.org/ngsi-ld/v1/ngsi-ld-core-context.jsonld"
-    ]
+    "@context": "'"${TUTORIAL_DATA_MODELS_CONTEXT}"'"
 }'
 
 
@@ -318,138 +269,111 @@ curl -X POST \
 #
 
 curl -X POST \
-  'http://orion:1026/ngsi-ld/v1/entities' \
+  'http://'"${CONTEXT_BROKER}"'/ngsi-ld/v1/entities/' \
   -H 'Content-Type: application/ld+json' \
   -d '{
-  "id": "urn:ngsi-ld:Product:001",
-  "type": "Product",
-  "price": {"type": "Property","value": 0.99,"currency": {"type": "Property", "value": "EUR"}},
-  "size": {"type": "Property","value": "S"},
-  "name": {"type": "Property","value": "Beer"},
-    "@context": [
-      "'"${TUTORIAL_DATA_MODELS_CONTEXT}"'",
-      "https://uri.etsi.org/ngsi-ld/v1/ngsi-ld-core-context.jsonld"
-    ]
+    "id": "urn:ngsi-ld:Product:001",
+    "type": "Product",
+    "price": {"type": "Property","value": 0.99,"currency": {"type": "Property", "value": "EUR"}},
+    "size": {"type": "Property","value": "S"},
+    "name": {"type": "Property","value": "Beer"},
+    "@context": "'"${TUTORIAL_DATA_MODELS_CONTEXT}"'"
 }'
 
 curl -X POST \
-  'http://orion:1026/ngsi-ld/v1/entities' \
+  'http://'"${CONTEXT_BROKER}"'/ngsi-ld/v1/entities/' \
   -H 'Content-Type: application/ld+json' \
   -d '{
-  "id": "urn:ngsi-ld:Product:002",
-  "type": "Product",
-  "price": {"type": "Property","value": 10.99,"currency": {"type": "Property", "value": "EUR"}},
-  "size": {"type": "Property","value": "M"},
-  "name": {"type": "Property","value": "Red Wine"},
-    "@context": [
-      "'"${TUTORIAL_DATA_MODELS_CONTEXT}"'",
-      "https://uri.etsi.org/ngsi-ld/v1/ngsi-ld-core-context.jsonld"
-    ]
+    "id": "urn:ngsi-ld:Product:002",
+    "type": "Product",
+    "price": {"type": "Property","value": 10.99,"currency": {"type": "Property", "value": "EUR"}},
+    "size": {"type": "Property","value": "M"},
+    "name": {"type": "Property","value": "Red Wine"},
+    "@context": "'"${TUTORIAL_DATA_MODELS_CONTEXT}"'"
 }'
 
 curl -X POST \
-  'http://orion:1026/ngsi-ld/v1/entities' \
+  'http://'"${CONTEXT_BROKER}"'/ngsi-ld/v1/entities/' \
   -H 'Content-Type: application/ld+json' \
   -d '{
-  "id": "urn:ngsi-ld:Product:003",
-  "type": "Product",
-  "price": {"type": "Property","value": 14.99,"currency": {"type": "Property", "value": "EUR"}},
-  "size": {"type": "Property","value": "M"},
-  "name": {"type": "Property","value": "White Wine"},
-    "@context": [
-      "'"${TUTORIAL_DATA_MODELS_CONTEXT}"'",
-      "https://uri.etsi.org/ngsi-ld/v1/ngsi-ld-core-context.jsonld"
-    ]
+    "id": "urn:ngsi-ld:Product:003",
+    "type": "Product",
+    "price": {"type": "Property","value": 14.99,"currency": {"type": "Property", "value": "EUR"}},
+    "size": {"type": "Property","value": "M"},
+    "name": {"type": "Property","value": "White Wine"},
+    "@context": "'"${TUTORIAL_DATA_MODELS_CONTEXT}"'"
 }'
 
 curl -X POST \
-  'http://orion:1026/ngsi-ld/v1/entities' \
+  'http://'"${CONTEXT_BROKER}"'/ngsi-ld/v1/entities/' \
   -H 'Content-Type: application/ld+json' \
   -d '{
-  "id": "urn:ngsi-ld:Product:004",
-  "type": "Product",
-  "price": {"type": "Property","value": 50.00,"currency": {"type": "Property", "value": "EUR"}},
-  "size": {"type": "Property","value": "XL"},
-  "name": {"type": "Property","value": "Vodka"},
-    "@context": [
-      "'"${TUTORIAL_DATA_MODELS_CONTEXT}"'",
-      "https://uri.etsi.org/ngsi-ld/v1/ngsi-ld-core-context.jsonld"
-    ]
+    "id": "urn:ngsi-ld:Product:004",
+    "type": "Product",
+    "price": {"type": "Property","value": 50.00,"currency": {"type": "Property", "value": "EUR"}},
+    "size": {"type": "Property","value": "XL"},
+    "name": {"type": "Property","value": "Vodka"},  
+    "@context": "'"${TUTORIAL_DATA_MODELS_CONTEXT}"'"
 }'
 
 curl -X POST \
-  'http://orion:1026/ngsi-ld/v1/entities' \
+  'http://'"${CONTEXT_BROKER}"'/ngsi-ld/v1/entities/' \
   -H 'Content-Type: application/ld+json' \
   -d '{
-  "id": "urn:ngsi-ld:Product:005",
-  "type": "Product",
-  "price": {"type": "Property","value": 0.99,"currency": {"type": "Property", "value": "EUR"}},
-  "size": {"type": "Property","value": "S"},
-  "name": {"type": "Property","value": "Lager"},
-    "@context": [
-      "'"${TUTORIAL_DATA_MODELS_CONTEXT}"'",
-      "https://uri.etsi.org/ngsi-ld/v1/ngsi-ld-core-context.jsonld"
-    ]
+    "id": "urn:ngsi-ld:Product:005",
+    "type": "Product",
+    "price": {"type": "Property","value": 0.99,"currency": {"type": "Property", "value": "EUR"}},
+    "size": {"type": "Property","value": "S"},
+    "name": {"type": "Property","value": "Lager"},  
+    "@context": "'"${TUTORIAL_DATA_MODELS_CONTEXT}"'"
 }'
 
 curl -X POST \
-  'http://orion:1026/ngsi-ld/v1/entities' \
+  'http://'"${CONTEXT_BROKER}"'/ngsi-ld/v1/entities/' \
   -H 'Content-Type: application/ld+json' \
   -d '{
-  "id": "urn:ngsi-ld:Product:006",
-  "type": "Product",
-  "price": {"type": "Property","value": 0.99,"currency": {"type": "Property", "value": "EUR"}},
-  "size": {"type": "Property","value": "S"},
-  "name": {"type": "Property","value": "Whisky"},
-    "@context": [
-      "'"${TUTORIAL_DATA_MODELS_CONTEXT}"'",
-      "https://uri.etsi.org/ngsi-ld/v1/ngsi-ld-core-context.jsonld"
-    ]
+    "id": "urn:ngsi-ld:Product:006",
+    "type": "Product",
+    "price": {"type": "Property","value": 0.99,"currency": {"type": "Property", "value": "EUR"}},
+    "size": {"type": "Property","value": "S"},
+    "name": {"type": "Property","value": "Whisky"},
+    "@context": "'"${TUTORIAL_DATA_MODELS_CONTEXT}"'"
 }'
 
 curl -X POST \
-  'http://orion:1026/ngsi-ld/v1/entities' \
+  'http://'"${CONTEXT_BROKER}"'/ngsi-ld/v1/entities/' \
   -H 'Content-Type: application/ld+json' \
   -d '{
-  "id": "urn:ngsi-ld:Product:007",
-  "type": "Product",
-  "price": {"type": "Property","value": 0.99,"currency": {"type": "Property", "value": "EUR"}},
-  "size": {"type": "Property","value": "S"},
-  "name": {"type": "Property","value": "Gin"},
-    "@context": [
-      "'"${TUTORIAL_DATA_MODELS_CONTEXT}"'",
-      "https://uri.etsi.org/ngsi-ld/v1/ngsi-ld-core-context.jsonld"
-    ]
+    "id": "urn:ngsi-ld:Product:007",
+    "type": "Product",
+    "price": {"type": "Property","value": 0.99,"currency": {"type": "Property", "value": "EUR"}},
+    "size": {"type": "Property","value": "S"},
+    "name": {"type": "Property","value": "Gin"  },
+    "@context": "'"${TUTORIAL_DATA_MODELS_CONTEXT}"'"
 }'
 
 curl -X POST \
-  'http://orion:1026/ngsi-ld/v1/entities' \
+  'http://'"${CONTEXT_BROKER}"'/ngsi-ld/v1/entities/' \
   -H 'Content-Type: application/ld+json' \
   -d '{
-  "id": "urn:ngsi-ld:Product:008",
-  "type": "Product",
-  "price": {"type": "Property","value": 0.99,"currency": {"type": "Property", "value": "EUR"}},
-  "size": {"type": "Property","value": "S"},
-  "name": {"type": "Property","value": "Apple Juice"},
-    "@context": [
-      "'"${TUTORIAL_DATA_MODELS_CONTEXT}"'",
-      "https://uri.etsi.org/ngsi-ld/v1/ngsi-ld-core-context.jsonld"
-    ]
+    "id": "urn:ngsi-ld:Product:008",
+    "type": "Product",
+    "price": {"type": "Property","value": 0.99,"currency": {"type": "Property", "value": "EUR"}},
+    "size": {"type": "Property","value": "S"},
+    "name": {"type": "Property","value": "Apple Juice"},
+    "@context": "'"${TUTORIAL_DATA_MODELS_CONTEXT}"'"
 }'
 
 curl -X POST \
-  'http://orion:1026/ngsi-ld/v1/entities' \
+  'http://'"${CONTEXT_BROKER}"'/ngsi-ld/v1/entities/' \
   -H 'Content-Type: application/ld+json' \
   -d '{
-  "id": "urn:ngsi-ld:Product:009",
-  "type": "Product",
-  "price": {"type": "Property","value": 0.99,"currency": {"type": "Property", "value": "EUR"}},
-  "size": {"type": "Property","value": "S"},
-  "name": {"type": "Property","value": "Orange Juice"},
-    "@context": [
-      "'"${TUTORIAL_DATA_MODELS_CONTEXT}"'",
-      "https://uri.etsi.org/ngsi-ld/v1/ngsi-ld-core-context.jsonld"
-    ]
+    "id": "urn:ngsi-ld:Product:009",
+    "type": "Product",
+    "price": {"type": "Property","value": 0.99,"currency": {"type": "Property", "value": "EUR"}},
+    "size": {"type": "Property","value": "S"},
+    "name": {"type": "Property","value": "Orange Juice"},
+    "@context": "'"${TUTORIAL_DATA_MODELS_CONTEXT}"'"
 }'
 
 echo -e " \033[1;32mdone\033[0m"
