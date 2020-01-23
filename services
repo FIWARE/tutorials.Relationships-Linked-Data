@@ -14,9 +14,12 @@ if (( $# != 1 )); then
 fi
 
 loadData () {
-	export TUTORIAL_DATA_MODELS_CONTEXT="https://fiware.github.io/tutorials.Step-by-Step/tutorials-context.jsonld" 
 	echo ""
-	./import-data
+	docker run --rm -v $(pwd)/import-data:/import-data \
+		--network fiware_default \
+		-e CONTEXT_BROKER=${CONTEXT_BROKER} \
+		-e TUTORIAL_DATA_MODELS_CONTEXT="https://fiware.github.io/tutorials.Step-by-Step/tutorials-context.jsonld" \
+		--entrypoint /bin/ash curlimages/curl import-data
 	echo ""
 }
 

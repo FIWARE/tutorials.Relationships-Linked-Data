@@ -7,11 +7,7 @@
 # set -e
 
 
-curl () {
-  docker run --network fiware_default --rm appropriate/curl -s -o /dev/null \
-    "$@"
-  printf "."
-}
+
 
 echo -e "Loading \033[1;34mNGSI-LD\033[0m data using the '"${TUTORIAL_DATA_MODELS_CONTEXT}"' schema."
 printf "⏳ Loading context data "
@@ -20,7 +16,7 @@ printf "⏳ Loading context data "
 # Create four Store Entities in various locations across Berlin
 #
 
-curl -X POST \
+curl -s -o /dev/null -X POST \
   'http://'"${CONTEXT_BROKER}"'/ngsi-ld/v1/entities/' \
   -H 'Content-Type: application/ld+json' \
   -d '{
@@ -43,7 +39,7 @@ curl -X POST \
 
 
 
-curl -X POST \
+curl -s -o /dev/null -X POST \
   'http://'"${CONTEXT_BROKER}"'/ngsi-ld/v1/entities/' \
   -H 'Content-Type: application/ld+json' \
   -d '{
@@ -63,7 +59,7 @@ curl -X POST \
     "@context": "'"${TUTORIAL_DATA_MODELS_CONTEXT}"'"
 }'
 
-curl -X POST \
+curl -s -o /dev/null -X POST \
   'http://'"${CONTEXT_BROKER}"'/ngsi-ld/v1/entities/' \
   -H 'Content-Type: application/ld+json' \
   -d '{
@@ -84,7 +80,7 @@ curl -X POST \
 }'
 
 
-curl -X POST \
+curl -s -o /dev/null -X POST \
   'http://'"${CONTEXT_BROKER}"'/ngsi-ld/v1/entities/' \
   -H 'Content-Type: application/ld+json' \
   -d '{
@@ -111,7 +107,7 @@ curl -X POST \
 
 
 
-curl -X POST \
+curl -s -o /dev/null -X POST \
   'http://'"${CONTEXT_BROKER}"'/ngsi-ld/v1/entities/' \
   -H 'Content-Type: application/ld+json' \
   -d '{
@@ -126,7 +122,7 @@ curl -X POST \
     "@context": "'"${TUTORIAL_DATA_MODELS_CONTEXT}"'"
 }'
 
-curl -X POST \
+curl -s -o /dev/null -X POST \
   'http://'"${CONTEXT_BROKER}"'/ngsi-ld/v1/entities/' \
   -H 'Content-Type: application/ld+json' \
   -d '{
@@ -141,7 +137,7 @@ curl -X POST \
     "@context": "'"${TUTORIAL_DATA_MODELS_CONTEXT}"'"
 }'
 
-curl -X POST \
+curl -s -o /dev/null -X POST \
   'http://'"${CONTEXT_BROKER}"'/ngsi-ld/v1/entities/' \
   -H 'Content-Type: application/ld+json' \
   -d '{
@@ -156,7 +152,7 @@ curl -X POST \
     "@context": "'"${TUTORIAL_DATA_MODELS_CONTEXT}"'"
 }'
 
-curl -X POST \
+curl -s -o /dev/null -X POST \
   'http://'"${CONTEXT_BROKER}"'/ngsi-ld/v1/entities/' \
   -H 'Content-Type: application/ld+json' \
   -d '{
@@ -171,7 +167,7 @@ curl -X POST \
     "@context": "'"${TUTORIAL_DATA_MODELS_CONTEXT}"'"
 }'
 
-curl -X POST \
+curl -s -o /dev/null -X POST \
   'http://'"${CONTEXT_BROKER}"'/ngsi-ld/v1/entities/' \
   -H 'Content-Type: application/ld+json' \
   -d '{
@@ -187,7 +183,7 @@ curl -X POST \
 }'
 
 
-curl -X POST \
+curl -s -o /dev/null -X POST \
   'http://'"${CONTEXT_BROKER}"'/ngsi-ld/v1/entities/' \
   -H 'Content-Type: application/ld+json' \
   -d '{
@@ -202,7 +198,7 @@ curl -X POST \
     "@context": "'"${TUTORIAL_DATA_MODELS_CONTEXT}"'"
 }'
 
-curl -X POST \
+curl -s -o /dev/null -X POST \
   'http://'"${CONTEXT_BROKER}"'/ngsi-ld/v1/entities/' \
   -H 'Content-Type: application/ld+json' \
   -d '{
@@ -217,7 +213,7 @@ curl -X POST \
     "@context": "'"${TUTORIAL_DATA_MODELS_CONTEXT}"'"
 }'
 
-curl -X POST \
+curl -s -o /dev/null -X POST \
   'http://'"${CONTEXT_BROKER}"'/ngsi-ld/v1/entities/' \
   -H 'Content-Type: application/ld+json' \
   -d '{
@@ -232,7 +228,7 @@ curl -X POST \
     "@context": "'"${TUTORIAL_DATA_MODELS_CONTEXT}"'"
 }'
 
-curl -X POST \
+curl -s -o /dev/null -X POST \
   'http://'"${CONTEXT_BROKER}"'/ngsi-ld/v1/entities/' \
   -H 'Content-Type: application/ld+json' \
   -d '{
@@ -247,7 +243,7 @@ curl -X POST \
     "@context": "'"${TUTORIAL_DATA_MODELS_CONTEXT}"'"
 }'
 
-curl -X POST \
+curl -s -o /dev/null -X POST \
   'http://'"${CONTEXT_BROKER}"'/ngsi-ld/v1/entities/' \
   -H 'Content-Type: application/ld+json' \
   -d '{
@@ -268,7 +264,7 @@ curl -X POST \
 # These are a series of alcoholc and non-alcoholic drinks which are available to sell.
 #
 
-curl -X POST \
+curl -s -o /dev/null -X POST \
   'http://'"${CONTEXT_BROKER}"'/ngsi-ld/v1/entities/' \
   -H 'Content-Type: application/ld+json' \
   -d '{
@@ -280,7 +276,7 @@ curl -X POST \
     "@context": "'"${TUTORIAL_DATA_MODELS_CONTEXT}"'"
 }'
 
-curl -X POST \
+curl -s -o /dev/null -X POST \
   'http://'"${CONTEXT_BROKER}"'/ngsi-ld/v1/entities/' \
   -H 'Content-Type: application/ld+json' \
   -d '{
@@ -292,7 +288,7 @@ curl -X POST \
     "@context": "'"${TUTORIAL_DATA_MODELS_CONTEXT}"'"
 }'
 
-curl -X POST \
+curl -s -o /dev/null -X POST \
   'http://'"${CONTEXT_BROKER}"'/ngsi-ld/v1/entities/' \
   -H 'Content-Type: application/ld+json' \
   -d '{
@@ -304,7 +300,7 @@ curl -X POST \
     "@context": "'"${TUTORIAL_DATA_MODELS_CONTEXT}"'"
 }'
 
-curl -X POST \
+curl -s -o /dev/null -X POST \
   'http://'"${CONTEXT_BROKER}"'/ngsi-ld/v1/entities/' \
   -H 'Content-Type: application/ld+json' \
   -d '{
@@ -316,7 +312,7 @@ curl -X POST \
     "@context": "'"${TUTORIAL_DATA_MODELS_CONTEXT}"'"
 }'
 
-curl -X POST \
+curl -s -o /dev/null -X POST \
   'http://'"${CONTEXT_BROKER}"'/ngsi-ld/v1/entities/' \
   -H 'Content-Type: application/ld+json' \
   -d '{
@@ -328,7 +324,7 @@ curl -X POST \
     "@context": "'"${TUTORIAL_DATA_MODELS_CONTEXT}"'"
 }'
 
-curl -X POST \
+curl -s -o /dev/null -X POST \
   'http://'"${CONTEXT_BROKER}"'/ngsi-ld/v1/entities/' \
   -H 'Content-Type: application/ld+json' \
   -d '{
@@ -340,7 +336,7 @@ curl -X POST \
     "@context": "'"${TUTORIAL_DATA_MODELS_CONTEXT}"'"
 }'
 
-curl -X POST \
+curl -s -o /dev/null -X POST \
   'http://'"${CONTEXT_BROKER}"'/ngsi-ld/v1/entities/' \
   -H 'Content-Type: application/ld+json' \
   -d '{
@@ -352,7 +348,7 @@ curl -X POST \
     "@context": "'"${TUTORIAL_DATA_MODELS_CONTEXT}"'"
 }'
 
-curl -X POST \
+curl -s -o /dev/null -X POST \
   'http://'"${CONTEXT_BROKER}"'/ngsi-ld/v1/entities/' \
   -H 'Content-Type: application/ld+json' \
   -d '{
@@ -364,7 +360,7 @@ curl -X POST \
     "@context": "'"${TUTORIAL_DATA_MODELS_CONTEXT}"'"
 }'
 
-curl -X POST \
+curl -s -o /dev/null -X POST \
   'http://'"${CONTEXT_BROKER}"'/ngsi-ld/v1/entities/' \
   -H 'Content-Type: application/ld+json' \
   -d '{
