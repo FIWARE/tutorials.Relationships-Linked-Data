@@ -6,11 +6,9 @@
 
 # set -e
 
-
-
-
-echo -e "Loading \033[1;34mNGSI-LD\033[0m data using the '"${TUTORIAL_DATA_MODELS_CONTEXT}"' schema."
-printf "⏳ Loading context data "
+echo -e "⏳ Loading the supermarket context data in \033[1mNGSI-LD\033[0m format"
+echo -e "    - all entity data models are defined referencing the" 
+printf  "      \033[1m"${TUTORIAL_DATA_MODELS_CONTEXT}"\033[0m JSON-LD context"
 
 #
 # Create four Store Entities in various locations across Berlin
