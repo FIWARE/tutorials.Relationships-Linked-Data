@@ -227,7 +227,7 @@ system which is used to move a pallet of products onto a shelf it would be possi
 -   Interogating the **StockOrder** is discovered that the **Product** is `requestedFor` for a specific URI e.g.
     `urn:ngsi-ld:Building:store002`
 
-```json
+```jsonld
   "@graph": [
    {
       "@id": "tutorial:orderedProduct",
@@ -243,7 +243,7 @@ system which is used to move a pallet of products onto a shelf it would be possi
 
 -   It is also discovered from the **StockOrder** model that the `requestedFor` URI defines a **Building**
 
-```json
+```jsonld
   "@graph": [
     {
       "@id": "tutorial:requestedFor",
@@ -260,7 +260,7 @@ system which is used to move a pallet of products onto a shelf it would be possi
 -   It is discovered from the **Building** model that every **Building** contains `furniture` as an array of URIs.
 -   It is discovered from the **Building** model that these URIs represent **Shelf** units
 
-```json
+```jsonld
 "@graph": [
     {
       "@id": "tutorial:furniture",
@@ -276,7 +276,7 @@ system which is used to move a pallet of products onto a shelf it would be possi
 
 -   It is discovered from the **Shelf** model that the `stocks` attribute holds a URI representing **Product** items.
 
-```json
+```jsonld
 "@graph": [
     {
       "@id": "tutorial:stocks",
@@ -434,7 +434,7 @@ curl -G -X GET \
 The response returns all of the existing **Building** entities, with the attributes expanded as fully qualified names
 (FQNs).
 
-```json
+```jsonld
 [
     {
         "@context": "https://uri.etsi.org/ngsi-ld/v1/ngsi-ld-core-context.jsonld",
@@ -507,7 +507,7 @@ curl -G -X GET \
 
 However since the full context has been supplied in the `Link` header, the short names are returned.
 
-```json
+```jsonld
 [
     {
         "@context": "https://fiware.github.io/tutorials.Step-by-Step/tutorials-context.jsonld",
@@ -559,7 +559,7 @@ curl -G -X GET \
 
 Once again the short names are returned.
 
-```json
+```jsonld
 [
     {
         "@context": "https://fiware.github.io/tutorials.Step-by-Step/tutorials-context.jsonld",
@@ -616,7 +616,7 @@ curl -G -X GET \
 
 The short names have been returned since the `@context` has been supplied in the `Link` header.
 
-```json
+```jsonld
 {
     "@context": "https://fiware.github.io/tutorials.Step-by-Step/tutorials-context.jsonld",
     "id": "urn:ngsi-ld:Shelf:unit001",
@@ -722,7 +722,7 @@ as fully qualified names (FQNs), as defined in the
 [**Shelf** Data Model](https://fiware.github.io/tutorials.Step-by-Step/schema/Shelf/) as the `Link` header was not
 passed in the previous request.
 
-```json
+```jsonld
 {
     "@context": "https://uri.etsi.org/ngsi-ld/v1/ngsi-ld-core-context.jsonld",
     "id": "urn:ngsi-ld:Shelf:unit001",
@@ -782,7 +782,7 @@ To do this NGSI-LD uses the two core expansion and compaction algorithms of the 
 
 Looking at the relevant lines in the JSON-LD `@context`:
 
-```json
+```jsonld
     "tutorial": "https://fiware.github.io/tutorials.Step-by-Step/schema/",
 
     "Shelf": "tutorial:Shelf",
@@ -809,7 +809,7 @@ Click on the image above to watch a video JSON-LD expansion and compaction with 
 More information about `Relationships` can be obtained from the `@graph` of the linked data model. For `locatedIn` the
 relevant section definition is as follows:
 
-```json
+```jsonld
     {
       "@id": "tutorial:locatedIn",
       "@type": "https://uri.etsi.org/ngsi-ld/Relationship",
@@ -851,7 +851,7 @@ curl -G -X GET \
 
 #### Response:
 
-```json
+```jsonld
 {
     "@context": "https://fiware.github.io/tutorials.Step-by-Step/tutorials-context.jsonld",
     "id": "urn:ngsi-ld:Shelf:unit001",
@@ -881,7 +881,7 @@ curl -G -X GET \
 
 The response contains an array displaying
 
-```json
+```jsonld
 [
     {
         "id": "urn:ngsi-ld:Shelf:unit001",
@@ -933,7 +933,7 @@ curl -G -X GET \
 
 #### Response:
 
-```json
+```jsonld
 {
     "id": "urn:ngsi-ld:Building:store001",
     "type": "Building",
@@ -1012,7 +1012,7 @@ curl -G -X GET \
 
 The response returns an array of `requestedFor` attributes in the response.
 
-```json
+```jsonld
 [
     {
         "id": "urn:ngsi-ld:StockOrder:001",
@@ -1046,7 +1046,7 @@ curl -G -X GET \
 The response returns an array of `orderedProduct` attributes in the response. This is the reciprocal of the previous
 request.
 
-```json
+```jsonld
 [
     {
         "id": "urn:ngsi-ld:StockOrder:001",
@@ -1073,7 +1073,7 @@ curl -G -X GET \
 
 The response returns the fully expanded entity.
 
-```json
+```jsonld
 {
     "@context": "https://uri.etsi.org/ngsi-ld/v1/ngsi-ld-core-context.jsonld",
     "id": "urn:ngsi-ld:StockOrder:001",

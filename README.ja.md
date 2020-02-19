@@ -241,7 +241,7 @@ NGSI v2 シナリオとは異なり、リンクト・データを使用すると
 -   一部の `product:XXX` アイテムは `stockOrder:0001` から削除されました。`stockCount` をデクリメントします
 -   **StockOrder** を調べると、**Product** が特定の URI の `requestedFor` であることがわかります。例: `store:002`
 
-```json
+```jsonld
   "@graph": [
    {
       "@id": "tutorial:orderedProduct",
@@ -257,7 +257,7 @@ NGSI v2 シナリオとは異なり、リンクト・データを使用すると
 
 -   **StockOrder** モデルから、`requestedFor` URI が **Building** を定義していることもわかりました
 
-```json
+```jsonld
   "@graph": [
     {
       "@id": "tutorial:requestedFor",
@@ -274,7 +274,7 @@ NGSI v2 シナリオとは異なり、リンクト・データを使用すると
 -   **Building** モデルから、すべての **Building** が URI の配列として `furniture` を含むことがわかりました
 -   **Building** モデルから、これらの URI が **Shelf** ユニットを表すことがわかりました
 
-```json
+```jsonld
 "@graph": [
     {
       "@id": "tutorial:furniture",
@@ -290,7 +290,7 @@ NGSI v2 シナリオとは異なり、リンクト・データを使用すると
 
 -   **Shelf** モデルから、`stocks` 属性が **Product** アイテムを表す URI を保持していることがわかりました
 
-```json
+```jsonld
 "@graph": [
     {
       "@id": "tutorial:stocks",
@@ -466,7 +466,7 @@ curl -G -X GET \
 
 レスポンスは、属性が完全修飾名 (FQNs) として展開された既存のすべての **Building** エンティティを返します。
 
-```json
+```jsonld
 [
     {
         "@context": "https://uri.etsi.org/ngsi-ld/v1/ngsi-ld-core-context.jsonld",
@@ -549,7 +549,7 @@ curl -G -X GET \
 
 ただし、完全なコンテキストが `Link` ヘッダで提供されているため、短縮名が返されます。
 
-```json
+```jsonld
 [
     {
         "@context": "https://fiware.github.io/tutorials.Step-by-Step/tutorials-context.jsonld",
@@ -604,7 +604,7 @@ curl -G -X GET \
 
 再び短縮名 (short names) が返されます。
 
-```json
+```jsonld
 [
     {
         "@context": "https://fiware.github.io/tutorials.Step-by-Step/tutorials-context.jsonld",
@@ -672,7 +672,7 @@ curl -G -X GET \
 
 `@context` が `Link` ヘッダで提供されているため、短縮名が返されています。
 
-```json
+```jsonld
 {
     "@context": "https://fiware.github.io/tutorials.Step-by-Step/tutorials-context.jsonld",
     "id": "urn:ngsi-ld:Shelf:unit001",
@@ -786,7 +786,7 @@ curl -X GET \
 [**Shelf** データモデル](https://fiware.github.io/tutorials.Step-by-Step/schema/Shelf/)
 で定義されているように、完全修飾名 (FQNs) として展開されています。
 
-```json
+```jsonld
 {
     "@context": "https://uri.etsi.org/ngsi-ld/v1/ngsi-ld-core-context.jsonld",
     "id": "urn:ngsi-ld:Shelf:unit001",
@@ -851,7 +851,7 @@ JSON-LD の中心的な動機の1つは、基本的に同じデータ型の異�
 
 JSON-LD `@context` の関連する行を見てください :
 
-```json
+```jsonld
     "tutorial": "https://fiware.github.io/tutorials.Step-by-Step/schema/",
 
     "Shelf": "tutorial:Shelf",
@@ -882,7 +882,7 @@ JSON-LD `@context` の関連する行を見てください :
 `Relationships` に関する詳細情報は、リンクト・データモデルの `@graph` から取得できます。`locatedIn`
 の場合、関連するセクション定義は次のとおりです :
 
-```json
+```jsonld
     {
       "@id": "tutorial:locatedIn",
       "@type": "https://uri.etsi.org/ngsi-ld/Relationship",
@@ -928,7 +928,7 @@ curl -G -X GET \
 
 #### レスポンス :
 
-```json
+```jsonld
 {
     "@context": "https://fiware.github.io/tutorials.Step-by-Step/tutorials-context.jsonld",
     "id": "urn:ngsi-ld:Shelf:unit001",
@@ -960,7 +960,7 @@ curl -G -X GET \
 
 レスポンスには、表示する配列が含まれます。
 
-```json
+```jsonld
 [
     {
         "id": "urn:ngsi-ld:Shelf:unit001",
@@ -1015,7 +1015,7 @@ curl -G -X GET \
 
 #### レスポンス :
 
-```json
+```jsonld
 {
     "id": "urn:ngsi-ld:Building:store001",
     "type": "Building",
@@ -1100,7 +1100,7 @@ curl -G -X GET \
 
 レスポンスは、レスポンス内の `requestedFor` 属性の配列を返します。
 
-```json
+```jsonld
 [
     {
         "id": "urn:ngsi-ld:StockOrder:001",
@@ -1135,7 +1135,7 @@ curl -G -X GET \
 
 レスポンスは、レスポンス内の `orderedProduct` 属性の配列を返します。これは前のリクエストの逆です。
 
-```json
+```jsonld
 [
     {
         "id": "urn:ngsi-ld:StockOrder:001",
@@ -1164,7 +1164,7 @@ curl -G -X GET \
 
 レスポンスは、完全に展開されたエンティティを返します。
 
-```json
+```jsonld
 {
     "@context": "https://uri.etsi.org/ngsi-ld/v1/ngsi-ld-core-context.jsonld",
     "id": "urn:ngsi-ld:StockOrder:001",
