@@ -900,6 +900,9 @@ This is the reciprocal relationship to the `locatedIn` attribute on **Shelf**
 
 #### :nine: Request:
 
+> :bangbang: This request is written using a custom one-to-many syntax accepted by **Orion-LD** 0.2.0 only.
+> The final ETSI specification for one-to-many relationships is currently being revised.
+
 ```console
 curl -X POST \
   http://localhost:1026/ngsi-ld/v1/entities/urn:ngsi-ld:Building:store001/attrs \
