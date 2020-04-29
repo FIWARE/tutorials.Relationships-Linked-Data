@@ -182,7 +182,7 @@ NGSI v2 では、リレーションシップ属性は単なる標準プロパテ
 サードパーティ製のマシンは、製品情報を読み取り (標準 [**Product** データモデル](https://jsonld.com/product/)
 を使用してエンコードされた情報)、標準の星評価を持つ製品情報のリッチ・スニペットを表示できます。
 
-[![](http://img.youtube.com/vi/_-rRxKSm2ic/0.jpg)](https://www.youtube.com/watch?v=_-rRxKSm2ic "Rich Snippets")
+[![](https://fiware.github.io/tutorials.Step-by-Step/img/video-logo.png)](https://www.youtube.com/watch?v=_-rRxKSm2ic "Rich Snippets")
 
 上の画像をクリックして、製品検索用のリッチ・スニペットの紹介ビデオをご覧ください。
 
@@ -871,7 +871,7 @@ JSON-LD `@context` の関連する行を見てください :
 
 ### :arrow_forward: ビデオ : JSON-LD の圧縮と拡張
 
-[![](http://img.youtube.com/vi/Tm3fD89dqRE/0.jpg)](https://www.youtube.com/watch?v=Tm3fD89dqRE "JSON-LD Compaction & Expansion")
+[![](https://fiware.github.io/tutorials.Step-by-Step/img/video-logo.png)](https://www.youtube.com/watch?v=Tm3fD89dqRE "JSON-LD Compaction & Expansion")
 
 上の画像をクリックして、 `@context` をリファレンスしたビデオ JSON-LD の拡張と圧縮をご覧ください。
 

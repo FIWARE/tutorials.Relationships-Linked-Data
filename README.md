@@ -171,7 +171,7 @@ from third parties such as Google are able to read product information (encoded 
 [**Product** data model](https://jsonld.com/product/)) and display a rich snippet of product information with a standard
 star rating.
 
-[![](http://img.youtube.com/vi/_-rRxKSm2ic/0.jpg)](https://www.youtube.com/watch?v=_-rRxKSm2ic "Rich Snippets")
+[![](https://fiware.github.io/tutorials.Step-by-Step/img/video-logo.png)](https://www.youtube.com/watch?v=_-rRxKSm2ic "Rich Snippets")
 
 Click on the image above to watch an introductory video on rich snippets for product search.
 
@@ -800,7 +800,7 @@ Furthermore, `locatedIn` has an `@type="@id"` which indicates to a computer that
 
 ### :arrow_forward: Video: JSON-LD Compaction & Expansion
 
-[![](http://img.youtube.com/vi/Tm3fD89dqRE/0.jpg)](https://www.youtube.com/watch?v=Tm3fD89dqRE "JSON-LD Compaction & Expansion")
+[![](https://fiware.github.io/tutorials.Step-by-Step/img/video-logo.png)](https://www.youtube.com/watch?v=Tm3fD89dqRE "JSON-LD Compaction & Expansion")
 
 Click on the image above to watch a video JSON-LD expansion and compaction with reference to the `@context`.
 
@@ -900,8 +900,8 @@ This is the reciprocal relationship to the `locatedIn` attribute on **Shelf**
 
 #### :nine: Request:
 
-> :bangbang: This request is written using a custom one-to-many syntax accepted by **Orion-LD** 0.2.0 only.
-> The final ETSI specification for one-to-many relationships is currently being revised.
+> :bangbang: This request is written using a custom one-to-many syntax accepted by **Orion-LD** 0.2.0 only. The final
+> ETSI specification for one-to-many relationships is currently being revised.
 
 ```console
 curl -X POST \
