@@ -310,7 +310,7 @@ technology which allows to different components isolated into their respective e
 -   To install Docker on Linux follow the instructions [here](https://docs.docker.com/install/)
 
 **Docker Compose** is a tool for defining and running multi-container Docker applications. A
-[YAML file](https://raw.githubusercontent.com/fiware/tutorials.Relationships-Linked-Data/master/docker-compose.yml) is
+[YAML file](https://raw.githubusercontent.com/fiware/tutorials.Relationships-Linked-Data/master/docker-compose/orion-ld.yml) is
 used configure the required services for the application. This means all container services can be brought up in a
 single command. Docker Compose is installed by default as part of Docker for Windows and Docker for Mac, however Linux
 users will need to follow the instructions found [here](https://docs.docker.com/compose/install/)
@@ -341,7 +341,7 @@ run from exposed ports.
 
 ![](https://fiware.github.io/tutorials.Relationships-Linked-Data/img/architecture.png)
 
-The necessary configuration information can be seen in the services section of the associated `docker-compose.yml` file:
+The necessary configuration information can be seen in the services section of the associated `orion-ld.yml` file:
 
 ```yaml
 orion:
@@ -681,7 +681,7 @@ curl -X POST \
     "numberOfItems": {"type": "Property","value": 50},
     "stocks": {
       "type": "Relationship",
-        "object": "urn:ngsi-ld:Product:001"
+      "object": "urn:ngsi-ld:Product:001"
     },
     "locatedIn" : {
       "type": "Relationship", "object": "urn:ngsi-ld:Building:store001",
@@ -1003,7 +1003,7 @@ The query `q==orderedProduct="urn:ngsi-ld:Product:001"` is used to filter the en
 ```console
 curl -G -X GET \
   'http://localhost:1026/ngsi-ld/v1/entities/' \
-  -d 'type=StockOrder'
+  -d 'type=StockOrder' \
   -d 'q=orderedProduct==%22urn:ngsi-ld:Product:001%22' \
   -d 'attrs=requestedFor' \
   -d 'options=keyValues' \
