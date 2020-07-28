@@ -272,7 +272,7 @@ NGSI v2 シナリオとは異なり、リンクト・データを使用すると
 ]
 ```
 
--   **Building** モデルから、すべての **Building** が URI の配列として `furniture` を含むことがわかりました
+-   **Building** モデルから、すべての **Building** が URIs の配列として `furniture` を含むことがわかりました
 -   **Building** モデルから、これらの URI が **Shelf** ユニットを表すことがわかりました
 
 ```jsonld
@@ -330,7 +330,7 @@ JSON の短縮名属性 (short name attributes) を修正したり、リレー�
 -   Linux に Docker をインストールするには、[こちら](https://docs.docker.com/install/)の手順に従ってください
 
 **Docker Compose** は、マルチコンテナ Docker アプリケーションを定義して実行するためのツールです。
-[YAMLファイル](https://raw.githubusercontent.com/fiware/tutorials.Relationships-Linked-Data/master/docker-compose.yml)
+[YAMLファイル](https://raw.githubusercontent.com/fiware/tutorials.Relationships-Linked-Data/master/docker-compose/orion-ld.yml)
 を使用して、アプリケーションに必要なサービスを設定します。これは、すべてのコンテナ・サービスを単一のコマンドで起動
 できることを意味します。Docker Compose は、Docker for Windows および Docker for Mac の一部としてデフォルトでインストール
 されますが、Linux ユーザは[こちら](https://docs.docker.com/compose/install/)にある手順に従う必要があります。
@@ -365,7 +365,7 @@ JSON の短縮名属性 (short name attributes) を修正したり、リレー�
 
 ![](https://fiware.github.io/tutorials.Relationships-Linked-Data/img/architecture.png)
 
-必要な設定情報は関連する `docker-compose.yml` ファイルの services セクションにあります :
+必要な設定情報は関連する `orion-ld.yml` ファイルの services セクションにあります :
 
 ```yaml
 orion:
@@ -744,7 +744,7 @@ curl -X POST \
     "numberOfItems": {"type": "Property","value": 50},
     "stocks": {
       "type": "Relationship",
-        "object": "urn:ngsi-ld:Product:001"
+      "object": "urn:ngsi-ld:Product:001"
     },
     "locatedIn" : {
       "type": "Relationship", "object": "urn:ngsi-ld:Building:store001",
@@ -1089,7 +1089,7 @@ _Relationship_ 属性は他の属性とまったく同じであるため、**Sto
 ```console
 curl -G -X GET \
   'http://localhost:1026/ngsi-ld/v1/entities/' \
-  -d 'type=StockOrder'
+  -d 'type=StockOrder' \
   -d 'q=orderedProduct==%22urn:ngsi-ld:Product:001%22' \
   -d 'attrs=requestedFor' \
   -d 'options=keyValues' \
