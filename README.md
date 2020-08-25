@@ -3,7 +3,7 @@
 [![FIWARE Core Context Management](https://nexus.lab.fiware.org/repository/raw/public/badges/chapters/core.svg)](https://github.com/FIWARE/catalogue/blob/master/core/README.md)
 [![License: MIT](https://img.shields.io/github/license/fiware/tutorials.Relationships-Linked-Data.svg)](https://opensource.org/licenses/MIT)
 [![Support badge](https://nexus.lab.fiware.org/repository/raw/public/badges/stackoverflow/fiware.svg)](https://stackoverflow.com/questions/tagged/fiware)
-[![NGSI LD](https://img.shields.io/badge/NGSI-LD-d6604d.svg)](https://www.etsi.org/deliver/etsi_gs/CIM/001_099/009/01.01.01_60/gs_CIM009v010101p.pdf)
+[![NGSI LD](https://img.shields.io/badge/NGSI-LD-d6604d.svg)](https://www.etsi.org/deliver/etsi_gs/CIM/001_099/009/01.03.01_60/gs_cim009v010301p.pdf)
 <br/> [![Documentation](https://img.shields.io/readthedocs/fiware-tutorials.svg)](https://fiware-tutorials.rtfd.io)
 
 This tutorial discusses relationships between linked data entities and how the concepts of **JSON-LD** and **NGSI-LD**
@@ -310,8 +310,8 @@ technology which allows to different components isolated into their respective e
 -   To install Docker on Linux follow the instructions [here](https://docs.docker.com/install/)
 
 **Docker Compose** is a tool for defining and running multi-container Docker applications. A
-[YAML file](https://raw.githubusercontent.com/fiware/tutorials.Relationships-Linked-Data/master/docker-compose/orion-ld.yml) is
-used configure the required services for the application. This means all container services can be brought up in a
+[YAML file](https://raw.githubusercontent.com/fiware/tutorials.Relationships-Linked-Data/master/docker-compose/orion-ld.yml)
+is used configure the required services for the application. This means all container services can be brought up in a
 single command. Docker Compose is installed by default as part of Docker for Windows and Docker for Mac, however Linux
 users will need to follow the instructions found [here](https://docs.docker.com/compose/install/)
 
