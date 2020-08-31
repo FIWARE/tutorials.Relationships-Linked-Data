@@ -421,6 +421,7 @@ mongo-db:
 ```bash
 git clone https://github.com/FIWARE/tutorials.Relationships-Linked-Data.git
 cd tutorials.Relationships-Linked-Data
+git checkout NGSI-v2
 
 ./services start
 ```
