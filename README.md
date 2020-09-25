@@ -899,25 +899,29 @@ The response contains an array displaying
 
 ### Adding a 1-many relationship
 
-To add a 1-many relationship, add an array as the value of `object` attribute. This can be used for simple links without
+To add a 1-many relationship, add an array of Relationship items as the attribute. This can be used for simple links without
 additional data. This method is used to add **Shelf** entities as `furniture` in the **Store**.
 
 This is the reciprocal relationship to the `locatedIn` attribute on **Shelf**
 
 #### :nine: Request:
 
-> :bangbang: This request is written using a custom one-to-many syntax accepted by **Orion-LD** 0.2.0 only. The final
-> ETSI specification for one-to-many relationships is currently being revised.
-
 ```console
-curl -X POST \
-  http://localhost:1026/ngsi-ld/v1/entities/urn:ngsi-ld:Building:store001/attrs \
-  -H 'Content-Type: application/ld+json' \
-  -d '{
-    "furniture": {
-      "type": "Relationship",
-        "object": [ "urn:ngsi-ld:Shelf:001", "urn:ngsi-ld:Shelf:002"]
-    },
+curl -L -X POST 'http://localhost:1026/ngsi-ld/v1/entities/urn:ngsi-ld:Building:store001/attrs' \
+-H 'Content-Type: application/ld+json' \
+--data-raw '{
+    "furniture": [
+        {
+            "type": "Relationship",
+            "datasetId": "urn:ngsi-ld:Relationship:1",
+            "object": "urn:ngsi-ld:Shelf:001"
+        },
+        {
+            "type": "Relationship",
+            "datasetId": "urn:ngsi-ld:Relationship:2",
+            "object": "urn:ngsi-ld:Shelf:002"
+        }
+    ],
     "@context": "https://fiware.github.io/tutorials.Step-by-Step/data-models-context.jsonld"
 }'
 ```

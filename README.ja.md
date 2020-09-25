@@ -988,14 +988,21 @@ curl -G -X GET \
 #### :nine: リクエスト :
 
 ```console
-curl -X POST \
-  http://localhost:1026/ngsi-ld/v1/entities/urn:ngsi-ld:Building:store001/attrs \
-  -H 'Content-Type: application/ld+json' \
-  -d '{
-    "furniture": {
-      "type": "Relationship",
-        "object": [ "urn:ngsi-ld:Shelf:001", "urn:ngsi-ld:Shelf:002"]
-    },
+curl -L -X POST 'http://localhost:1026/ngsi-ld/v1/entities/urn:ngsi-ld:Building:store001/attrs' \
+-H 'Content-Type: application/ld+json' \
+--data-raw '{
+    "furniture": [
+        {
+            "type": "Relationship",
+            "datasetId": "urn:ngsi-ld:Relationship:1",
+            "object": "urn:ngsi-ld:Shelf:001"
+        },
+        {
+            "type": "Relationship",
+            "datasetId": "urn:ngsi-ld:Relationship:2",
+            "object": "urn:ngsi-ld:Shelf:002"
+        }
+    ],
     "@context": "https://fiware.github.io/tutorials.Step-by-Step/data-models-context.jsonld"
 }'
 ```
