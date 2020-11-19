@@ -20,10 +20,10 @@ The tutorial uses [cUrl](https://ec.haxx.se/) commands throughout, but is also a
 
 -   このチュートリアルは[日本語](README.ja.md)でもご覧いただけます。
 
-
-:warning:  **Note:** This tutorial is designed for **NGSI-v2** developers looking to switch or upgrade systems to **NGSI-LD**, if you
-are building a linked data system from scratch or you are not already familiar with **NGSI-v2** then it is recommmended that you
-look directly at the [NGSI-LD developers tutorial](https://ngsi-ld-tutorials.readthedocs.io/) documentation.
+:warning: **Note:** This tutorial is designed for **NGSI-v2** developers looking to switch or upgrade systems to
+**NGSI-LD**, if you are building a linked data system from scratch or you are not already familiar with **NGSI-v2** then
+it is recommmended that you look directly at the
+[NGSI-LD developers tutorial](https://ngsi-ld-tutorials.readthedocs.io/) documentation.
 
 ## Contents
 
@@ -899,8 +899,8 @@ The response contains an array displaying
 
 ### Adding a 1-many relationship
 
-To add a 1-many relationship, add an array of Relationship items as the attribute. This can be used for simple links without
-additional data. This method is used to add **Shelf** entities as `furniture` in the **Store**.
+To add a 1-many relationship, add an array of Relationship items as the attribute. This can be used for simple links
+without additional data. This method is used to add **Shelf** entities as `furniture` in the **Store**.
 
 This is the reciprocal relationship to the `locatedIn` attribute on **Shelf**
 
