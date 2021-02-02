@@ -120,6 +120,9 @@ case "${command}" in
 		export CONTEXT_BROKER=stellio:8080
 		loadData
 		;;
+	"start")
+		./services orion
+		;;
 	"stop")
 		stoppingContainers
 		;;
@@ -127,7 +130,7 @@ case "${command}" in
 		echo "Pulling Docker images"
 		docker-compose --log-level ERROR -f docker-compose/scorpio-aaio.yml pull
 		docker-compose --log-level ERROR -f docker-compose/orion-ld.yml pull
-		docker-compose --log-level ERROR -f docker-compose/stellio.yml 
+		docker-compose --log-level ERROR -f docker-compose/stellio.yml pull
 		;;
 	*)
 		echo "Command not Found."
