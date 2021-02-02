@@ -397,7 +397,7 @@ git clone https://github.com/FIWARE/tutorials.Relationships-Linked-Data.git
 cd tutorials.Relationships-Linked-Data
 git checkout NGSI-v2
 
-./services start
+./services orion|scorpio
 ```
 
 > **Note:** If you want to clean up and start over again you can do so with the following command:
