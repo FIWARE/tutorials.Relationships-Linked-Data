@@ -548,7 +548,7 @@ The programmatically the Product model and its attributes are fully described in
 
 ### Display all Shelves
 
-Requesting the **Product** entities can be done by supplying the short of the entity `type` in the request as well,
+Requesting the **Shelf** entities can be done by supplying the short of the entity `type` in the request as well,
 provided the full context has been supplied in the `Link` header.
 
 #### :three: Request:
