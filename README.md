@@ -506,7 +506,7 @@ curl -G -X GET \
   'http://localhost:1026/ngsi-ld/v1/entities' \
   -d 'type=https://fiware.github.io/tutorials.Step-by-Step/schema/Product' \
   -d 'options=keyValues' \
-  -H 'Link: <https://fiware.github.io/tutorials.Step-by-Step/data-models-context.jsonld>; rel="http://www.w3.org/ns/json-ld#context"; type="application/ld+json"'
+  -H 'Link: <https://fiware.github.io/tutorials.Step-by-Step/tutorials-context.jsonld>; rel="http://www.w3.org/ns/json-ld#context"; type="application/ld+json"'
 ```
 
 #### Response:
@@ -558,7 +558,7 @@ curl -G -X GET \
   'http://localhost:1026/ngsi-ld/v1/entities' \
   -d 'type=Shelf' \
   -d 'options=keyValues' \
-  -H 'Link: <https://fiware.github.io/tutorials.Step-by-Step/data-models-context.jsonld>; rel="http://www.w3.org/ns/json-ld#context"; type="application/ld+json"'
+  -H 'Link: <https://fiware.github.io/tutorials.Step-by-Step/tutorials-context.jsonld>; rel="http://www.w3.org/ns/json-ld#context"; type="application/ld+json"'
 ```
 
 #### Response:
@@ -615,7 +615,7 @@ below.
 curl -G -X GET \
   'http://localhost:1026/ngsi-ld/v1/entities/urn:ngsi-ld:Shelf:unit001/' \
   -d 'options=keyValues' \
-  -H 'Link: <https://fiware.github.io/tutorials.Step-by-Step/data-models-context.jsonld>; rel="http://www.w3.org/ns/json-ld#context"; type="application/ld+json"'
+  -H 'Link: <https://fiware.github.io/tutorials.Step-by-Step/tutorials-context.jsonld>; rel="http://www.w3.org/ns/json-ld#context"; type="application/ld+json"'
 ```
 
 #### Response:
@@ -852,7 +852,7 @@ curl -G -X GET \
   'http://localhost:1026/ngsi-ld/v1/entities/urn:ngsi-ld:Shelf:unit001/' \
   -d 'attrs=locatedIn' \
   -d 'options=keyValues' \
-  -H 'Link: <https://fiware.github.io/tutorials.Step-by-Step/data-models-context.jsonld>; rel="http://www.w3.org/ns/json-ld#context"; type="application/ld+json"'
+  -H 'Link: <https://fiware.github.io/tutorials.Step-by-Step/tutorials-context.jsonld>; rel="http://www.w3.org/ns/json-ld#context"; type="application/ld+json"'
 ```
 
 #### Response:
@@ -880,7 +880,7 @@ curl -G -X GET \
   -d 'options=keyValues' \
   -d 'attrs=locatedIn' \
   -H 'Accept: application/json' \
-  -H 'Link: <https://fiware.github.io/tutorials.Step-by-Step/data-models-context.jsonld>; rel="http://www.w3.org/ns/json-ld#context"; type="application/ld+json"'
+  -H 'Link: <https://fiware.github.io/tutorials.Step-by-Step/tutorials-context.jsonld>; rel="http://www.w3.org/ns/json-ld#context"; type="application/ld+json"'
 ```
 
 #### Response:
@@ -941,7 +941,7 @@ curl -G -X GET \
   -d 'options=keyValues' \
   -d 'attrs=furniture' \
   -H 'Accept: application/json' \
-  -H 'Link: <https://fiware.github.io/tutorials.Step-by-Step/data-models-context.jsonld>; rel="http://www.w3.org/ns/json-ld#context"; type="application/ld+json"'
+  -H 'Link: <https://fiware.github.io/tutorials.Step-by-Step/tutorials-context.jsonld>; rel="http://www.w3.org/ns/json-ld#context"; type="application/ld+json"'
 ```
 
 #### Response:
@@ -1018,7 +1018,7 @@ curl -G -X GET \
   -d 'attrs=requestedFor' \
   -d 'options=keyValues' \
   -H 'Accept: application/json' \
-  -H 'Link: <https://fiware.github.io/tutorials.Step-by-Step/data-models-context.jsonld>; rel="http://www.w3.org/ns/json-ld#context"; type="application/ld+json"'
+  -H 'Link: <https://fiware.github.io/tutorials.Step-by-Step/tutorials-context.jsonld>; rel="http://www.w3.org/ns/json-ld#context"; type="application/ld+json"'
 ```
 
 #### Response:
@@ -1051,7 +1051,7 @@ curl -G -X GET \
   -d 'options=keyValues' \
   -d 'attrs=orderedProduct' \
   -H 'Accept: application/json' \
-  -H 'Link: <https://fiware.github.io/tutorials.Step-by-Step/data-models-context.jsonld>; rel="http://www.w3.org/ns/json-ld#context"; type="application/ld+json"'
+  -H 'Link: <https://fiware.github.io/tutorials.Step-by-Step/tutorials-context.jsonld>; rel="http://www.w3.org/ns/json-ld#context"; type="application/ld+json"'
 ```
 
 #### Response:
