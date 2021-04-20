@@ -141,7 +141,7 @@ NGSI v2 では、リレーションシップ属性は単なる標準プロパテ
 この NGSI-LD 在庫管理システム用に4つのデータモデルが作成されました。モデル間のリレーションシップは次のとおりです :
 
 -   [**Store** モデル](https://fiware.github.io/tutorials.Step-by-Step/schema/Store/) は、FIWARE
-    [**Building** モデル](https://fiware-datamodels.readthedocs.io/en/latest/Building/Building/doc/spec/index.html)
+    [**Building** モデル](https://github.com/smart-data-models/dataModel.Building)
     に基づいており、これを拡張しています。これにより、`name`, `address` および `category` の標準プロパティが提供されます
     -   Building は `furniture` を保持します。これは1対多のリレーションシップです
         -   Building :arrow_right: Shelf
@@ -454,8 +454,8 @@ git checkout NGSI-v2
 
 ### すべての建物を表示
 
-スーパーマーケットのストアは、FIWARE
-[**Building** model](https://fiware-datamodels.readthedocs.io/en/latest/Building/Building/doc/spec/index.html)
+スーパーマーケットのストアは、Smart Data
+[**Building** model](https://github.com/smart-data-models/dataModel.Building)
 および、このタイプの列挙値は、`https://uri.fiware.org/ns/data-models%23Building` に展開される `fiware:Building` です。
 したがって、既知のコンテキストを提供せずに、すべての建物エンティティをリクエストできます。
 
