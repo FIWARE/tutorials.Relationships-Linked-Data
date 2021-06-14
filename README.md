@@ -132,9 +132,8 @@ Four data models have been created for this NGSI-LD stock management system. The
 described below:
 
 -   The [**Store** model](https://fiware.github.io/tutorials.Step-by-Step/schema/Store/) is now based on and extends the
-    FIWARE
-    [**Building** model](https://github.com/smart-data-models/dataModel.Building). This
-    ensures that it offers standard properties for `name`, `address` and `category`.
+    FIWARE [**Building** model](https://github.com/smart-data-models/dataModel.Building). This ensures that it offers
+    standard properties for `name`, `address` and `category`.
     -   A Building will hold `furniture` this is a 1-many relationship.
         -   Building :arrow_right: Shelf.
 -   The [**Shelf** model](https://fiware.github.io/tutorials.Step-by-Step/schema/Shelf/) is a custom data model defined
@@ -423,9 +422,9 @@ computer readable JSON-LD `@context` Data Models is included in the request.
 ### Display all Buildings
 
 The Stores of the supermarket have been created using the FIWARE
-[**Building** model](https://github.com/smart-data-models/dataModel.Building) and the
-enumerated value of this type is `fiware:Building` which expands to `https://uri.fiware.org/ns/data-models%23Building`.
-It is therefore possible to request all building entities without supplying a known context.
+[**Building** model](https://github.com/smart-data-models/dataModel.Building) and the enumerated value of this type is
+`fiware:Building` which expands to `https://uri.fiware.org/ns/data-models%23Building`. It is therefore possible to
+request all building entities without supplying a known context.
 
 #### :one: Request:
 
