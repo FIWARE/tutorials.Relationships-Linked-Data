@@ -68,8 +68,22 @@ services:
     depends_on:
       - kafka
       - postgres
-    healthcheck:
-      test: curl --fail -s http://scorpio:${SCORPIO_PORT}/scorpio/v1/info/ || exit 1
+    #healthcheck:
+    #  test: curl --fail -s http://scorpio:${SCORPIO_PORT}/scorpio/v1/info/ || exit 1
+    deploy:
+      resources:
+        limits:
+          cpus: '0.8'
+          memory: 640M
+        reservations:
+          cpus: '0.6'
+          memory: 480M
 
-networks:
-  default: ~
+  # Tutorial connects to the Scorpio Broker
+  tutorial:
+    environment:
+      - IOTA_DEFAULT_RESOURCE=/iot/d
+      - DUMMY_DEVICES_PORT=${TUTORIAL_DUMMY_DEVICE_PORT} # Port used by the dummy IOT devices to receive commands
+      - DUMMY_DEVICES_TRANSPORT=HTTP # Default transport used by dummy Io devices
+      - DUMMY_DEVICES_PAYLOAD=ULTRALIGHT
+      - CONTEXT_BROKER=http://scorpio:${SCORPIO_PORT}/ngsi-ld/v1 # URL of the context broker to update context
