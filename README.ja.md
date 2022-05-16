@@ -4,7 +4,6 @@
 [![FIWARE Core Context Management](https://nexus.lab.fiware.org/repository/raw/public/badges/chapters/core.svg)](https://github.com/FIWARE/catalogue/blob/master/core/README.md)
 [![License: MIT](https://img.shields.io/github/license/fiware/tutorials.Relationships-Linked-Data.svg)](https://opensource.org/licenses/MIT)
 [![Support badge](https://img.shields.io/badge/tag-fiware-orange.svg?logo=stackoverflow)](https://stackoverflow.com/questions/tagged/fiware)
-[![JSON LD](https://img.shields.io/badge/JSON--LD-1.1-f06f38.svg)](https://w3c.github.io/json-ld-syntax/)
 <br/> [![Documentation](https://img.shields.io/readthedocs/fiware-tutorials.svg)](https://fiware-tutorials.rtfd.io)
 
 このチュートリアルでは、リンクト・データのエンティティ間のリレーションシップと、 **JSON-LD** および **NGSI-LD** の概念
@@ -593,7 +592,7 @@ curl -G -X GET \
 
 ### すべての棚を表示
 
-**Product** エンティティのリクエストは、完全なコンテキストが `Link` ヘッダで提供されている場合、リクエストで
+**Shelf** エンティティのリクエストは、完全なコンテキストが `Link` ヘッダで提供されている場合、リクエストで
 エンティティ `type` の短縮名を提供することでも実行できます。
 
 #### :three: リクエスト :
@@ -1204,4 +1203,4 @@ curl -G -X GET \
 
 ## License
 
-[MIT](LICENSE) © 2019-2020 FIWARE Foundation e.V.
+[MIT](LICENSE) © 2019-2022 FIWARE Foundation e.V.
