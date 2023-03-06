@@ -563,7 +563,7 @@ curl -G -X GET \
         "type": "Product",
         "price": 0.99,
         "size": "S",
-        "name": "Beer"
+        "name": "Apples"
     },
     {
         "@context": "https://fiware.github.io/tutorials.Step-by-Step/tutorials-context.jsonld",
@@ -571,7 +571,7 @@ curl -G -X GET \
         "type": "Product",
         "price": 10.99,
         "size": "M",
-        "name": "Red Wine"
+        "name": "Bananas"
     },
    ...etc
 ]

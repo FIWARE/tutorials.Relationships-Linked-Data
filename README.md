@@ -521,7 +521,7 @@ However since the full context has been supplied in the `Link` header, the short
         "type": "Product",
         "price": 0.99,
         "size": "S",
-        "name": "Beer"
+        "name": "Apples"
     },
     {
         "@context": "https://fiware.github.io/tutorials.Step-by-Step/tutorials-context.jsonld",
@@ -529,7 +529,7 @@ However since the full context has been supplied in the `Link` header, the short
         "type": "Product",
         "price": 10.99,
         "size": "M",
-        "name": "Red Wine"
+        "name": "Bananas"
     },
     ...etc
 ]
