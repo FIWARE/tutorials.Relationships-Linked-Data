@@ -475,7 +475,7 @@ curl -G -X GET \
 ```jsonld
 [
     {
-        "@context": "https://uri.etsi.org/ngsi-ld/v1/ngsi-ld-core-context-v1.3.jsonld",
+        "@context": "https://uri.etsi.org/ngsi-ld/v1/ngsi-ld-core-context.jsonld",
         "id": "urn:ngsi-ld:Building:store001",
         "type": "https://uri.fiware.org/ns/data-models#Building",
         "https://schema.org/address": {
@@ -496,7 +496,7 @@ curl -G -X GET \
         }
     },
     {
-        "@context": "https://uri.etsi.org/ngsi-ld/v1/ngsi-ld-core-context-v1.3.jsonld",
+        "@context": "https://uri.etsi.org/ngsi-ld/v1/ngsi-ld-core-context.jsonld",
         "id": "urn:ngsi-ld:Building:store002",
         "type": "https://uri.fiware.org/ns/data-models#Building",
         "https://schema.org/address": {
@@ -529,7 +529,7 @@ curl -G -X GET \
 -   `category`属性には FQN `https://uri.fiware.org/ns/data-models#category` があります
 
 `type`, `name`, `location` は NGSI-LD コア・コンテキストで定義されます :
-[`https://uri.etsi.org/ngsi-ld/v1/ngsi-ld-core-context-v1.3.jsonld`](https://uri.etsi.org/ngsi-ld/v1/ngsi-ld-core-context-v1.3.jsonld)。
+[`https://uri.etsi.org/ngsi-ld/v1/ngsi-ld-core-context.jsonld`](https://uri.etsi.org/ngsi-ld/v1/ngsi-ld-core-context.jsonld)。
 他の属性は、チュートリアル独自のコンテキストを使用して定義されます :
 [`https://fiware.github.io/tutorials.Step-by-Step/tutorials-context.jsonld`](https://fiware.github.io/tutorials.Step-by-Step/tutorials-context.jsonld)。
 `category` と `address` はどちらも _common_ 属性であり、その定義はそれぞれ FIWARE データモデル と
@@ -794,7 +794,7 @@ curl -X GET \
 
 ```jsonld
 {
-    "@context": "https://uri.etsi.org/ngsi-ld/v1/ngsi-ld-core-context-v1.3.jsonld",
+    "@context": "https://uri.etsi.org/ngsi-ld/v1/ngsi-ld-core-context.jsonld",
     "id": "urn:ngsi-ld:Shelf:unit001",
     "type": "https://fiware.github.io/tutorials.Step-by-Step/schema/Shelf",
     "https://fiware.github.io/tutorials.Step-by-Step/schema/locatedIn": {
@@ -1180,7 +1180,7 @@ curl -G -X GET \
 
 ```jsonld
 {
-    "@context": "https://uri.etsi.org/ngsi-ld/v1/ngsi-ld-core-context-v1.3.jsonld",
+    "@context": "https://uri.etsi.org/ngsi-ld/v1/ngsi-ld-core-context.jsonld",
     "id": "urn:ngsi-ld:StockOrder:001",
     "type": "https://fiware.github.io/tutorials.Step-by-Step/schema/StockOrder",
     "https://fiware.github.io/tutorials.Step-by-Step/schema/orderDate": {
