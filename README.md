@@ -427,7 +427,7 @@ The Stores of the supermarket have been created using the FIWARE
 `fiware:Building` which expands to `https://uri.fiware.org/ns/data-models%23Building`. It is therefore possible to
 request all building entities without supplying a known context.
 
-#### :one: Request:
+#### 1️⃣ Request:
 
 ```console
 curl -G -X GET \
@@ -501,7 +501,7 @@ models and `schema.org` respectively.
 
 Requesting the **Product** entities can be done by supplying the FQN of the entity `type` in the request as well.
 
-#### :two: Request:
+#### 2️⃣ Request:
 
 ```console
 curl -G -X GET \
@@ -553,7 +553,7 @@ The programmatically the Product model and its attributes are fully described in
 Requesting the **Shelf** entities can be done by supplying the short of the entity `type` in the request as well,
 provided the full context has been supplied in the `Link` header.
 
-#### :three: Request:
+#### 3️⃣ Request:
 
 ```console
 curl -G -X GET \
@@ -611,7 +611,7 @@ The programmatically the Shelf model and its attributes are fully described in t
 Initially each shelf is created with `name`, `maxCapacity` and `location` _Properties_ only. A sample shelf is requested
 below.
 
-#### :four: Request:
+#### 4️⃣ Request:
 
 ```console
 curl -G -X GET \
@@ -678,7 +678,7 @@ value of object is the URN corresponding to the linked data entity.
 
 Note that the relationship is currently unidirectional. **Shelf** :arrow_right: **Building**.
 
-#### :five: Request:
+#### 5️⃣ Request:
 
 ```console
 curl -X POST \
@@ -716,7 +716,7 @@ Having added the additional attributes, it is possible to query for the amended 
 
 This example returns the context data of the Shelf entity with the `id=urn:ngsi-ld:Shelf:unit001`.
 
-#### :six: Request:
+#### 6️⃣ Request:
 
 ```console
 curl -X GET \
@@ -847,7 +847,7 @@ This example returns the `locatedIn` value associated with a given `Shelf` unit.
 
 If the `id` and `type` of a data entity are known, a specific field can be requested by using the `attrs` parameter.
 
-#### :seven: Request:
+#### 7️⃣  Request:
 
 ```console
 curl -G -X GET \
@@ -873,7 +873,7 @@ curl -G -X GET \
 This example returns the `locatedIn` URNs of all **Shelf** entities found within `urn:ngsi-ld:Building:store001`. This
 is purely an instance of using the `q` parameter to filter on attribute value
 
-#### :eight: Request:
+#### 8️⃣  Request:
 
 ```console
 curl -G -X GET \
@@ -906,7 +906,7 @@ without additional data. This method is used to add **Shelf** entities as `furni
 
 This is the reciprocal relationship to the `locatedIn` attribute on **Shelf**
 
-#### :nine: Request:
+#### 9️⃣ Request:
 
 ```console
 curl -L -X POST 'http://localhost:1026/ngsi-ld/v1/entities/urn:ngsi-ld:Building:store001/attrs' \
@@ -935,7 +935,7 @@ To find all the `furniture` within a **Building**, simply make a request to retr
 Because the reicprocal relationship already exists, Additional information can be obtained from the **Shelf** entities
 themselves.
 
-#### :one::zero: Request:
+#### 1️⃣0️⃣ Request:
 
 ```console
 curl -G -X GET \
@@ -966,7 +966,7 @@ complex metadata such as _Properties-of-Properties_ or _Properties-of-Relationsh
 
 The **StockOrder** is created as a standard NGSI-LD data entity.
 
-#### :one::one: Request:
+#### 1️⃣1️⃣ Request:
 
 ```console
 curl -X POST \
@@ -1010,7 +1010,7 @@ given product is sold.
 
 The query `q==orderedProduct="urn:ngsi-ld:Product:001"` is used to filter the entities.
 
-#### :one::two: Request:
+#### 1️⃣2️⃣ Request:
 
 ```console
 curl -G -X GET \
@@ -1043,7 +1043,7 @@ The query below returns an array of stores in which a given product is sold.
 
 The query `q==requestedFor="urn:ngsi-ld:Building:store001"` is used to filter the entities.
 
-#### :one::three: Request:
+#### 1️⃣3️⃣ Request:
 
 ```console
 curl -G -X GET \
@@ -1076,7 +1076,7 @@ request.
 A complete stock order can be obtained by making a standard GET request to the `/ngsi-ld/v1/entities/` endpoint and
 adding the appropriate URN.
 
-#### :one::four: Request:
+#### 1️⃣4️⃣ Request:
 
 ```console
 curl -G -X GET \

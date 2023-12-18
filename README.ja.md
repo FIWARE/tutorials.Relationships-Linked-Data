@@ -460,7 +460,7 @@ git checkout NGSI-v2
 したがって、既知のコンテキストを提供せずに、すべての建物エンティティをリクエストできます。
 
 
-#### :one: リクエスト :
+#### 1️⃣ リクエスト :
 
 ```console
 curl -G -X GET \
@@ -543,7 +543,7 @@ curl -G -X GET \
 
 **Product** エンティティのリクエストは、リクエストでエンティティ `type` の FQN を提供することでも実行できます。
 
-#### :two: リクエスト :
+#### 2️⃣ リクエスト :
 
 ```console
 curl -G -X GET \
@@ -598,7 +598,7 @@ curl -G -X GET \
 **Shelf** エンティティのリクエストは、完全なコンテキストが `Link` ヘッダで提供されている場合、リクエストで
 エンティティ `type` の短縮名を提供することでも実行できます。
 
-#### :three: リクエスト :
+#### 3️⃣ リクエスト :
 
 ```console
 curl -G -X GET \
@@ -667,7 +667,7 @@ curl -G -X GET \
 最初に、各棚は、`name`, `maxCapacity` および `location` の _Properties_ のみで作成されます。サンプルの棚 (shelf) は、
 以下でリクエストされます。
 
-#### :four: リクエスト :
+#### 4️⃣ リクエスト :
 
 ```console
 curl -G -X GET \
@@ -740,7 +740,7 @@ _Relationships_ をさらに埋め込み、情報の豊富なグラフを提供�
 
 現在、リレーションシップは単方向であることに注意してください。**Shelf** :arrow_right: **Building**
 
-#### :five: リクエスト :
+#### 5️⃣ リクエスト :
 
 ```console
 curl -X POST \
@@ -780,7 +780,7 @@ curl -X POST \
 
 この例では、`id=urn:ngsi-ld:Shelf:unit001` で Shelf エンティティのコンテキスト・データを返します。
 
-#### :six: リクエスト :
+#### 6️⃣ リクエスト :
 
 ```console
 curl -X GET \
@@ -924,7 +924,7 @@ NGSI-LD データ・エンティティとその関連データモデルを読み
 データ・エンティティの `id` と `type` がわかっている場合、`attrs` パラメータを使用して特定のフィールドを
 リクエストできます。
 
-#### :seven: リクエスト :
+#### 7️⃣  リクエスト :
 
 ```console
 curl -G -X GET \
@@ -952,7 +952,7 @@ curl -G -X GET \
 この例は、`urn:ngsi-ld:Building:store001` 内にあるすべての **Shelf** エンティティの `locatedIn` URN を返します。
 これは純粋に、属性値でフィルタリングするために  `q` パラメータを使用するインスタンスです。
 
-#### :eight: リクエスト :
+#### 8️⃣  リクエスト :
 
 ```console
 curl -G -X GET \
@@ -988,7 +988,7 @@ curl -G -X GET \
 
 これは、**Shelf** の `locatedIn` 属性との相互リレーションシップです。
 
-#### :nine: リクエスト :
+#### 9️⃣ リクエスト :
 
 ```console
 curl -L -X POST 'http://localhost:1026/ngsi-ld/v1/entities/urn:ngsi-ld:Building:store001/attrs' \
@@ -1018,7 +1018,7 @@ curl -L -X POST 'http://localhost:1026/ngsi-ld/v1/entities/urn:ngsi-ld:Building:
 
 相互リレーションシップが既に存在するため、追加情報は **Shelf** エンティティ自体から取得できます。
 
-#### :one::zero: リクエスト :
+#### 1️⃣0️⃣ リクエスト :
 
 ```console
 curl -G -X GET \
@@ -1051,7 +1051,7 @@ curl -G -X GET \
 
 **StockOrder** は、標準の NGSI-LD データ・エンティティとして作成されます。
 
-#### :one::one: リクエスト :
+#### 1️⃣1️⃣ リクエスト :
 
 ```console
 curl -X POST \
@@ -1099,7 +1099,7 @@ _Relationship_ 属性は他の属性とまったく同じであるため、**Sto
 クエリの `q==orderedProduct="urn:ngsi-ld:Product:001"` は、エンティティのフィルタリングに使用されます。
 
 
-#### :one::two: リクエスト :
+#### 1️⃣2️⃣ リクエスト :
 
 ```console
 curl -G -X GET \
@@ -1134,7 +1134,7 @@ curl -G -X GET \
 
 クエリ `q==requestedFor="urn:ngsi-ld:Building:store001"` を使用してエンティティをフィルタリングします。
 
-#### :one::three: リクエスト :
+#### 1️⃣3️⃣ リクエスト :
 
 ```console
 curl -G -X GET \
@@ -1168,7 +1168,7 @@ curl -G -X GET \
 `/ngsi-ld/v1/entities/` エンドポイントに標準の GET リクエストを作成し、適切な URN を追加することにより、
 完全な在庫オーダーを取得できます。
 
-#### :one::four: リクエスト :
+#### 1️⃣4️⃣ リクエスト :
 
 ```console
 curl -G -X GET \
