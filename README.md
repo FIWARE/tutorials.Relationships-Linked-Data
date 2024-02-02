@@ -233,7 +233,7 @@ system which is used to move a pallet of products onto a shelf it would be possi
 -   Interogating the **StockOrder** is discovered that the **Product** is `requestedFor` for a specific URI e.g.
     `urn:ngsi-ld:Building:store002`
 
-```jsonld
+```json
   "@graph": [
    {
       "@id": "tutorial:orderedProduct",
@@ -249,7 +249,7 @@ system which is used to move a pallet of products onto a shelf it would be possi
 
 -   It is also discovered from the **StockOrder** model that the `requestedFor` URI defines a **Building**
 
-```jsonld
+```json
   "@graph": [
     {
       "@id": "tutorial:requestedFor",
@@ -266,7 +266,7 @@ system which is used to move a pallet of products onto a shelf it would be possi
 -   It is discovered from the **Building** model that every **Building** contains `furniture` as an array of URIs.
 -   It is discovered from the **Building** model that these URIs represent **Shelf** units
 
-```jsonld
+```json
 "@graph": [
     {
       "@id": "tutorial:furniture",
@@ -282,7 +282,7 @@ system which is used to move a pallet of products onto a shelf it would be possi
 
 -   It is discovered from the **Shelf** model that the `stocks` attribute holds a URI representing **Product** items.
 
-```jsonld
+```json
 "@graph": [
     {
       "@id": "tutorial:stocks",
@@ -443,19 +443,19 @@ curl -G -X GET \
 The response returns all of the existing **Building** entities, with the attributes expanded as fully qualified names
 (FQNs).
 
-```jsonld
+```json
 [
     {
-        "@context": "https://uri.etsi.org/ngsi-ld/v1/ngsi-ld-core-context.jsonld",
+        "@context": "https://uri.etsi.org/ngsi-ld/v1/ngsi-ld-core-context-v1.6.jsonld",
         "id": "urn:ngsi-ld:Building:store001",
         "type": "https://uri.fiware.org/ns/data-models#Building",
         "https://schema.org/address": {
-            "streetAddress": "Bornholmer Straße 65",
-            "addressRegion": "Berlin",
-            "addressLocality": "Prenzlauer Berg",
-            "postalCode": "10439"
+            "https://schema.org/streetAddress": "Bornholmer Straße 65",
+            "https://schema.org/addressRegion": "Berlin",
+            "https://schema.org/addressLocality": "Prenzlauer Berg",
+            "https://schema.org/postalCode": "10439"
         },
-        "name": "Bösebrücke Einkauf",
+        "https://schema.org/name": "Bösebrücke Einkauf",
         "https://uri.fiware.org/ns/data-models#category": "https://uri.fiware.org/ns/data-models#commercial",
         "location": {
             "type": "Point",
@@ -463,16 +463,16 @@ The response returns all of the existing **Building** entities, with the attribu
         }
     },
     {
-        "@context": "https://uri.etsi.org/ngsi-ld/v1/ngsi-ld-core-context.jsonld",
+        "@context": "https://uri.etsi.org/ngsi-ld/v1/ngsi-ld-core-context-v1.6.jsonld",
         "id": "urn:ngsi-ld:Building:store002",
         "type": "https://uri.fiware.org/ns/data-models#Building",
         "https://schema.org/address": {
-            "streetAddress": "Friedrichstraße 44",
-            "addressRegion": "Berlin",
-            "addressLocality": "Kreuzberg",
-            "postalCode": "10969"
+            "https://schema.org/streetAddress": "Friedrichstraße 44",
+            "https://schema.org/addressRegion": "Berlin",
+            "https://schema.org/addressLocality": "Kreuzberg",
+            "https://schema.org/postalCode": "10969"
         },
-        "name": "Checkpoint Markt",
+        "https://schema.org/name": "Checkpoint Markt",
         "https://uri.fiware.org/ns/data-models#category": "https://uri.fiware.org/ns/data-models#commercial",
         "location": {
             "type": "Point",
@@ -491,10 +491,10 @@ According to the [defined data model](https://fiware.github.io/tutorials.Step-by
 -   The `address` attribute has the FQN `http://schema.org/address`
 -   The `category` attribute has the FQN `https://uri.fiware.org/ns/data-models#category`
 
-`type`, `name` and `location` are defined in the NGSI-LD Core Context:
-[`https://uri.etsi.org/ngsi-ld/v1/ngsi-ld-core-context.jsonld`](https://uri.etsi.org/ngsi-ld/v1/ngsi-ld-core-context.jsonld).
+`type`  and `location` are defined in the NGSI-LD Core Context:
+[`https://uri.etsi.org/ngsi-ld/v1/ngsi-ld-core-context-v1.6.jsonld`](https://uri.etsi.org/ngsi-ld/v1/ngsi-ld-core-context-v1.6.jsonld).
 The other attributes are defined using the Tutorial's own Context:
-[`https://fiware.github.io/tutorials.Step-by-Step/tutorials-context.jsonld`](https://fiware.github.io/tutorials.Step-by-Step/tutorials-context.jsonld).
+[`http://context/user-context.jsonld`](./data-models/user-context.jsonld).
 Both `category` and `address` are _common_ attributes the definitions of which are brought in from the FIWARE data
 models and `schema.org` respectively.
 
@@ -509,17 +509,17 @@ curl -G -X GET \
   'http://localhost:1026/ngsi-ld/v1/entities' \
   -d 'type=https://fiware.github.io/tutorials.Step-by-Step/schema/Product' \
   -d 'options=keyValues' \
-  -H 'Link: <https://fiware.github.io/tutorials.Step-by-Step/tutorials-context.jsonld>; rel="http://www.w3.org/ns/json-ld#context"; type="application/ld+json"'
+  -H 'Link: <http://context/user-context.jsonld>; rel="http://www.w3.org/ns/json-ld#context"; type="application/ld+json"'
 ```
 
 #### Response:
 
 However since the full context has been supplied in the `Link` header, the short names are returned.
 
-```jsonld
+```json
 [
     {
-        "@context": "https://fiware.github.io/tutorials.Step-by-Step/tutorials-context.jsonld",
+        "@context": "http://context/user-context.jsonld",
         "id": "urn:ngsi-ld:Product:001",
         "type": "Product",
         "price": 0.99,
@@ -527,7 +527,7 @@ However since the full context has been supplied in the `Link` header, the short
         "name": "Apples"
     },
     {
-        "@context": "https://fiware.github.io/tutorials.Step-by-Step/tutorials-context.jsonld",
+        "@context": "http://context/user-context.jsonld",
         "id": "urn:ngsi-ld:Product:002",
         "type": "Product",
         "price": 10.99,
@@ -547,7 +547,7 @@ According to the [defined data model](https://fiware.github.io/tutorials.Step-by
 -   The `currency` attribute has the FQN `https://fiware.github.io/tutorials.Step-by-Step/schema/currency`
 
 The programmatically the Product model and its attributes are fully described in the
-[`https://fiware.github.io/tutorials.Step-by-Step/tutorials-context.jsonld`](https://fiware.github.io/tutorials.Step-by-Step/tutorials-context.jsonld)
+[`http://context/user-context-with-graph.jsonld`](./data-models/user-context-with-graph.jsonld)
 
 ### Display all Shelves
 
@@ -561,17 +561,17 @@ curl -G -X GET \
   'http://localhost:1026/ngsi-ld/v1/entities' \
   -d 'type=Shelf' \
   -d 'options=keyValues' \
-  -H 'Link: <https://fiware.github.io/tutorials.Step-by-Step/tutorials-context.jsonld>; rel="http://www.w3.org/ns/json-ld#context"; type="application/ld+json"'
+  -H 'Link: <http://context/user-context.jsonld>; rel="http://www.w3.org/ns/json-ld#context"; type="application/ld+json"'
 ```
 
 #### Response:
 
 Once again the short names are returned.
 
-```jsonld
+```json
 [
     {
-        "@context": "https://fiware.github.io/tutorials.Step-by-Step/tutorials-context.jsonld",
+        "@context": "http://context/user-context.jsonld",
         "id": "urn:ngsi-ld:Shelf:unit001",
         "type": "Shelf",
         "maxCapacity": 50,
@@ -582,7 +582,7 @@ Once again the short names are returned.
         }
     },
     {
-        "@context": "https://fiware.github.io/tutorials.Step-by-Step/tutorials-context.jsonld",
+        "@context": "http://context/user-context.jsonld",
         "id": "urn:ngsi-ld:Shelf:unit002",
         "type": "Shelf",
         "maxCapacity": 100,
@@ -599,13 +599,13 @@ Once again the short names are returned.
 According to the [defined data model](https://fiware.github.io/tutorials.Step-by-Step/schema/Shelf/):
 
 -   The `type` attribute has the FQN `https://uri.etsi.org/ngsi-ld/type`
--   The `name` attribute has the FQN `https://uri.etsi.org/ngsi-ld/name`
+-   The `name` attribute has the FQN `https://schema.org/name`
 -   The `location` attribute has the FQN `https://uri.etsi.org/ngsi-ld/location`
 -   The `maxCapacity` attribute has the FQN `https://fiware.github.io/tutorials.Step-by-Step/schema/maxCapacity`
 -   The `numberOfItems` attribute has the FQN `https://fiware.github.io/tutorials.Step-by-Step/schema/numberOfItems`
 
 The programmatically the Shelf model and its attributes are fully described in the
-[`https://fiware.github.io/tutorials.Step-by-Step/tutorials-context.jsonld`](https://fiware.github.io/tutorials.Step-by-Step/tutorials-context.jsonld)
+[`http://context/user-context-with-graph.jsonld`](./data-models/user-context-with-graph.jsonld)
 
 ### Obtain Shelf Information
 
@@ -618,16 +618,16 @@ below.
 curl -G -X GET \
   'http://localhost:1026/ngsi-ld/v1/entities/urn:ngsi-ld:Shelf:unit001/' \
   -d 'options=keyValues' \
-  -H 'Link: <https://fiware.github.io/tutorials.Step-by-Step/tutorials-context.jsonld>; rel="http://www.w3.org/ns/json-ld#context"; type="application/ld+json"'
+  -H 'Link: <http://context/user-context.jsonld>; rel="http://www.w3.org/ns/json-ld#context"; type="application/ld+json"'
 ```
 
 #### Response:
 
 The short names have been returned since the `@context` has been supplied in the `Link` header.
 
-```jsonld
+```json
 {
-    "@context": "https://fiware.github.io/tutorials.Step-by-Step/tutorials-context.jsonld",
+    "@context": "http://context/user-context.jsonld",
     "id": "urn:ngsi-ld:Shelf:unit001",
     "type": "Shelf",
     "maxCapacity": 50,
@@ -683,7 +683,7 @@ Note that the relationship is currently unidirectional. **Shelf** :arrow_right: 
 
 ```console
 curl -X POST \
-  http://localhost:1026/ngsi-ld/v1/entities/urn:ngsi-ld:Shelf:unit001/attrs \
+  'http://localhost:1026/ngsi-ld/v1/entities/urn:ngsi-ld:Shelf:unit001/attrs' \
   -H 'Content-Type: application/ld+json' \
   -H 'fiware-servicepath: /' \
   -d '{
@@ -707,7 +707,7 @@ curl -X POST \
         "value": "completed"
       }
     },
-    "@context": "https://fiware.github.io/tutorials.Step-by-Step/data-models-context.jsonld"
+    "@context": "http://context/user-context.jsonld"
 }'
 ```
 
@@ -721,7 +721,7 @@ This example returns the context data of the Shelf entity with the `id=urn:ngsi-
 
 ```console
 curl -X GET \
-  http://localhost:1026/ngsi-ld/v1/entities/urn:ngsi-ld:Shelf:unit001
+  'http://localhost:1026/ngsi-ld/v1/entities/urn:ngsi-ld:Shelf:unit001'
 ```
 
 #### Response:
@@ -731,9 +731,9 @@ as fully qualified names (FQNs), as defined in the
 [**Shelf** Data Model](https://fiware.github.io/tutorials.Step-by-Step/schema/Shelf/) as the `Link` header was not
 passed in the previous request.
 
-```jsonld
+```json
 {
-    "@context": "https://uri.etsi.org/ngsi-ld/v1/ngsi-ld-core-context.jsonld",
+    "@context": "https://uri.etsi.org/ngsi-ld/v1/ngsi-ld-core-context-v1.6.jsonld",
     "id": "urn:ngsi-ld:Shelf:unit001",
     "type": "https://fiware.github.io/tutorials.Step-by-Step/schema/Shelf",
     "https://fiware.github.io/tutorials.Step-by-Step/schema/locatedIn": {
@@ -791,7 +791,7 @@ To do this NGSI-LD uses the two core expansion and compaction algorithms of the 
 
 Looking at the relevant lines in the JSON-LD `@context`:
 
-```jsonld
+```json
     "tutorial": "https://fiware.github.io/tutorials.Step-by-Step/schema/",
 
     "Shelf": "tutorial:Shelf",
@@ -815,10 +815,10 @@ Click on the image above to watch a video JSON-LD expansion and compaction with 
 
 ### What other relationship information can be obtained from the data model?
 
-More information about `Relationships` can be obtained from the `@graph` of the linked data model. For `locatedIn` the
+More information about `Relationships` can be obtained from the `@graph` of the linked data model had it been supplied. For `locatedIn` the
 relevant section definition is as follows:
 
-```jsonld
+```json
     {
       "@id": "tutorial:locatedIn",
       "@type": "https://uri.etsi.org/ngsi-ld/Relationship",
@@ -855,14 +855,14 @@ curl -G -X GET \
   'http://localhost:1026/ngsi-ld/v1/entities/urn:ngsi-ld:Shelf:unit001/' \
   -d 'attrs=locatedIn' \
   -d 'options=keyValues' \
-  -H 'Link: <https://fiware.github.io/tutorials.Step-by-Step/tutorials-context.jsonld>; rel="http://www.w3.org/ns/json-ld#context"; type="application/ld+json"'
+  -H 'Link: <http://context/user-context-with-graph.jsonld>; rel="http://www.w3.org/ns/json-ld#context"; type="application/ld+json"'
 ```
 
 #### Response:
 
-```jsonld
+```json
 {
-    "@context": "https://fiware.github.io/tutorials.Step-by-Step/tutorials-context.jsonld",
+    "@context": "http://context/user-context-with-graph.jsonld",
     "id": "urn:ngsi-ld:Shelf:unit001",
     "type": "Shelf",
     "locatedIn": "urn:ngsi-ld:Building:store001"
@@ -883,14 +883,14 @@ curl -G -X GET \
   -d 'options=keyValues' \
   -d 'attrs=locatedIn' \
   -H 'Accept: application/json' \
-  -H 'Link: <https://fiware.github.io/tutorials.Step-by-Step/tutorials-context.jsonld>; rel="http://www.w3.org/ns/json-ld#context"; type="application/ld+json"'
+  -H 'Link: <http://context/user-context-with-graph.jsonld>; rel="http://www.w3.org/ns/json-ld#context"; type="application/ld+json"'
 ```
 
 #### Response:
 
 The response contains an array displaying
 
-```jsonld
+```json
 [
     {
         "id": "urn:ngsi-ld:Shelf:unit001",
@@ -913,19 +913,11 @@ This is the reciprocal relationship to the `locatedIn` attribute on **Shelf**
 curl -L -X POST 'http://localhost:1026/ngsi-ld/v1/entities/urn:ngsi-ld:Building:store001/attrs' \
 -H 'Content-Type: application/ld+json' \
 --data-raw '{
-    "furniture": [
-        {
-            "type": "Relationship",
-            "datasetId": "urn:ngsi-ld:Relationship:1",
-            "object": "urn:ngsi-ld:Shelf:001"
-        },
-        {
-            "type": "Relationship",
-            "datasetId": "urn:ngsi-ld:Relationship:2",
-            "object": "urn:ngsi-ld:Shelf:002"
-        }
-    ],
-    "@context": "https://fiware.github.io/tutorials.Step-by-Step/data-models-context.jsonld"
+    "furniture": {
+        "type": "Relationship",
+        "object":  ["urn:ngsi-ld:Shelf:001", "urn:ngsi-ld:Shelf:002"]
+    },
+    "@context": "http://context/user-context-with-graph.jsonld"
 }'
 ```
 
@@ -944,12 +936,12 @@ curl -G -X GET \
   -d 'options=keyValues' \
   -d 'attrs=furniture' \
   -H 'Accept: application/json' \
-  -H 'Link: <https://fiware.github.io/tutorials.Step-by-Step/tutorials-context.jsonld>; rel="http://www.w3.org/ns/json-ld#context"; type="application/ld+json"'
+  -H 'Link: <http://context/user-context-with-graph.jsonld>; rel="http://www.w3.org/ns/json-ld#context"; type="application/ld+json"'
 ```
 
 #### Response:
 
-```jsonld
+```json
 {
     "id": "urn:ngsi-ld:Building:store001",
     "type": "Building",
@@ -999,7 +991,7 @@ curl -X POST \
         "@value": "2018-08-07T12:00:00Z"
     }
   },
-  "@context": "https://fiware.github.io/tutorials.Step-by-Step/data-models-context.jsonld"
+  "@context": "http://context/user-context-with-graph.jsonld"
 }'
 ```
 
@@ -1021,14 +1013,14 @@ curl -G -X GET \
   -d 'attrs=requestedFor' \
   -d 'options=keyValues' \
   -H 'Accept: application/json' \
-  -H 'Link: <https://fiware.github.io/tutorials.Step-by-Step/tutorials-context.jsonld>; rel="http://www.w3.org/ns/json-ld#context"; type="application/ld+json"'
+  -H 'Link: <http://context/user-context.jsonld>; rel="http://www.w3.org/ns/json-ld#context"; type="application/ld+json"'
 ```
 
 #### Response:
 
 The response returns an array of `requestedFor` attributes in the response.
 
-```jsonld
+```json
 [
     {
         "id": "urn:ngsi-ld:StockOrder:001",
@@ -1054,7 +1046,7 @@ curl -G -X GET \
   -d 'options=keyValues' \
   -d 'attrs=orderedProduct' \
   -H 'Accept: application/json' \
-  -H 'Link: <https://fiware.github.io/tutorials.Step-by-Step/tutorials-context.jsonld>; rel="http://www.w3.org/ns/json-ld#context"; type="application/ld+json"'
+  -H 'Link: <http://context/user-context.jsonld>; rel="http://www.w3.org/ns/json-ld#context"; type="application/ld+json"'
 ```
 
 #### Response:
@@ -1062,7 +1054,7 @@ curl -G -X GET \
 The response returns an array of `orderedProduct` attributes in the response. This is the reciprocal of the previous
 request.
 
-```jsonld
+```json
 [
     {
         "id": "urn:ngsi-ld:StockOrder:001",
@@ -1089,9 +1081,9 @@ curl -G -X GET \
 
 The response returns the fully expanded entity.
 
-```jsonld
+```json
 {
-    "@context": "https://uri.etsi.org/ngsi-ld/v1/ngsi-ld-core-context.jsonld",
+    "@context": "https://uri.etsi.org/ngsi-ld/v1/ngsi-ld-core-context-v1.6.jsonld",
     "id": "urn:ngsi-ld:StockOrder:001",
     "type": "https://fiware.github.io/tutorials.Step-by-Step/schema/StockOrder",
     "https://fiware.github.io/tutorials.Step-by-Step/schema/orderDate": {

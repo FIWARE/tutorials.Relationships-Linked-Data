@@ -446,7 +446,7 @@
 				],
 				"body": {
 					"mode": "raw",
-					"raw": "{\n    \"id\": \"urn:ngsi-ld:StockOrder:001\",\n    \"type\": \"StockOrder\",\n    \"requestedFor\": {\n        \"type\": \"Relationship\",\n        \"object\": \"urn:ngsi-ld:Building:store001\"\n    },\n    \"requestedBy\": {\n        \"type\": \"Relationship\",\n        \"object\": \"urn:ngsi-ld:Person:bob-the-manager\"\n    },\n    \"orderedProduct\": {\n        \"type\": \"Relationship\",\n        \"object\": \"urn:ngsi-ld:Product:001\"\n    },\n    \"stockCount\": {\n        \"type\": \"Property\",\n        \"value\": 10000\n    },\n    \"orderDate\": {\n        \"type\": \"Property\",\n        \"value\": {\n            \"@type\": \"DateTime\",\n            \"@value\": \"2018-08-07T12:00:00Z\"\n        }\n    },\n    \"@context\": \"https://fiware.github.io/tutorials.Step-by-Step/data-models-context.jsonld\"\n}"
+					"raw": "{\n    \"id\": \"urn:ngsi-ld:StockOrder:001\",\n    \"type\": \"StockOrder\",\n    \"requestedFor\": {\n        \"type\": \"Relationship\",\n        \"object\": \"urn:ngsi-ld:Building:store001\"\n    },\n    \"requestedBy\": {\n        \"type\": \"Relationship\",\n        \"object\": \"urn:ngsi-ld:Person:bob-the-manager\"\n    },\n    \"orderedProduct\": {\n        \"type\": \"Relationship\",\n        \"object\": \"urn:ngsi-ld:Product:001\"\n    },\n    \"stockCount\": {\n        \"type\": \"Property\",\n        \"value\": 10000\n    },\n    \"orderDate\": {\n        \"type\": \"Property\",\n        \"value\": {\n            \"@type\": \"DateTime\",\n            \"@value\": \"2018-08-07T12:00:00Z\"\n        }\n    },\n    \"@context\": \"http://context/ngsi-context.jsonld\"\n}"
 				},
 				"url": {
 					"raw": "http://{{orion}}/ngsi-ld/v1/entities/",
