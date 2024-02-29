@@ -423,7 +423,7 @@ git clone https://github.com/FIWARE/tutorials.Relationships-Linked-Data.git
 cd tutorials.Relationships-Linked-Data
 git checkout NGSI-v2
 
-./services orion|scorpio
+./services orion|scorpio|stellio
 ```
 
 > **注 :** クリーンアップして最初からやり直す場合は、次のコマンドで実行できます :
