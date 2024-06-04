@@ -26,10 +26,10 @@ The tutorial uses [cUrl](https://ec.haxx.se/) commands throughout, but is also a
 -   このチュートリアルは[日本語](README.ja.md)でもご覧いただけます。
 
 > [!NOTE]
->  This tutorial is designed for **NGSI-v2** developers looking to switch or upgrade systems to
-> **NGSI-LD**, if you are building a linked data system from scratch or you are not already familiar with **NGSI-v2** then
-> it is recommmended that you look directly at the
-> [NGSI-LD developers tutorial](https://ngsi-ld-tutorials.readthedocs.io/) documentation.
+>
+> This tutorial is designed for **NGSI-v2** developers looking to switch or upgrade systems to **NGSI-LD**, if you are
+> building a linked data system from scratch or you are not already familiar with **NGSI-v2** then it is recommmended
+> that you look directly at the [NGSI-LD developers tutorial](https://ngsi-ld-tutorials.readthedocs.io/) documentation.
 
 ## Contents
 
@@ -495,12 +495,11 @@ According to the [defined data model](https://fiware.github.io/tutorials.Step-by
 -   The `address` attribute has the FQN `http://schema.org/address`
 -   The `category` attribute has the FQN `https://uri.fiware.org/ns/data-models#category`
 
-`type`  and `location` are defined in the NGSI-LD Core Context:
+`type` and `location` are defined in the NGSI-LD Core Context:
 [`https://uri.etsi.org/ngsi-ld/v1/ngsi-ld-core-context-v1.6.jsonld`](https://uri.etsi.org/ngsi-ld/v1/ngsi-ld-core-context-v1.6.jsonld).
 The other attributes are defined using the Tutorial's own Context:
-[`http://context/user-context.jsonld`](./data-models/user-context.jsonld).
-Both `category` and `address` are _common_ attributes the definitions of which are brought in from the FIWARE data
-models and `schema.org` respectively.
+[`http://context/user-context.jsonld`](./data-models/user-context.jsonld). Both `category` and `address` are _common_
+attributes the definitions of which are brought in from the FIWARE data models and `schema.org` respectively.
 
 ### Display all Products
 
@@ -819,8 +818,8 @@ Click on the image above to watch a video JSON-LD expansion and compaction with 
 
 ### What other relationship information can be obtained from the data model?
 
-More information about `Relationships` can be obtained from the `@graph` of the linked data model had it been supplied. For `locatedIn` the
-relevant section definition is as follows:
+More information about `Relationships` can be obtained from the `@graph` of the linked data model had it been supplied.
+For `locatedIn` the relevant section definition is as follows:
 
 ```json
     {
@@ -852,7 +851,7 @@ This example returns the `locatedIn` value associated with a given `Shelf` unit.
 
 If the `id` and `type` of a data entity are known, a specific field can be requested by using the `attrs` parameter.
 
-#### 7️⃣  Request:
+#### 7️⃣ Request:
 
 ```console
 curl -G -X GET \
@@ -878,7 +877,7 @@ curl -G -X GET \
 This example returns the `locatedIn` URNs of all **Shelf** entities found within `urn:ngsi-ld:Building:store001`. This
 is purely an instance of using the `q` parameter to filter on attribute value
 
-#### 8️⃣  Request:
+#### 8️⃣ Request:
 
 ```console
 curl -G -X GET \
